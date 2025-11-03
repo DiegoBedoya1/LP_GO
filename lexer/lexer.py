@@ -54,6 +54,7 @@ tokens = (
     "BOOL",
     "MORETHAN",
     "STRING",  # Contribucion: Salvador Muñoz
+    "COMA",
 ) + tuple(reserved.values())
 
 # Expresiones regulares para tokens simples
@@ -73,6 +74,7 @@ t_LESSTHAN = r"<"
 t_COLON = r":"
 t_SEMICOLON = r";"
 t_DOT = r"\."
+t_COMA = r","
 
 
 
