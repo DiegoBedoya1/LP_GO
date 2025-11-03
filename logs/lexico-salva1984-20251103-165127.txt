@@ -1,0 +1,104 @@
+=== Archivo: prueba1.go ===
+
+LexToken(PACKAGE,'package',1,0)
+LexToken(IDENTIFIER,'main',1,8)
+LexToken(IMPORT,'import',3,14)
+LexToken(STRING,'"fmt"',3,21)
+LexToken(FUNC,'func',5,28)
+LexToken(IDENTIFIER,'main',5,33)
+LexToken(LPAREN,'(',5,37)
+LexToken(RPAREN,')',5,38)
+Error léxico: carácter no reconocido '{'
+LexToken(VAR,'var',6,46)
+LexToken(IDENTIFIER,'x',6,50)
+LexToken(IDENTIFIER,'int',6,52)
+LexToken(INTEGER,10,6,58)
+Error léxico: carácter no reconocido '='
+LexToken(VAR,'var',7,65)
+LexToken(IDENTIFIER,'y',7,69)
+LexToken(IDENTIFIER,'float64',7,71)
+LexToken(FLOAT,'20.5',7,81)
+Error léxico: carácter no reconocido '='
+LexToken(VAR,'var',8,90)
+LexToken(IDENTIFIER,'flag',8,94)
+LexToken(IDENTIFIER,'bool',8,99)
+LexToken(BOOL,'true',8,106)
+Error léxico: carácter no reconocido '='
+LexToken(DIVIDE,'/',9,115)
+LexToken(DIVIDE,'/',9,116)
+LexToken(IDENTIFIER,'Test',9,118)
+LexToken(IDENTIFIER,'de',9,123)
+LexToken(IDENTIFIER,'Comentario',9,126)
+LexToken(DIVIDE,'/',9,137)
+LexToken(DIVIDE,'/',9,138)
+LexToken(IDENTIFIER,'Esto',9,140)
+LexToken(IDENTIFIER,'deberia',9,145)
+LexToken(IDENTIFIER,'segir',9,153)
+LexToken(IDENTIFIER,'siendo',9,159)
+LexToken(IDENTIFIER,'un',9,166)
+LexToken(IDENTIFIER,'comentario',9,169)
+LexToken(STRING,'"String"',10,184)
+LexToken(STRING,'"String2"',10,193)
+LexToken(IF,'if',12,208)
+LexToken(IDENTIFIER,'x',12,211)
+LexToken(MORETHAN,'>',12,213)
+LexToken(INTEGER,5,12,215)
+Error léxico: carácter no reconocido '{'
+LexToken(IDENTIFIER,'fmt',13,227)
+LexToken(IDENTIFIER,'Println',13,231)
+LexToken(LPAREN,'(',13,238)
+LexToken(STRING,'"x es mayor que 5"',13,239)
+LexToken(RPAREN,')',13,257)
+Error léxico: carácter no reconocido '.'
+LexToken(ELSE,'else',14,265)
+Error léxico: carácter no reconocido '}'
+Error léxico: carácter no reconocido '{'
+LexToken(IDENTIFIER,'fmt',15,280)
+LexToken(IDENTIFIER,'Println',15,284)
+LexToken(LPAREN,'(',15,291)
+LexToken(STRING,'"x es menor o igual que 5"',15,292)
+LexToken(RPAREN,')',15,318)
+Error léxico: carácter no reconocido '.'
+Error léxico: carácter no reconocido '}'
+LexToken(FOR,'for',18,331)
+LexToken(IDENTIFIER,'i',18,335)
+LexToken(INTEGER,0,18,340)
+LexToken(IDENTIFIER,'i',18,343)
+LexToken(IDENTIFIER,'x',18,347)
+LexToken(IDENTIFIER,'i',18,350)
+LexToken(PLUS,'+',18,351)
+LexToken(PLUS,'+',18,352)
+Error léxico: carácter no reconocido ':'
+Error léxico: carácter no reconocido '='
+Error léxico: carácter no reconocido ';'
+Error léxico: carácter no reconocido '<'
+Error léxico: carácter no reconocido ';'
+Error léxico: carácter no reconocido '{'
+LexToken(IDENTIFIER,'fmt',19,364)
+LexToken(IDENTIFIER,'Println',19,368)
+LexToken(LPAREN,'(',19,375)
+LexToken(IDENTIFIER,'i',19,376)
+LexToken(RPAREN,')',19,377)
+Error léxico: carácter no reconocido '.'
+Error léxico: carácter no reconocido '}'
+LexToken(IDENTIFIER,'result',22,390)
+LexToken(IDENTIFIER,'x',22,400)
+LexToken(PLUS,'+',22,402)
+LexToken(IDENTIFIER,'int',22,404)
+LexToken(LPAREN,'(',22,407)
+LexToken(IDENTIFIER,'y',22,408)
+LexToken(RPAREN,')',22,409)
+Error léxico: carácter no reconocido ':'
+Error léxico: carácter no reconocido '='
+LexToken(IDENTIFIER,'fmt',23,415)
+LexToken(IDENTIFIER,'Println',23,419)
+LexToken(LPAREN,'(',23,426)
+LexToken(STRING,'"Resultado:"',23,427)
+LexToken(IDENTIFIER,'result',23,441)
+LexToken(RPAREN,')',23,447)
+Error léxico: carácter no reconocido '.'
+Error léxico: carácter no reconocido ','
+Error léxico: carácter no reconocido '}'
+
+--------------------------------------------------
+

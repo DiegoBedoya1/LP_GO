@@ -22,10 +22,8 @@ reserved = {
     "const": "CONST",
     "package": "PACKAGE",
     "import": "IMPORT",
-    "else if": "ELSE IF",
     "iota": "IOTA",
     "make": "MAKE",
-    "string": "STRING",
     "int": "INT",
     "default": "DEFAULT",
 
