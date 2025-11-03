@@ -36,9 +36,10 @@ tokens = (
     "LPAREN",
     "RPAREN",
     "MODULO",
-    "VARIABLE",
+    "IDENTIFIER",  # Palabra generica, funciones o variables
     "BOOL",
     "MORETHAN",
+    "STRING",  # Contribucion: Salvador Muñoz
 ) + tuple(reserved.values())
 
 # Expresiones regulares para tokens simples
@@ -51,11 +52,18 @@ t_TIMES = r"\*"
 t_MODULO = r"%"
 t_MORETHAN = r">"
 
-# Contribucion: Salvador Muñoz
-# Es importante el orden de las definiciones, el float antes que el entero.
+
 """ Se debe ir de lo especifico a lo general """
 
 
+# Contribucion: Salvador Muñoz
+def t_STRING(t):
+    r'"([^"\\]|\\.)*"'
+    return t
+
+
+# Contribucion: Salvador Muñoz
+# Es importante el orden de las definiciones, el float antes que el entero.
 def t_FLOAT(t):
     r"\d+\.\d+"
     return t
@@ -74,13 +82,13 @@ def t_BOOL(t):
 
 
 # Contribucion: Salvador Muñoz
-# Se recomiendo usar funciones para las variables
-def t_VARIABLE(t):
-    # Este regex solo valida variables si tienen espacio entre ellas, ejm
+# Se recomiendo usar funciones para las identificadores
+def t_IDENTIFIER(t):
+    # Este regex solo valida identificadores si tienen espacio entre ellas, ejm
     # "1.23abc"
-    # "abc" NO es variable porque no tiene espacio entre "1.23"
-    r"\b[a-z][a-zA-Z0-9_]*\b"
-    t.type = reserved.get(t.value, "VARIABLE")
+    # "abc" NO es identificador porque no tiene espacio entre "1.23"
+    r"\b[a-zA-Z][a-zA-Z0-9_]*\b"
+    t.type = reserved.get(t.value, "IDENTIFIER")
     return t
 
 

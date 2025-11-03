@@ -6,6 +6,8 @@ func main() {
     var x int = 10
     var y float64 = 20.5
     var flag bool = true
+    // Test de Comentario // Esto deberia segir siendo un comentario
+    "String" "String2"
 
     if x > 5 {
         fmt.Println("x es mayor que 5")

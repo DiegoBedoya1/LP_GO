@@ -1,0 +1,95 @@
+=== Archivo: prueba1.go ===
+
+LexToken(PACKAGE,'package',1,0)
+LexToken(VARIABLE,'main',1,8)
+LexToken(IMPORT,'import',3,14)
+LexToken(STRING,'"fmt"',3,21)
+LexToken(FUNC,'func',5,28)
+LexToken(VARIABLE,'main',5,33)
+LexToken(LPAREN,'(',5,37)
+LexToken(RPAREN,')',5,38)
+Error léxico: carácter no reconocido '{'
+LexToken(VAR,'var',6,46)
+LexToken(VARIABLE,'x',6,50)
+LexToken(VARIABLE,'int',6,52)
+LexToken(INTEGER,10,6,58)
+Error léxico: carácter no reconocido '='
+LexToken(VAR,'var',7,65)
+LexToken(VARIABLE,'y',7,69)
+LexToken(VARIABLE,'float64',7,71)
+LexToken(FLOAT,'20.5',7,81)
+Error léxico: carácter no reconocido '='
+LexToken(VAR,'var',8,90)
+LexToken(VARIABLE,'flag',8,94)
+LexToken(VARIABLE,'bool',8,99)
+LexToken(BOOL,'true',8,106)
+Error léxico: carácter no reconocido '='
+LexToken(DIVIDE,'/',9,115)
+LexToken(DIVIDE,'/',9,116)
+LexToken(VARIABLE,'de',9,123)
+LexToken(DIVIDE,'/',9,137)
+LexToken(DIVIDE,'/',9,138)
+LexToken(VARIABLE,'deberia',9,145)
+LexToken(VARIABLE,'segir',9,153)
+LexToken(VARIABLE,'siendo',9,159)
+LexToken(VARIABLE,'un',9,166)
+LexToken(VARIABLE,'comentario',9,169)
+Error léxico: carácter no reconocido 'T'
+Error léxico: carácter no reconocido 'e'
+Error léxico: carácter no reconocido 's'
+Error léxico: carácter no reconocido 't'
+Error léxico: carácter no reconocido 'C'
+Error léxico: carácter no reconocido 'o'
+Error léxico: carácter no reconocido 'm'
+Error léxico: carácter no reconocido 'e'
+Error léxico: carácter no reconocido 'n'
+Error léxico: carácter no reconocido 't'
+Error léxico: carácter no reconocido 'a'
+Error léxico: carácter no reconocido 'r'
+Error léxico: carácter no reconocido 'i'
+Error léxico: carácter no reconocido 'o'
+Error léxico: carácter no reconocido 'E'
+Error léxico: carácter no reconocido 's'
+Error léxico: carácter no reconocido 't'
+Error léxico: carácter no reconocido 'o'
+LexToken(STRING,'"String"',10,184)
+LexToken(STRING,'"String 2"',10,193)
+LexToken(VARIABLE,'comilla',10,204)
+LexToken(VARIABLE,'simple',10,212)
+LexToken(STRING,'"\n\n\n    if x > 5 {\n        fmt.Println("',10,223)
+LexToken(VARIABLE,'x',10,263)
+LexToken(VARIABLE,'es',10,265)
+LexToken(VARIABLE,'mayor',10,268)
+LexToken(VARIABLE,'que',10,274)
+LexToken(INTEGER,5,10,278)
+LexToken(STRING,'")\n    } else {\n        fmt.Println("',10,279)
+LexToken(VARIABLE,'x',10,316)
+LexToken(VARIABLE,'es',10,318)
+LexToken(VARIABLE,'menor',10,321)
+LexToken(VARIABLE,'o',10,327)
+LexToken(VARIABLE,'igual',10,329)
+LexToken(VARIABLE,'que',10,335)
+LexToken(INTEGER,5,10,339)
+LexToken(STRING,'")\n    }\n\n    for i := 0; i < x; i++ {\n        fmt.Println(i)\n    }\n\n    result := x + int(y)\n    fmt.Println("',10,340)
+LexToken(VARIABLE,'result',10,464)
+LexToken(RPAREN,')',10,470)
+Error léxico: carácter no reconocido 'A'
+Error léxico: carácter no reconocido 'q'
+Error léxico: carácter no reconocido 'u'
+Error léxico: carácter no reconocido 'i'
+Error léxico: carácter no reconocido 'R'
+Error léxico: carácter no reconocido 'e'
+Error léxico: carácter no reconocido 's'
+Error léxico: carácter no reconocido 'u'
+Error léxico: carácter no reconocido 'l'
+Error léxico: carácter no reconocido 't'
+Error léxico: carácter no reconocido 'a'
+Error léxico: carácter no reconocido 'd'
+Error léxico: carácter no reconocido 'o'
+Error léxico: carácter no reconocido ':'
+Error léxico: carácter no reconocido '"'
+Error léxico: carácter no reconocido ','
+Error léxico: carácter no reconocido '}'
+
+--------------------------------------------------
+
