@@ -3,6 +3,7 @@ import ply.lex as lex
 
 # Contribucion: Salvador Muñoz
 # Palabras reservadas de Go
+#Contribucion: Diego bedoya, más palabras reservadas
 reserved = {
     "if": "IF",
     "else": "ELSE",
@@ -21,6 +22,13 @@ reserved = {
     "const": "CONST",
     "package": "PACKAGE",
     "import": "IMPORT",
+    "else if": "ELSE IF",
+    "iota": "IOTA",
+    "make": "MAKE",
+    "string": "STRING",
+    "int": "INT",
+    "default": "DEFAULT",
+
 }
 
 
@@ -35,6 +43,14 @@ tokens = (
     "TIMES",
     "LPAREN",
     "RPAREN",
+    "LBRACE",       #Contribucion Diego Bedoya, más tokens
+    "RBRACE",
+    "ASSIGN",
+    "LESSTHAN",
+    "SHORTASSIGN",
+    "COLON",
+    "SEMICOLON",
+    "DOT",
     "MODULO",
     "IDENTIFIER",  # Palabra generica, funciones o variables
     "BOOL",
@@ -51,6 +67,16 @@ t_DIVIDE = r"/"
 t_TIMES = r"\*"
 t_MODULO = r"%"
 t_MORETHAN = r">"
+t_LBRACE = r"\{"   #contribucion: Diego Bedoya, definicion de tokens
+t_RBRACE = r"\}"
+t_ASSIGN = r"="
+t_SHORTASSIGN = r":="
+t_LESSTHAN = r"<"
+t_COLON = r":"
+t_SEMICOLON = r";"
+t_DOT = r"\."
+
+
 
 
 """ Se debe ir de lo especifico a lo general """
