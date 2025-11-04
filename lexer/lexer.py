@@ -3,7 +3,7 @@ import ply.lex as lex
 
 # Contribucion: Salvador Muñoz
 # Palabras reservadas de Go
-#Contribucion: Diego bedoya, más palabras reservadas
+# Contribucion: Diego bedoya, más palabras reservadas
 reserved = {
     "if": "IF",
     "else": "ELSE",
@@ -26,7 +26,6 @@ reserved = {
     "make": "MAKE",
     "int": "INT",
     "default": "DEFAULT",
-
 }
 
 
@@ -41,7 +40,7 @@ tokens = (
     "TIMES",
     "LPAREN",
     "RPAREN",
-    "LBRACE",       #Contribucion Diego Bedoya, más tokens
+    "LBRACE",  # Contribucion Diego Bedoya, más tokens
     "RBRACE",
     "ASSIGN",
     "LESSTHAN",
@@ -55,29 +54,33 @@ tokens = (
     "MORETHAN",
     "STRING",  # Contribucion: Salvador Muñoz
     "COMA",
-    "INCREMENT",    # ++
-    "DECREMENT",    # --
-    "LESS_EQUAL",   # <=
-    "MORE_EQUAL",   # >=
-    "EQUALS",       # ==
-    "NOT_EQUALS",   # !=
-    "LOGICAL_AND",  # &&
-    "LOGICAL_OR",   # ||
-    "NOT",          # !
-    "AMPERSAND",    # &
+    "INCREMENT",
+    "DECREMENT",
+    "LESS_EQUAL",
+    "MORE_EQUAL",
+    "EQUALS",
+    "NOT_EQUALS",
+    "LOGICAL_AND",
+    "LOGICAL_OR",
+    "NOT",
+    "AMPERSAND",
+    "LBRACKET",
+    "RBRACKET",
 ) + tuple(reserved.values())
 
 # Expresiones regulares para tokens simples
-
+# Contribucion: Salvador Muñoz
 t_SHORTASSIGN = r":="
-t_INCREMENT = r"\+\+"  
-t_DECREMENT = r"--"  
-t_LESS_EQUAL = r"<="  
-t_MORE_EQUAL = r">="  
-t_EQUALS = r"=="      
-t_NOT_EQUALS = r"!="  
-t_LOGICAL_AND = r"&&"  
-t_LOGICAL_OR = r"\|\|"  
+t_INCREMENT = r"\+\+"
+t_DECREMENT = r"--"
+t_LESS_EQUAL = r"<="
+t_MORE_EQUAL = r">="
+t_EQUALS = r"=="
+t_NOT_EQUALS = r"!="
+t_LOGICAL_AND = r"&&"
+t_LOGICAL_OR = r"\|\|"
+t_LBRACKET = r"\["
+t_RBRACKET = r"\]"
 
 t_PLUS = r"\+"
 t_MINUS = r"-"
@@ -87,7 +90,7 @@ t_DIVIDE = r"/"
 t_TIMES = r"\*"
 t_MODULO = r"%"
 t_MORETHAN = r">"
-t_LBRACE = r"\{"   #contribucion: Diego Bedoya, definicion de tokens
+t_LBRACE = r"\{"  # contribucion: Diego Bedoya, definicion de tokens
 t_RBRACE = r"\}"
 t_ASSIGN = r"="
 t_LESSTHAN = r"<"
@@ -95,10 +98,8 @@ t_COLON = r":"
 t_SEMICOLON = r";"
 t_DOT = r"\."
 t_COMA = r","
-t_NOT = r"!"         
-t_AMPERSAND = r"&"  
-
-
+t_NOT = r"!"
+t_AMPERSAND = r"&"
 
 
 """ Se debe ir de lo especifico a lo general """
@@ -147,7 +148,7 @@ def t_newline(t):
 
 t_ignore = " \t"
 t_ignore_COMMENT = r"//.*"
-t_ignore_MULTILINECOMMENT = r'/\*([^*]|\*+[^*/])*\*+/'
+t_ignore_MULTILINECOMMENT = r"/\*([^*]|\*+[^*/])*\*+/"
 
 # Contribucion: Salvador Muñoz (error guardados en logs)
 errores = []

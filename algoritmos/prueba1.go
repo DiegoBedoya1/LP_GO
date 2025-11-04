@@ -9,6 +9,8 @@ func main() {
     // Test de Comentario no deberia aparecer en logs // Esto deberia segir siendo un comentario
     "String" "String2"
 
+    array [1,2,3,"hola"]
+
 
     /* Comentario de bloque
     no deberia aparecer en los losgs */
