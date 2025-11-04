@@ -1,6 +1,6 @@
 import os
 import datetime
-from lexer import lexer as lx # Importamos tu lexer completo
+from lexer import lexer as lx # Importamos lexer
 
 #Contribucion: Salvador Muñoz
 def cargar_archivos_go(carpeta):
@@ -20,24 +20,24 @@ def main():
     # Crear carpeta logs si no existe
     os.makedirs(carpeta_logs, exist_ok=True)
 
-    # 1️⃣ Cargar todos los archivos .go
+    # Cargar todos los archivos .go
     archivos = cargar_archivos_go(carpeta_algoritmos)
     if not archivos:
         print("No se encontraron archivos .go en la carpeta 'algoritmos'.")
         return
 
-    # 2️⃣ Pedir usuario de GitHub
+    # Pedir usuario de GitHub
     usuario_git = input("Ingrese su usuario de GitHub: ").strip()
     if not usuario_git:
         print("Usuario inválido.")
         return
 
-    # 3️⃣ Generar nombre del archivo de log
+    # Generar nombre del archivo de log
     fecha_hora = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
     nombre_log = f"lexico-{usuario_git}-{fecha_hora}.txt"
     ruta_log = os.path.join(carpeta_logs, nombre_log)
 
-    # 4️⃣ Analizar cada archivo y guardar resultados
+    # Analizar cada archivo y guardar resultados
     with open(ruta_log, "w", encoding="utf-8") as log:
         for nombre_archivo, codigo in archivos:
             log.write(f"=== Archivo: {nombre_archivo} ===\n\n")
@@ -50,7 +50,7 @@ def main():
 
 
 
-    print(f"✅ Análisis completado. Log guardado en '{nombre_log}'")
+    print(f"Analisis completado. Log guardado en '{nombre_log}'")
 
 if __name__ == "__main__":
     main()
