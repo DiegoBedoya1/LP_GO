@@ -55,9 +55,30 @@ tokens = (
     "MORETHAN",
     "STRING",  # Contribucion: Salvador Muñoz
     "COMA",
+    "INCREMENT",    # ++
+    "DECREMENT",    # --
+    "LESS_EQUAL",   # <=
+    "MORE_EQUAL",   # >=
+    "EQUALS",       # ==
+    "NOT_EQUALS",   # !=
+    "LOGICAL_AND",  # &&
+    "LOGICAL_OR",   # ||
+    "NOT",          # !
+    "AMPERSAND",    # &
 ) + tuple(reserved.values())
 
 # Expresiones regulares para tokens simples
+
+t_SHORTASSIGN = r":="
+t_INCREMENT = r"\+\+"  
+t_DECREMENT = r"--"  
+t_LESS_EQUAL = r"<="  
+t_MORE_EQUAL = r">="  
+t_EQUALS = r"=="      
+t_NOT_EQUALS = r"!="  
+t_LOGICAL_AND = r"&&"  
+t_LOGICAL_OR = r"\|\|"  
+
 t_PLUS = r"\+"
 t_MINUS = r"-"
 t_LPAREN = r"\("
@@ -69,12 +90,13 @@ t_MORETHAN = r">"
 t_LBRACE = r"\{"   #contribucion: Diego Bedoya, definicion de tokens
 t_RBRACE = r"\}"
 t_ASSIGN = r"="
-t_SHORTASSIGN = r":="
 t_LESSTHAN = r"<"
 t_COLON = r":"
 t_SEMICOLON = r";"
 t_DOT = r"\."
 t_COMA = r","
+t_NOT = r"!"         
+t_AMPERSAND = r"&"  
 
 
 
@@ -124,6 +146,8 @@ def t_newline(t):
 
 
 t_ignore = " \t"
+t_ignore_COMMENT = r"//.*"
+t_ignore_MULTILINECOMMENT = r'/\*([^*]|\*+[^*/])*\*+/'
 
 # Contribucion: Salvador Muñoz (error guardados en logs)
 errores = []
