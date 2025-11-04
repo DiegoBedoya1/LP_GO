@@ -4,6 +4,7 @@ import ply.lex as lex
 # Contribucion: Salvador Muñoz
 # Palabras reservadas de Go
 # Contribucion: Diego bedoya, más palabras reservadas
+#contribucion: Steven Miraba, algunas palabras reservadas
 reserved = {
     "if": "IF",
     "else": "ELSE",
@@ -26,6 +27,10 @@ reserved = {
     "make": "MAKE",
     "int": "INT",
     "default": "DEFAULT",
+    "true": "TRUE",
+    "false": "FALSE",
+    "range": "RANGE",
+    "nil": "NIL"
 }
 
 
@@ -66,6 +71,7 @@ tokens = (
     "AMPERSAND",
     "LBRACKET",
     "RBRACKET",
+    "VARIADIC"  #Contribucion: Steven Miraba
 ) + tuple(reserved.values())
 
 # Expresiones regulares para tokens simples
@@ -100,7 +106,7 @@ t_DOT = r"\."
 t_COMA = r","
 t_NOT = r"!"
 t_AMPERSAND = r"&"
-
+t_VARIADIC = r"\.\.\." #Contribucion Steven Miraba
 
 """ Se debe ir de lo especifico a lo general """
 
