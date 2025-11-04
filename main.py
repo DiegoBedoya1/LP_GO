@@ -14,8 +14,9 @@ def cargar_archivos_go(carpeta):
     return archivos
 
 def main():
-    carpeta_algoritmos = "algoritmos"
-    carpeta_logs = "logs"
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    carpeta_algoritmos = os.path.join(base_dir, "algoritmos")
+    carpeta_logs = os.path.join(base_dir, "logs")
 
     # Crear carpeta logs si no existe
     os.makedirs(carpeta_logs, exist_ok=True)
