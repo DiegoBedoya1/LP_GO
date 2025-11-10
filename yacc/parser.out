@@ -1,0 +1,348 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    AMPERSAND
+    BOOL
+    BREAK
+    CASE
+    COLON
+    COMA
+    CONST
+    CONTINUE
+    DECREMENT
+    DEFAULT
+    DOT
+    ELSE
+    EQUALS
+    FOR
+    FUNC
+    GOTO
+    IF
+    IMPORT
+    INCREMENT
+    INT
+    INTERFACE
+    IOTA
+    LBRACE
+    LBRACKET
+    LESSTHAN
+    LESS_EQUAL
+    LOGICAL_AND
+    LOGICAL_OR
+    LPAREN
+    MAKE
+    MORETHAN
+    MORE_EQUAL
+    NIL
+    NOT
+    NOT_EQUALS
+    PACKAGE
+    RANGE
+    RBRACE
+    RBRACKET
+    RETURN
+    RPAREN
+    SEMICOLON
+    SHORTASSIGN
+    STRUCT
+    SWITCH
+    TYPE
+    VAR
+    VARIADIC
+
+Grammar
+
+Rule 0     S' -> asignacion
+Rule 1     asignacion -> IDENTIFIER ASSIGN valor
+Rule 2     valor -> IDENTIFIER
+Rule 3     valor -> expresionMatematica
+Rule 4     valor -> STRING
+Rule 5     valor -> bool
+Rule 6     bool -> TRUE
+Rule 7     bool -> FALSE
+Rule 8     expresionMatematica -> numero operando expresionMatematica
+Rule 9     expresionMatematica -> numero
+Rule 10    operando -> PLUS
+Rule 11    operando -> MINUS
+Rule 12    operando -> TIMES
+Rule 13    operando -> DIVIDE
+Rule 14    operando -> MODULO
+Rule 15    numero -> INTEGER
+Rule 16    numero -> FLOAT
+
+Terminals, with rules where they appear
+
+AMPERSAND            : 
+ASSIGN               : 1
+BOOL                 : 
+BREAK                : 
+CASE                 : 
+COLON                : 
+COMA                 : 
+CONST                : 
+CONTINUE             : 
+DECREMENT            : 
+DEFAULT              : 
+DIVIDE               : 13
+DOT                  : 
+ELSE                 : 
+EQUALS               : 
+FALSE                : 7
+FLOAT                : 16
+FOR                  : 
+FUNC                 : 
+GOTO                 : 
+IDENTIFIER           : 1 2
+IF                   : 
+IMPORT               : 
+INCREMENT            : 
+INT                  : 
+INTEGER              : 15
+INTERFACE            : 
+IOTA                 : 
+LBRACE               : 
+LBRACKET             : 
+LESSTHAN             : 
+LESS_EQUAL           : 
+LOGICAL_AND          : 
+LOGICAL_OR           : 
+LPAREN               : 
+MAKE                 : 
+MINUS                : 11
+MODULO               : 14
+MORETHAN             : 
+MORE_EQUAL           : 
+NIL                  : 
+NOT                  : 
+NOT_EQUALS           : 
+PACKAGE              : 
+PLUS                 : 10
+RANGE                : 
+RBRACE               : 
+RBRACKET             : 
+RETURN               : 
+RPAREN               : 
+SEMICOLON            : 
+SHORTASSIGN          : 
+STRING               : 4
+STRUCT               : 
+SWITCH               : 
+TIMES                : 12
+TRUE                 : 6
+TYPE                 : 
+VAR                  : 
+VARIADIC             : 
+error                : 
+
+Nonterminals, with rules where they appear
+
+asignacion           : 0
+bool                 : 5
+expresionMatematica  : 3 8
+numero               : 8 9
+operando             : 8
+valor                : 1
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . asignacion
+    (1) asignacion -> . IDENTIFIER ASSIGN valor
+
+    IDENTIFIER      shift and go to state 2
+
+    asignacion                     shift and go to state 1
+
+state 1
+
+    (0) S' -> asignacion .
+
+
+
+state 2
+
+    (1) asignacion -> IDENTIFIER . ASSIGN valor
+
+    ASSIGN          shift and go to state 3
+
+
+state 3
+
+    (1) asignacion -> IDENTIFIER ASSIGN . valor
+    (2) valor -> . IDENTIFIER
+    (3) valor -> . expresionMatematica
+    (4) valor -> . STRING
+    (5) valor -> . bool
+    (8) expresionMatematica -> . numero operando expresionMatematica
+    (9) expresionMatematica -> . numero
+    (6) bool -> . TRUE
+    (7) bool -> . FALSE
+    (15) numero -> . INTEGER
+    (16) numero -> . FLOAT
+
+    IDENTIFIER      shift and go to state 4
+    STRING          shift and go to state 7
+    TRUE            shift and go to state 10
+    FALSE           shift and go to state 11
+    INTEGER         shift and go to state 12
+    FLOAT           shift and go to state 13
+
+    valor                          shift and go to state 5
+    expresionMatematica            shift and go to state 6
+    bool                           shift and go to state 8
+    numero                         shift and go to state 9
+
+state 4
+
+    (2) valor -> IDENTIFIER .
+
+    $end            reduce using rule 2 (valor -> IDENTIFIER .)
+
+
+state 5
+
+    (1) asignacion -> IDENTIFIER ASSIGN valor .
+
+    $end            reduce using rule 1 (asignacion -> IDENTIFIER ASSIGN valor .)
+
+
+state 6
+
+    (3) valor -> expresionMatematica .
+
+    $end            reduce using rule 3 (valor -> expresionMatematica .)
+
+
+state 7
+
+    (4) valor -> STRING .
+
+    $end            reduce using rule 4 (valor -> STRING .)
+
+
+state 8
+
+    (5) valor -> bool .
+
+    $end            reduce using rule 5 (valor -> bool .)
+
+
+state 9
+
+    (8) expresionMatematica -> numero . operando expresionMatematica
+    (9) expresionMatematica -> numero .
+    (10) operando -> . PLUS
+    (11) operando -> . MINUS
+    (12) operando -> . TIMES
+    (13) operando -> . DIVIDE
+    (14) operando -> . MODULO
+
+    $end            reduce using rule 9 (expresionMatematica -> numero .)
+    PLUS            shift and go to state 15
+    MINUS           shift and go to state 16
+    TIMES           shift and go to state 17
+    DIVIDE          shift and go to state 18
+    MODULO          shift and go to state 19
+
+    operando                       shift and go to state 14
+
+state 10
+
+    (6) bool -> TRUE .
+
+    $end            reduce using rule 6 (bool -> TRUE .)
+
+
+state 11
+
+    (7) bool -> FALSE .
+
+    $end            reduce using rule 7 (bool -> FALSE .)
+
+
+state 12
+
+    (15) numero -> INTEGER .
+
+    PLUS            reduce using rule 15 (numero -> INTEGER .)
+    MINUS           reduce using rule 15 (numero -> INTEGER .)
+    TIMES           reduce using rule 15 (numero -> INTEGER .)
+    DIVIDE          reduce using rule 15 (numero -> INTEGER .)
+    MODULO          reduce using rule 15 (numero -> INTEGER .)
+    $end            reduce using rule 15 (numero -> INTEGER .)
+
+
+state 13
+
+    (16) numero -> FLOAT .
+
+    PLUS            reduce using rule 16 (numero -> FLOAT .)
+    MINUS           reduce using rule 16 (numero -> FLOAT .)
+    TIMES           reduce using rule 16 (numero -> FLOAT .)
+    DIVIDE          reduce using rule 16 (numero -> FLOAT .)
+    MODULO          reduce using rule 16 (numero -> FLOAT .)
+    $end            reduce using rule 16 (numero -> FLOAT .)
+
+
+state 14
+
+    (8) expresionMatematica -> numero operando . expresionMatematica
+    (8) expresionMatematica -> . numero operando expresionMatematica
+    (9) expresionMatematica -> . numero
+    (15) numero -> . INTEGER
+    (16) numero -> . FLOAT
+
+    INTEGER         shift and go to state 12
+    FLOAT           shift and go to state 13
+
+    numero                         shift and go to state 9
+    expresionMatematica            shift and go to state 20
+
+state 15
+
+    (10) operando -> PLUS .
+
+    INTEGER         reduce using rule 10 (operando -> PLUS .)
+    FLOAT           reduce using rule 10 (operando -> PLUS .)
+
+
+state 16
+
+    (11) operando -> MINUS .
+
+    INTEGER         reduce using rule 11 (operando -> MINUS .)
+    FLOAT           reduce using rule 11 (operando -> MINUS .)
+
+
+state 17
+
+    (12) operando -> TIMES .
+
+    INTEGER         reduce using rule 12 (operando -> TIMES .)
+    FLOAT           reduce using rule 12 (operando -> TIMES .)
+
+
+state 18
+
+    (13) operando -> DIVIDE .
+
+    INTEGER         reduce using rule 13 (operando -> DIVIDE .)
+    FLOAT           reduce using rule 13 (operando -> DIVIDE .)
+
+
+state 19
+
+    (14) operando -> MODULO .
+
+    INTEGER         reduce using rule 14 (operando -> MODULO .)
+    FLOAT           reduce using rule 14 (operando -> MODULO .)
+
+
+state 20
+
+    (8) expresionMatematica -> numero operando expresionMatematica .
+
+    $end            reduce using rule 8 (expresionMatematica -> numero operando expresionMatematica .)
+
