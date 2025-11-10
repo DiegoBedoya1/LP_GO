@@ -3,29 +3,24 @@ from lexer.lexer import tokens
 
 
 def p_asignacion(p):
-    """asignacion : IDENTIFIER ASSIGN valor"""
-
-
-def p_valor(p):
-    """valor : IDENTIFIER
-    | expresion
-    | STRING
-    | bool"""
+    """asignacion : IDENTIFIER ASSIGN expresion"""
 
 
 def p_expresion(p):
     """expresion : expresionMatematica
-    """
-
-
-def p_boolean(p):
-    """bool : TRUE
-    | FALSE"""
+    | STRING
+    | bool"""
 
 
 def p_expresionMatematica(p):
-    """expresionMatematica : numero operando expresionMatematica
-    | numero"""
+    """expresionMatematica : termino
+    | expresionMatematica operando termino"""
+
+
+def p_termino(p):
+    """termino : IDENTIFIER
+    | numero
+    | LPAREN expresionMatematica RPAREN"""  # para permitir (a + b) * 2
 
 
 def p_operando(p):
@@ -39,6 +34,11 @@ def p_operando(p):
 def p_numero(p):
     """numero : INTEGER
     | FLOAT"""
+
+
+def p_boolean(p):
+    """bool : TRUE
+    | FALSE"""
 
 
 """ def p_expression_plus(p):
