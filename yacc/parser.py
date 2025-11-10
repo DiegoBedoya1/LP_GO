@@ -2,6 +2,7 @@ import ply.yacc as yacc
 from lexer.lexer import tokens
 
 
+# Contribucion Salvador Muñoz
 def p_asignacion(p):
     """asignacion : IDENTIFIER ASSIGN expresion"""
 
@@ -39,6 +40,11 @@ def p_numero(p):
 def p_boolean(p):
     """bool : TRUE
     | FALSE"""
+
+
+# contribucion Salvador Muñoz
+# def p_expresionBooleana(p):
+    # """expresionBooleana : expresionBooleana operandoBooleando termino"""
 
 
 """ def p_expression_plus(p):
@@ -88,9 +94,9 @@ def p_error(p):
 
 
 # Build the parser
-parser = yacc.yacc()
+parser_obj = yacc.yacc()
 
-while True:
+""" while True:
     try:
         s = input("calc > ")
     except EOFError:
@@ -99,3 +105,4 @@ while True:
         continue
     result = parser.parse(s)
     print(result)
+ """

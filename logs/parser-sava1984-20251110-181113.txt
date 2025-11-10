@@ -1,0 +1,18 @@
+=== Archivo: prueba1.go ===
+
+[ERROR] Fallo al parsear prueba1.go: module 'yacc.parser' has no attribute 'parse'
+
+--------------------------------------------------
+
+=== Archivo: prueba2.go ===
+
+[ERROR] Fallo al parsear prueba2.go: module 'yacc.parser' has no attribute 'parse'
+
+--------------------------------------------------
+
+=== Archivo: prueba3.go ===
+
+[ERROR] Fallo al parsear prueba3.go: module 'yacc.parser' has no attribute 'parse'
+
+--------------------------------------------------
+
