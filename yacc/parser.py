@@ -17,7 +17,8 @@ def p_sentencia(p):
 def p_asignacionCorta(p):
     '''asignacion_corta : IDENTIFIER SHORTASSIGN expresion'''
 
-#contribucion Diego Bedoya
+
+# contribucion Diego Bedoya
 def p_crearVariable(p):
     '''crearVariable : VAR IDENTIFIER tipo ASSIGN expresion'''
 
@@ -122,6 +123,8 @@ def p_pedirDatos(p):
 
 def p_imprimir(p):
     """imprimir : FMT DOT PRINTLN LPAREN valores RPAREN"""
+
+
 def p_valores(p):
     ''' valores : IDENTIFIER 
                 | IDENTIFIER COMA valores'''
