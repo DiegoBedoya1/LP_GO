@@ -145,3 +145,5 @@ yacc/parser.out
 
 
 yacc/parsetab.py
+yacc/parser.out
+yacc/parsetab.py
