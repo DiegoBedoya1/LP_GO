@@ -8,7 +8,9 @@ def p_sentencia(p):
     | asignacion_corta
     | expresion
     | pedirDatos
-    | imprimir"""
+    | imprimir
+    | crearVariable
+    """
 
 
 # contribucion Salvador Muñoz
@@ -20,7 +22,27 @@ def p_crearVariable(p):
     '''crearVariable : VAR IDENTIFIER tipo ASSIGN expresion
     '''
 def p_tipo(p):
-    '''tipo: 
+    '''tipo : int | float | complex | uint | bool | STRING
+    '''
+def p_int(p):
+    ''' int : INT |
+    INT8 |
+    INT16 |
+    INT32 |
+    INT64
+    '''
+def p_float(p):
+    ''' float: FLOAT32 | FLOAT64
+    '''
+def p_uint(p):
+    ''' uint: UINT |
+    UINT8 |
+    UINT16 |
+    UINT32 |
+    UINT64
+    '''
+def p_complex(p):
+    ''' complex : COMPLEX64 | COMPLEX128
     '''
 
 
@@ -94,7 +116,10 @@ def p_pedirDatos(p):
 
 
 def p_imprimir(p):
-    """imprimir : FMT DOT PRINTLN LPAREN IDENTIFIER RPAREN"""
+    """imprimir : FMT DOT PRINTLN LPAREN valores RPAREN"""
+def p_valores(p):
+    ''' valores : IDENTIFIER | IDENTIFIER COMA valores
+    '''
 
 
 """ def p_expression_plus(p):

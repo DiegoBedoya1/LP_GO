@@ -35,7 +35,21 @@ reserved = {
     "true": "TRUE",
     "false": "FALSE",
     "range": "RANGE",
-    "nil": "NIL"
+    "nil": "NIL",
+    "int": "INT",
+    "int8": "INT8",
+    "int16": "INT16",
+    "int32": "INT32",
+    "int64": "INT64",
+    "uint": "UINT",
+    "uint8": "UINT8",
+    "uint16": "UINT16",
+    "uint32": "UINT32",
+    "uint64": "UINT64",
+    "float32": "FLOAT32",
+    "float64": "FLOAT64",
+    "complex64": "COMPLEX64",
+    "complex128": "COMPLEX128"
 }
 
 
