@@ -77,6 +77,13 @@ def p_operador_logico(p):
     """operador_logico : LOGICAL_AND
     | LOGICAL_OR"""
 
+#contribucion Diego Bedoya
+def p_pedirDatos(p):
+    ''' pedirDatos : 'fmt' DOT 'Scanln' LPAREN AMPERSAND IDENTIFIER RPAREN
+    '''
+def p_imprimir(p):
+    '''imprimir : 'fmt' DOT 'Println' LPAREN IDENTIFIER RPAREN
+    '''
 
 """ def p_expression_plus(p):
     "expression : expression PLUS term"
