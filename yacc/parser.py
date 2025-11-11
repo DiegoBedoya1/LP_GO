@@ -9,8 +9,9 @@ def p_asignacion(p):
 
 def p_expresion(p):
     """expresion : expresionMatematica
+    | expresionBooleana
     | STRING
-    | bool"""
+    """
 
 
 def p_expresionMatematica(p):
@@ -43,8 +44,15 @@ def p_boolean(p):
 
 
 # contribucion Salvador Muñoz
-# def p_expresionBooleana(p):
-    # """expresionBooleana : expresionBooleana operandoBooleando termino"""
+def p_expresionBooleana(p):
+    """expresionBooleana : expresionBooleana operandoBooleando termino
+    | bool"""
+
+
+# contribucion Salvador Muñoz
+def p_operandoBooleando(p):
+    """operandoBooleando : LOGICAL_AND
+    | LOGICAL_OR"""
 
 
 """ def p_expression_plus(p):

@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'AMPERSAND ASSIGN BOOL BREAK CASE COLON COMA CONST CONTINUE DECREMENT DEFAULT DIVIDE DOT ELSE EQUALS FALSE FLOAT FOR FUNC GOTO IDENTIFIER IF IMPORT INCREMENT INT INTEGER INTERFACE IOTA LBRACE LBRACKET LESSTHAN LESS_EQUAL LOGICAL_AND LOGICAL_OR LPAREN MAKE MINUS MODULO MORETHAN MORE_EQUAL NIL NOT NOT_EQUALS PACKAGE PLUS RANGE RBRACE RBRACKET RETURN RPAREN SEMICOLON SHORTASSIGN STRING STRUCT SWITCH TIMES TRUE TYPE VAR VARIADICasignacion : IDENTIFIER ASSIGN expresionexpresion : expresionMatematica\n| STRING\n| boolexpresionMatematica : termino\n| expresionMatematica operando terminotermino : IDENTIFIER\n| numero\n| LPAREN expresionMatematica RPARENoperando : PLUS\n| MINUS\n| TIMES\n| DIVIDE\n| MODULOnumero : INTEGER\n| FLOATbool : TRUE\n| FALSE'
+_lr_signature = 'AMPERSAND ASSIGN BOOL BREAK CASE COLON COMA CONST CONTINUE DECREMENT DEFAULT DIVIDE DOT ELSE EQUALS FALSE FLOAT FOR FUNC GOTO IDENTIFIER IF IMPORT INCREMENT INT INTEGER INTERFACE IOTA LBRACE LBRACKET LESSTHAN LESS_EQUAL LOGICAL_AND LOGICAL_OR LPAREN MAKE MINUS MODULO MORETHAN MORE_EQUAL NIL NOT NOT_EQUALS PACKAGE PLUS RANGE RBRACE RBRACKET RETURN RPAREN SEMICOLON SHORTASSIGN STRING STRUCT SWITCH TIMES TRUE TYPE VAR VARIADICasignacion : IDENTIFIER ASSIGN expresionexpresion : expresionMatematica\n| expresionBooleana\n| STRING\nexpresionMatematica : termino\n| expresionMatematica operando terminotermino : IDENTIFIER\n| numero\n| LPAREN expresionMatematica RPARENoperando : PLUS\n| MINUS\n| TIMES\n| DIVIDE\n| MODULOnumero : INTEGER\n| FLOATbool : TRUE\n| FALSEexpresionBooleana : expresionBooleana operandoBooleando termino\n| booloperandoBooleando : LOGICAL_AND\n| LOGICAL_OR'
     
-_lr_action_items = {'IDENTIFIER':([0,3,13,16,17,18,19,20,21,],[2,4,4,4,-10,-11,-12,-13,-14,]),'$end':([1,4,5,6,7,8,9,10,11,12,14,15,23,24,],[0,-7,-1,-2,-3,-4,-5,-17,-18,-8,-15,-16,-6,-9,]),'ASSIGN':([2,],[3,]),'STRING':([3,],[7,]),'TRUE':([3,],[10,]),'FALSE':([3,],[11,]),'LPAREN':([3,13,16,17,18,19,20,21,],[13,13,13,-10,-11,-12,-13,-14,]),'INTEGER':([3,13,16,17,18,19,20,21,],[14,14,14,-10,-11,-12,-13,-14,]),'FLOAT':([3,13,16,17,18,19,20,21,],[15,15,15,-10,-11,-12,-13,-14,]),'PLUS':([4,6,9,12,14,15,22,23,24,],[-7,17,-5,-8,-15,-16,17,-6,-9,]),'MINUS':([4,6,9,12,14,15,22,23,24,],[-7,18,-5,-8,-15,-16,18,-6,-9,]),'TIMES':([4,6,9,12,14,15,22,23,24,],[-7,19,-5,-8,-15,-16,19,-6,-9,]),'DIVIDE':([4,6,9,12,14,15,22,23,24,],[-7,20,-5,-8,-15,-16,20,-6,-9,]),'MODULO':([4,6,9,12,14,15,22,23,24,],[-7,21,-5,-8,-15,-16,21,-6,-9,]),'RPAREN':([4,9,12,14,15,22,23,24,],[-7,-5,-8,-15,-16,24,-6,-9,]),}
+_lr_action_items = {'IDENTIFIER':([0,3,12,17,18,19,20,21,22,23,24,25,],[2,4,4,4,-10,-11,-12,-13,-14,4,-21,-22,]),'$end':([1,4,5,6,7,8,9,10,11,13,14,15,16,27,28,29,],[0,-7,-1,-2,-3,-4,-5,-20,-8,-17,-18,-15,-16,-6,-19,-9,]),'ASSIGN':([2,],[3,]),'STRING':([3,],[8,]),'LPAREN':([3,12,17,18,19,20,21,22,23,24,25,],[12,12,12,-10,-11,-12,-13,-14,12,-21,-22,]),'TRUE':([3,],[13,]),'FALSE':([3,],[14,]),'INTEGER':([3,12,17,18,19,20,21,22,23,24,25,],[15,15,15,-10,-11,-12,-13,-14,15,-21,-22,]),'FLOAT':([3,12,17,18,19,20,21,22,23,24,25,],[16,16,16,-10,-11,-12,-13,-14,16,-21,-22,]),'PLUS':([4,6,9,11,15,16,26,27,29,],[-7,18,-5,-8,-15,-16,18,-6,-9,]),'MINUS':([4,6,9,11,15,16,26,27,29,],[-7,19,-5,-8,-15,-16,19,-6,-9,]),'TIMES':([4,6,9,11,15,16,26,27,29,],[-7,20,-5,-8,-15,-16,20,-6,-9,]),'DIVIDE':([4,6,9,11,15,16,26,27,29,],[-7,21,-5,-8,-15,-16,21,-6,-9,]),'MODULO':([4,6,9,11,15,16,26,27,29,],[-7,22,-5,-8,-15,-16,22,-6,-9,]),'RPAREN':([4,9,11,15,16,26,27,29,],[-7,-5,-8,-15,-16,29,-6,-9,]),'LOGICAL_AND':([4,7,10,11,13,14,15,16,28,29,],[-7,24,-20,-8,-17,-18,-15,-16,-19,-9,]),'LOGICAL_OR':([4,7,10,11,13,14,15,16,28,29,],[-7,25,-20,-8,-17,-18,-15,-16,-19,-9,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'asignacion':([0,],[1,]),'expresion':([3,],[5,]),'expresionMatematica':([3,13,],[6,22,]),'bool':([3,],[8,]),'termino':([3,13,16,],[9,9,23,]),'numero':([3,13,16,],[12,12,12,]),'operando':([6,22,],[16,16,]),}
+_lr_goto_items = {'asignacion':([0,],[1,]),'expresion':([3,],[5,]),'expresionMatematica':([3,12,],[6,26,]),'expresionBooleana':([3,],[7,]),'termino':([3,12,17,23,],[9,9,27,28,]),'bool':([3,],[10,]),'numero':([3,12,17,23,],[11,11,11,11,]),'operando':([6,26,],[17,17,]),'operandoBooleando':([7,],[23,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -27,22 +27,26 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> asignacion","S'",1,None,None,None),
-  ('asignacion -> IDENTIFIER ASSIGN expresion','asignacion',3,'p_asignacion','parser.py',6),
-  ('expresion -> expresionMatematica','expresion',1,'p_expresion','parser.py',10),
-  ('expresion -> STRING','expresion',1,'p_expresion','parser.py',11),
-  ('expresion -> bool','expresion',1,'p_expresion','parser.py',12),
-  ('expresionMatematica -> termino','expresionMatematica',1,'p_expresionMatematica','parser.py',16),
-  ('expresionMatematica -> expresionMatematica operando termino','expresionMatematica',3,'p_expresionMatematica','parser.py',17),
-  ('termino -> IDENTIFIER','termino',1,'p_termino','parser.py',21),
-  ('termino -> numero','termino',1,'p_termino','parser.py',22),
-  ('termino -> LPAREN expresionMatematica RPAREN','termino',3,'p_termino','parser.py',23),
-  ('operando -> PLUS','operando',1,'p_operando','parser.py',27),
-  ('operando -> MINUS','operando',1,'p_operando','parser.py',28),
-  ('operando -> TIMES','operando',1,'p_operando','parser.py',29),
-  ('operando -> DIVIDE','operando',1,'p_operando','parser.py',30),
-  ('operando -> MODULO','operando',1,'p_operando','parser.py',31),
-  ('numero -> INTEGER','numero',1,'p_numero','parser.py',35),
-  ('numero -> FLOAT','numero',1,'p_numero','parser.py',36),
-  ('bool -> TRUE','bool',1,'p_boolean','parser.py',40),
-  ('bool -> FALSE','bool',1,'p_boolean','parser.py',41),
+  ('asignacion -> IDENTIFIER ASSIGN expresion','asignacion',3,'p_asignacion','parser.py',7),
+  ('expresion -> expresionMatematica','expresion',1,'p_expresion','parser.py',11),
+  ('expresion -> expresionBooleana','expresion',1,'p_expresion','parser.py',12),
+  ('expresion -> STRING','expresion',1,'p_expresion','parser.py',13),
+  ('expresionMatematica -> termino','expresionMatematica',1,'p_expresionMatematica','parser.py',18),
+  ('expresionMatematica -> expresionMatematica operando termino','expresionMatematica',3,'p_expresionMatematica','parser.py',19),
+  ('termino -> IDENTIFIER','termino',1,'p_termino','parser.py',23),
+  ('termino -> numero','termino',1,'p_termino','parser.py',24),
+  ('termino -> LPAREN expresionMatematica RPAREN','termino',3,'p_termino','parser.py',25),
+  ('operando -> PLUS','operando',1,'p_operando','parser.py',29),
+  ('operando -> MINUS','operando',1,'p_operando','parser.py',30),
+  ('operando -> TIMES','operando',1,'p_operando','parser.py',31),
+  ('operando -> DIVIDE','operando',1,'p_operando','parser.py',32),
+  ('operando -> MODULO','operando',1,'p_operando','parser.py',33),
+  ('numero -> INTEGER','numero',1,'p_numero','parser.py',37),
+  ('numero -> FLOAT','numero',1,'p_numero','parser.py',38),
+  ('bool -> TRUE','bool',1,'p_boolean','parser.py',42),
+  ('bool -> FALSE','bool',1,'p_boolean','parser.py',43),
+  ('expresionBooleana -> expresionBooleana operandoBooleando termino','expresionBooleana',3,'p_expresionBooleana','parser.py',48),
+  ('expresionBooleana -> bool','expresionBooleana',1,'p_expresionBooleana','parser.py',49),
+  ('operandoBooleando -> LOGICAL_AND','operandoBooleando',1,'p_operandoBooleando','parser.py',54),
+  ('operandoBooleando -> LOGICAL_OR','operandoBooleando',1,'p_operandoBooleando','parser.py',55),
 ]

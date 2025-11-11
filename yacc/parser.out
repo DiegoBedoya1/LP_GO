@@ -28,8 +28,6 @@ Unused terminals:
     LBRACKET
     LESSTHAN
     LESS_EQUAL
-    LOGICAL_AND
-    LOGICAL_OR
     MAKE
     MORETHAN
     MORE_EQUAL
@@ -54,8 +52,8 @@ Grammar
 Rule 0     S' -> asignacion
 Rule 1     asignacion -> IDENTIFIER ASSIGN expresion
 Rule 2     expresion -> expresionMatematica
-Rule 3     expresion -> STRING
-Rule 4     expresion -> bool
+Rule 3     expresion -> expresionBooleana
+Rule 4     expresion -> STRING
 Rule 5     expresionMatematica -> termino
 Rule 6     expresionMatematica -> expresionMatematica operando termino
 Rule 7     termino -> IDENTIFIER
@@ -71,6 +69,9 @@ Rule 16    numero -> FLOAT
 Rule 17    bool -> TRUE
 Rule 18    bool -> FALSE
 Rule 19    expresionBooleana -> expresionBooleana operandoBooleando termino
+Rule 20    expresionBooleana -> bool
+Rule 21    operandoBooleando -> LOGICAL_AND
+Rule 22    operandoBooleando -> LOGICAL_OR
 
 Terminals, with rules where they appear
 
@@ -106,8 +107,8 @@ LBRACE               :
 LBRACKET             : 
 LESSTHAN             : 
 LESS_EQUAL           : 
-LOGICAL_AND          : 
-LOGICAL_OR           : 
+LOGICAL_AND          : 21
+LOGICAL_OR           : 22
 LPAREN               : 9
 MAKE                 : 
 MINUS                : 11
@@ -126,7 +127,7 @@ RETURN               :
 RPAREN               : 9
 SEMICOLON            : 
 SHORTASSIGN          : 
-STRING               : 3
+STRING               : 4
 STRUCT               : 
 SWITCH               : 
 TIMES                : 12
@@ -139,12 +140,394 @@ error                :
 Nonterminals, with rules where they appear
 
 asignacion           : 0
-bool                 : 4
+bool                 : 20
 expresion            : 1
-expresionBooleana    : 19
+expresionBooleana    : 3 19
 expresionMatematica  : 2 6 9
 numero               : 8
 operando             : 6
 operandoBooleando    : 19
 termino              : 5 6 19
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . asignacion
+    (1) asignacion -> . IDENTIFIER ASSIGN expresion
+
+    IDENTIFIER      shift and go to state 2
+
+    asignacion                     shift and go to state 1
+
+state 1
+
+    (0) S' -> asignacion .
+
+
+
+state 2
+
+    (1) asignacion -> IDENTIFIER . ASSIGN expresion
+
+    ASSIGN          shift and go to state 3
+
+
+state 3
+
+    (1) asignacion -> IDENTIFIER ASSIGN . expresion
+    (2) expresion -> . expresionMatematica
+    (3) expresion -> . expresionBooleana
+    (4) expresion -> . STRING
+    (5) expresionMatematica -> . termino
+    (6) expresionMatematica -> . expresionMatematica operando termino
+    (19) expresionBooleana -> . expresionBooleana operandoBooleando termino
+    (20) expresionBooleana -> . bool
+    (7) termino -> . IDENTIFIER
+    (8) termino -> . numero
+    (9) termino -> . LPAREN expresionMatematica RPAREN
+    (17) bool -> . TRUE
+    (18) bool -> . FALSE
+    (15) numero -> . INTEGER
+    (16) numero -> . FLOAT
+
+    STRING          shift and go to state 8
+    IDENTIFIER      shift and go to state 4
+    LPAREN          shift and go to state 12
+    TRUE            shift and go to state 13
+    FALSE           shift and go to state 14
+    INTEGER         shift and go to state 15
+    FLOAT           shift and go to state 16
+
+    expresion                      shift and go to state 5
+    expresionMatematica            shift and go to state 6
+    expresionBooleana              shift and go to state 7
+    termino                        shift and go to state 9
+    bool                           shift and go to state 10
+    numero                         shift and go to state 11
+
+state 4
+
+    (7) termino -> IDENTIFIER .
+
+    PLUS            reduce using rule 7 (termino -> IDENTIFIER .)
+    MINUS           reduce using rule 7 (termino -> IDENTIFIER .)
+    TIMES           reduce using rule 7 (termino -> IDENTIFIER .)
+    DIVIDE          reduce using rule 7 (termino -> IDENTIFIER .)
+    MODULO          reduce using rule 7 (termino -> IDENTIFIER .)
+    $end            reduce using rule 7 (termino -> IDENTIFIER .)
+    RPAREN          reduce using rule 7 (termino -> IDENTIFIER .)
+    LOGICAL_AND     reduce using rule 7 (termino -> IDENTIFIER .)
+    LOGICAL_OR      reduce using rule 7 (termino -> IDENTIFIER .)
+
+
+state 5
+
+    (1) asignacion -> IDENTIFIER ASSIGN expresion .
+
+    $end            reduce using rule 1 (asignacion -> IDENTIFIER ASSIGN expresion .)
+
+
+state 6
+
+    (2) expresion -> expresionMatematica .
+    (6) expresionMatematica -> expresionMatematica . operando termino
+    (10) operando -> . PLUS
+    (11) operando -> . MINUS
+    (12) operando -> . TIMES
+    (13) operando -> . DIVIDE
+    (14) operando -> . MODULO
+
+    $end            reduce using rule 2 (expresion -> expresionMatematica .)
+    PLUS            shift and go to state 18
+    MINUS           shift and go to state 19
+    TIMES           shift and go to state 20
+    DIVIDE          shift and go to state 21
+    MODULO          shift and go to state 22
+
+    operando                       shift and go to state 17
+
+state 7
+
+    (3) expresion -> expresionBooleana .
+    (19) expresionBooleana -> expresionBooleana . operandoBooleando termino
+    (21) operandoBooleando -> . LOGICAL_AND
+    (22) operandoBooleando -> . LOGICAL_OR
+
+    $end            reduce using rule 3 (expresion -> expresionBooleana .)
+    LOGICAL_AND     shift and go to state 24
+    LOGICAL_OR      shift and go to state 25
+
+    operandoBooleando              shift and go to state 23
+
+state 8
+
+    (4) expresion -> STRING .
+
+    $end            reduce using rule 4 (expresion -> STRING .)
+
+
+state 9
+
+    (5) expresionMatematica -> termino .
+
+    PLUS            reduce using rule 5 (expresionMatematica -> termino .)
+    MINUS           reduce using rule 5 (expresionMatematica -> termino .)
+    TIMES           reduce using rule 5 (expresionMatematica -> termino .)
+    DIVIDE          reduce using rule 5 (expresionMatematica -> termino .)
+    MODULO          reduce using rule 5 (expresionMatematica -> termino .)
+    $end            reduce using rule 5 (expresionMatematica -> termino .)
+    RPAREN          reduce using rule 5 (expresionMatematica -> termino .)
+
+
+state 10
+
+    (20) expresionBooleana -> bool .
+
+    LOGICAL_AND     reduce using rule 20 (expresionBooleana -> bool .)
+    LOGICAL_OR      reduce using rule 20 (expresionBooleana -> bool .)
+    $end            reduce using rule 20 (expresionBooleana -> bool .)
+
+
+state 11
+
+    (8) termino -> numero .
+
+    PLUS            reduce using rule 8 (termino -> numero .)
+    MINUS           reduce using rule 8 (termino -> numero .)
+    TIMES           reduce using rule 8 (termino -> numero .)
+    DIVIDE          reduce using rule 8 (termino -> numero .)
+    MODULO          reduce using rule 8 (termino -> numero .)
+    $end            reduce using rule 8 (termino -> numero .)
+    RPAREN          reduce using rule 8 (termino -> numero .)
+    LOGICAL_AND     reduce using rule 8 (termino -> numero .)
+    LOGICAL_OR      reduce using rule 8 (termino -> numero .)
+
+
+state 12
+
+    (9) termino -> LPAREN . expresionMatematica RPAREN
+    (5) expresionMatematica -> . termino
+    (6) expresionMatematica -> . expresionMatematica operando termino
+    (7) termino -> . IDENTIFIER
+    (8) termino -> . numero
+    (9) termino -> . LPAREN expresionMatematica RPAREN
+    (15) numero -> . INTEGER
+    (16) numero -> . FLOAT
+
+    IDENTIFIER      shift and go to state 4
+    LPAREN          shift and go to state 12
+    INTEGER         shift and go to state 15
+    FLOAT           shift and go to state 16
+
+    expresionMatematica            shift and go to state 26
+    termino                        shift and go to state 9
+    numero                         shift and go to state 11
+
+state 13
+
+    (17) bool -> TRUE .
+
+    LOGICAL_AND     reduce using rule 17 (bool -> TRUE .)
+    LOGICAL_OR      reduce using rule 17 (bool -> TRUE .)
+    $end            reduce using rule 17 (bool -> TRUE .)
+
+
+state 14
+
+    (18) bool -> FALSE .
+
+    LOGICAL_AND     reduce using rule 18 (bool -> FALSE .)
+    LOGICAL_OR      reduce using rule 18 (bool -> FALSE .)
+    $end            reduce using rule 18 (bool -> FALSE .)
+
+
+state 15
+
+    (15) numero -> INTEGER .
+
+    PLUS            reduce using rule 15 (numero -> INTEGER .)
+    MINUS           reduce using rule 15 (numero -> INTEGER .)
+    TIMES           reduce using rule 15 (numero -> INTEGER .)
+    DIVIDE          reduce using rule 15 (numero -> INTEGER .)
+    MODULO          reduce using rule 15 (numero -> INTEGER .)
+    $end            reduce using rule 15 (numero -> INTEGER .)
+    RPAREN          reduce using rule 15 (numero -> INTEGER .)
+    LOGICAL_AND     reduce using rule 15 (numero -> INTEGER .)
+    LOGICAL_OR      reduce using rule 15 (numero -> INTEGER .)
+
+
+state 16
+
+    (16) numero -> FLOAT .
+
+    PLUS            reduce using rule 16 (numero -> FLOAT .)
+    MINUS           reduce using rule 16 (numero -> FLOAT .)
+    TIMES           reduce using rule 16 (numero -> FLOAT .)
+    DIVIDE          reduce using rule 16 (numero -> FLOAT .)
+    MODULO          reduce using rule 16 (numero -> FLOAT .)
+    $end            reduce using rule 16 (numero -> FLOAT .)
+    RPAREN          reduce using rule 16 (numero -> FLOAT .)
+    LOGICAL_AND     reduce using rule 16 (numero -> FLOAT .)
+    LOGICAL_OR      reduce using rule 16 (numero -> FLOAT .)
+
+
+state 17
+
+    (6) expresionMatematica -> expresionMatematica operando . termino
+    (7) termino -> . IDENTIFIER
+    (8) termino -> . numero
+    (9) termino -> . LPAREN expresionMatematica RPAREN
+    (15) numero -> . INTEGER
+    (16) numero -> . FLOAT
+
+    IDENTIFIER      shift and go to state 4
+    LPAREN          shift and go to state 12
+    INTEGER         shift and go to state 15
+    FLOAT           shift and go to state 16
+
+    termino                        shift and go to state 27
+    numero                         shift and go to state 11
+
+state 18
+
+    (10) operando -> PLUS .
+
+    IDENTIFIER      reduce using rule 10 (operando -> PLUS .)
+    LPAREN          reduce using rule 10 (operando -> PLUS .)
+    INTEGER         reduce using rule 10 (operando -> PLUS .)
+    FLOAT           reduce using rule 10 (operando -> PLUS .)
+
+
+state 19
+
+    (11) operando -> MINUS .
+
+    IDENTIFIER      reduce using rule 11 (operando -> MINUS .)
+    LPAREN          reduce using rule 11 (operando -> MINUS .)
+    INTEGER         reduce using rule 11 (operando -> MINUS .)
+    FLOAT           reduce using rule 11 (operando -> MINUS .)
+
+
+state 20
+
+    (12) operando -> TIMES .
+
+    IDENTIFIER      reduce using rule 12 (operando -> TIMES .)
+    LPAREN          reduce using rule 12 (operando -> TIMES .)
+    INTEGER         reduce using rule 12 (operando -> TIMES .)
+    FLOAT           reduce using rule 12 (operando -> TIMES .)
+
+
+state 21
+
+    (13) operando -> DIVIDE .
+
+    IDENTIFIER      reduce using rule 13 (operando -> DIVIDE .)
+    LPAREN          reduce using rule 13 (operando -> DIVIDE .)
+    INTEGER         reduce using rule 13 (operando -> DIVIDE .)
+    FLOAT           reduce using rule 13 (operando -> DIVIDE .)
+
+
+state 22
+
+    (14) operando -> MODULO .
+
+    IDENTIFIER      reduce using rule 14 (operando -> MODULO .)
+    LPAREN          reduce using rule 14 (operando -> MODULO .)
+    INTEGER         reduce using rule 14 (operando -> MODULO .)
+    FLOAT           reduce using rule 14 (operando -> MODULO .)
+
+
+state 23
+
+    (19) expresionBooleana -> expresionBooleana operandoBooleando . termino
+    (7) termino -> . IDENTIFIER
+    (8) termino -> . numero
+    (9) termino -> . LPAREN expresionMatematica RPAREN
+    (15) numero -> . INTEGER
+    (16) numero -> . FLOAT
+
+    IDENTIFIER      shift and go to state 4
+    LPAREN          shift and go to state 12
+    INTEGER         shift and go to state 15
+    FLOAT           shift and go to state 16
+
+    termino                        shift and go to state 28
+    numero                         shift and go to state 11
+
+state 24
+
+    (21) operandoBooleando -> LOGICAL_AND .
+
+    IDENTIFIER      reduce using rule 21 (operandoBooleando -> LOGICAL_AND .)
+    LPAREN          reduce using rule 21 (operandoBooleando -> LOGICAL_AND .)
+    INTEGER         reduce using rule 21 (operandoBooleando -> LOGICAL_AND .)
+    FLOAT           reduce using rule 21 (operandoBooleando -> LOGICAL_AND .)
+
+
+state 25
+
+    (22) operandoBooleando -> LOGICAL_OR .
+
+    IDENTIFIER      reduce using rule 22 (operandoBooleando -> LOGICAL_OR .)
+    LPAREN          reduce using rule 22 (operandoBooleando -> LOGICAL_OR .)
+    INTEGER         reduce using rule 22 (operandoBooleando -> LOGICAL_OR .)
+    FLOAT           reduce using rule 22 (operandoBooleando -> LOGICAL_OR .)
+
+
+state 26
+
+    (9) termino -> LPAREN expresionMatematica . RPAREN
+    (6) expresionMatematica -> expresionMatematica . operando termino
+    (10) operando -> . PLUS
+    (11) operando -> . MINUS
+    (12) operando -> . TIMES
+    (13) operando -> . DIVIDE
+    (14) operando -> . MODULO
+
+    RPAREN          shift and go to state 29
+    PLUS            shift and go to state 18
+    MINUS           shift and go to state 19
+    TIMES           shift and go to state 20
+    DIVIDE          shift and go to state 21
+    MODULO          shift and go to state 22
+
+    operando                       shift and go to state 17
+
+state 27
+
+    (6) expresionMatematica -> expresionMatematica operando termino .
+
+    PLUS            reduce using rule 6 (expresionMatematica -> expresionMatematica operando termino .)
+    MINUS           reduce using rule 6 (expresionMatematica -> expresionMatematica operando termino .)
+    TIMES           reduce using rule 6 (expresionMatematica -> expresionMatematica operando termino .)
+    DIVIDE          reduce using rule 6 (expresionMatematica -> expresionMatematica operando termino .)
+    MODULO          reduce using rule 6 (expresionMatematica -> expresionMatematica operando termino .)
+    $end            reduce using rule 6 (expresionMatematica -> expresionMatematica operando termino .)
+    RPAREN          reduce using rule 6 (expresionMatematica -> expresionMatematica operando termino .)
+
+
+state 28
+
+    (19) expresionBooleana -> expresionBooleana operandoBooleando termino .
+
+    LOGICAL_AND     reduce using rule 19 (expresionBooleana -> expresionBooleana operandoBooleando termino .)
+    LOGICAL_OR      reduce using rule 19 (expresionBooleana -> expresionBooleana operandoBooleando termino .)
+    $end            reduce using rule 19 (expresionBooleana -> expresionBooleana operandoBooleando termino .)
+
+
+state 29
+
+    (9) termino -> LPAREN expresionMatematica RPAREN .
+
+    PLUS            reduce using rule 9 (termino -> LPAREN expresionMatematica RPAREN .)
+    MINUS           reduce using rule 9 (termino -> LPAREN expresionMatematica RPAREN .)
+    TIMES           reduce using rule 9 (termino -> LPAREN expresionMatematica RPAREN .)
+    DIVIDE          reduce using rule 9 (termino -> LPAREN expresionMatematica RPAREN .)
+    MODULO          reduce using rule 9 (termino -> LPAREN expresionMatematica RPAREN .)
+    $end            reduce using rule 9 (termino -> LPAREN expresionMatematica RPAREN .)
+    RPAREN          reduce using rule 9 (termino -> LPAREN expresionMatematica RPAREN .)
+    LOGICAL_AND     reduce using rule 9 (termino -> LPAREN expresionMatematica RPAREN .)
+    LOGICAL_OR      reduce using rule 9 (termino -> LPAREN expresionMatematica RPAREN .)
 
