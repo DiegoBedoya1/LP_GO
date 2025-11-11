@@ -131,17 +131,13 @@ def p_valores(p):
 
 #Estructuras de datos
 #contribucion Steven Mirabá
-#Struct
-def p_struct_decl(p):
-    '''struct_decl : TYPE IDENTIFIER STRUCT LBRACE struct_fields RBRACE'''
+#array
+def p_array_decl(p):
+    '''array_decl : VAR IDENTIFIER ASSIGN LBRACKET INTEGER RBRACKET tipo LBRACE elementos RBRACE'''
 
-def p_struct_fields(p):
-    '''struct_fields : struct_fields struct_field
-                     | struct_field'''
-    
-def p_struct_field(p):
-    '''struct_field : IDENTIFIER IDENTIFIER'''
-    
+def p_elementos(p):
+    '''elementos : elementos COMA expresion
+                 | expresion'''
 
 #Estructuras de control
 #contribucion Steven Mirabá
@@ -206,6 +202,17 @@ def p_factor_num(p):
 def p_factor_expr(p):
     "factor : LPAREN expression RPAREN"
     p[0] = p[2]
+
+#Struct
+def p_struct_decl(p):
+    '''struct_decl : TYPE IDENTIFIER STRUCT LBRACE struct_fields RBRACE'''
+
+def p_struct_fields(p):
+    '''struct_fields : struct_fields struct_field
+                     | struct_field'''
+    
+def p_struct_field(p):
+    '''struct_field : IDENTIFIER IDENTIFIER'''
  """
 
 def p_block(p):
