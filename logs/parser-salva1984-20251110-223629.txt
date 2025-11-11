@@ -1,0 +1,18 @@
+=== Archivo: prueba1.go ===
+
+[ERROR] Fallo al parsear prueba1.go: 'LRParser' object has no attribute 'syntax_errors'
+
+--------------------------------------------------
+
+=== Archivo: prueba2.go ===
+
+[ERROR] Fallo al parsear prueba2.go: 'LRParser' object has no attribute 'syntax_errors'
+
+--------------------------------------------------
+
+=== Archivo: prueba3.go ===
+
+[ERROR] Fallo al parsear prueba3.go: 'LRParser' object has no attribute 'syntax_errors'
+
+--------------------------------------------------
+
