@@ -98,6 +98,7 @@ def p_operando(p):
     | DIVIDE
     | MODULO"""
 
+
 def p_numero(p):
     """numero : INTEGER
     | FLOAT"""
@@ -107,8 +108,9 @@ def p_boolean(p):
     """bool : TRUE
     | FALSE"""
 
+
 def p_valor(p):
-    """ valor : STRING
+    """valor : STRING
     | bool
     | numero
     """
@@ -151,84 +153,115 @@ def p_valores(p):
     |"""  # linea vacia significa que es opcional
 
 
-#Estructuras de datos
-#contribucion Steven Mirabá
-#Struct
+# Estructuras de datos
+# contribucion Steven Mirabá
+# Struct
 def p_struct_decl(p):
-    '''struct_decl : TYPE IDENTIFIER STRUCT LBRACE struct_fields RBRACE'''
+    """struct_decl : TYPE IDENTIFIER STRUCT LBRACE struct_fields RBRACE"""
+
 
 def p_struct_fields(p):
-    '''struct_fields : struct_fields struct_field
-                     | struct_field'''
-    
-def p_struct_field(p):
-    '''struct_field : IDENTIFIER IDENTIFIER'''
+    """struct_fields : struct_fields struct_field
+    | struct_field"""
 
-#contribucion Diego Bedoya
-#map
+
+def p_struct_field(p):
+    """struct_field : IDENTIFIER IDENTIFIER"""
+
+
+# contribucion Diego Bedoya
+# map
 def p_map_decl(p):
-    '''map_decl : IDENTIFIER SHORTASSIGN MAP LBRACKET IDENTIFIER RBRACKET IDENTIFIER LBRACE lista_pares RBRACE'''
+    """map_decl : IDENTIFIER SHORTASSIGN MAP LBRACKET IDENTIFIER RBRACKET IDENTIFIER LBRACE lista_pares RBRACE"""
+
 
 def p_lista_pares(p):
-    '''lista_pares : par_map  COMA lista_pares
-                   | par_map'''
-   
+    """lista_pares : par_map  COMA lista_pares
+    | par_map"""
+
 
 def p_par_map(p):
-    '''par_map : STRING COLON expresion'''
-    
+    """par_map : STRING COLON expresion"""
 
-#Estructuras de control
-#contribucion Steven Mirabá
-#if / else
+
+# slice
+# salvador Muñoz
+# var id []id
+def p_slice_decl_simple(p):
+    """slice_decl_simple : VAR IDENTIFIER ASSIGN LBRACKET RBRACKET IDENTIFIER"""
+
+
+# var id = []id{expresion,...}
+def p_slice_decl(p):
+    """slice_decl : VAR IDENTIFIER ASSIGN LBRACKET RBRACKET IDENTIFIER LBRACE lista_valores RBRACE"""
+
+
+def p_lista_valores(p):
+    """lista_valores : lista_valores COMA expresion
+    | expresion"""
+
+
+# Estructuras de control
+# contribucion Steven Mirabá
+# if / else
 def p_if_stmt(p):
     """if_stmt : IF expresionBooleana block else_opt"""
-    
+
+
 def p_elif_chain(p):
-    '''elif_chain : elif_chain ELSE IF expresionBooleana block
-                  | ELSE IF expresionBooleana block
-                  | empty'''
+    """elif_chain : elif_chain ELSE IF expresionBooleana block
+    | ELSE IF expresionBooleana block
+    | empty"""
+
 
 def p_else_opt(p):
-    '''else_opt : ELSE block
-                | empty'''
+    """else_opt : ELSE block
+    | empty"""
 
-#contribucion Diego Bedoya 
-#switch
+
+# contribucion Diego Bedoya
+# switch
 def p_switch_stmt(p):
-    '''switch_stmt : SWITCH expresion LBRACE case_clauses default_clause RBRACE'''
+    """switch_stmt : SWITCH expresion LBRACE case_clauses default_clause RBRACE"""
+
 
 def p_case_clauses(p):
-    '''case_clauses : case_clause case_clauses
-                    | case_clause
-                    | empty'''
+    """case_clauses : case_clause case_clauses
+    | case_clause
+    | empty"""
+
 
 def p_case_clause(p):
-    '''case_clause : CASE expresion COLON sentencia'''
+    """case_clause : CASE expresion COLON sentencia"""
+
 
 def p_default_clause(p):
-    '''default_clause : DEFAULT COLON sentencia
-                |empty'''
-    
+    """default_clause : DEFAULT COLON sentencia
+    |empty"""
+
 
 # Tipo de funciones
 # contribucion Steven Mirabá
 # metodo asociado a struct
 def p_func_metodo(p):
-    '''func_metodo : FUNC LPAREN IDENTIFIER IDENTIFIER RPAREN IDENTIFIER LPAREN RPAREN LBRACE sentencias RBRACE'''
+    """func_metodo : FUNC LPAREN IDENTIFIER IDENTIFIER RPAREN IDENTIFIER LPAREN RPAREN LBRACE sentencias RBRACE"""
+
 
 def p_lista_parametros(p):
-    """lista_parametros : parametro COMA lista_parametros  
+    """lista_parametros : parametro COMA lista_parametros
     | parametro
     | empty"""
 
-# Salvador Muñoz 
+
+# Salvador Muñoz
 def p_funcion_anonima(p):
-    """funcion_anonima : FUNC LPAREN arg_funcion RPAREN LBRACE sentencias RBRACE llamadaopcional """
+    """funcion_anonima : FUNC LPAREN arg_funcion RPAREN LBRACE sentencias RBRACE llamadaopcional"""
+
 
 def p_llamada_opcional(p):
     """llamadaopcional : LPAREN argllamadaopcional RPAREN
     | empty"""
+
 
 def p_argllamadaopcional(p):
     """argllamadaopcional : IDENTIFIER
@@ -236,23 +269,24 @@ def p_argllamadaopcional(p):
     """
 
 
-
 def p_arg_funcion(p):
-    """arg_funcion : IDENTIFIER tipo
-    | arg_funcion COMA IDENTIFIER tipo
+    """arg_funcion : IDENTIFIER IDENTIFER
+    | arg_funcion COMA IDENTIFIER IDENTIFIER
     | empty"""
 
 
 def p_parametro(p):
-    '''parametro : IDENTIFIER IDENTIFIER'''
+    """parametro : IDENTIFIER IDENTIFIER"""
 
-#contribucion Diego Bedoya
-#funcion de retorno simple
+
+# contribucion Diego Bedoya
+# funcion de retorno simple
 def p_func_con_retorno(p):
-    '''func_con_retorno : FUNC IDENTIFIER LPAREN lista_parametros RPAREN IDENTIFIER LBRACE sentencia RETURN retorno RBRACE'''
+    """func_con_retorno : FUNC IDENTIFIER LPAREN lista_parametros RPAREN IDENTIFIER LBRACE sentencia RETURN retorno RBRACE"""
+
+
 def p_retorno(p):
-    """ retorno : valor | IDENTIFIER
-    """
+    """retorno : valor | IDENTIFIER"""
 
 
 """ def p_expression_plus(p):

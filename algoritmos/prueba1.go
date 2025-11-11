@@ -11,6 +11,8 @@ func main() {
 
     array [1,2,3,"hola"]
 
+    
+
 
     /* Comentario de bloque
     no deberia aparecer en los losgs */
@@ -23,6 +25,11 @@ func main() {
     for i := 0; i < x; i++ {
         fmt.Println(i)
     }
+
+    func() {
+        var msg string = "Hola desde una funcion anonima"
+        fmt.Println(msg)
+    }()
 
     result := x + int(y)
     fmt.Println("Resultado:", result)
