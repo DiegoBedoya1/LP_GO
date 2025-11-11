@@ -3,6 +3,34 @@ from lexer.lexer import tokens
 import os, datetime
 
 
+
+
+# ++++++++++++++++++++
+# Interfaces
+# ++++++++++++++++++++
+
+def p_interface_decl(p):
+    '''interface_decl : TYPE IDENTIFIER INTERFACE LBRACE interface_methods RBRACE'''
+
+def p_interface_methods(p):
+    '''interface_methods : interface_method interface_methods
+                         | interface_method'''
+
+def p_interface_method(p):
+    '''interface_method : IDENTIFIER LPAREN RPAREN'''
+
+
+
+
+
+
+
+
+
+
+
+
+
 # contribucion Salvador Muñoz
 def p_sentencia(p):
     """sentencia : asignacion
@@ -16,8 +44,6 @@ def p_sentencia(p):
 
 
 # contribucion Salvador Muñoz
-
-
 def p_lista_sentencias(p):
     """lista_sentencias : sentencia
     | lista_sentencias sentencia"""
@@ -237,7 +263,22 @@ def p_case_clause(p):
 
 def p_default_clause(p):
     """default_clause : DEFAULT COLON sentencia
-    |empty"""
+    | empty"""
+
+# For
+def p_for_stmt(p):
+    '''for_stmt : FOR for_header block'''
+
+def p_for_header(p):
+    '''for_header : asignacion_corta SEMICOLON expresionBooleana SEMICOLON incremento
+                  | empty'''
+
+def p_incremento(p):
+    '''incremento : IDENTIFIER INCREMENT
+                  | IDENTIFIER DECREMENT'''
+
+
+
 
 
 # Tipo de funciones
@@ -270,7 +311,7 @@ def p_argllamadaopcional(p):
 
 
 def p_arg_funcion(p):
-    """arg_funcion : IDENTIFIER IDENTIFER
+    """arg_funcion : IDENTIFIER IDENTIFIER
     | arg_funcion COMA IDENTIFIER IDENTIFIER
     | empty"""
 
@@ -286,59 +327,17 @@ def p_func_con_retorno(p):
 
 
 def p_retorno(p):
-    """retorno : valor | IDENTIFIER"""
-
-
-""" def p_expression_plus(p):
-    "expression : expression PLUS term"
-    p[0] = p[1] + p[3]
-
-
-def p_expression_minus(p):
-    "expression : expression MINUS term"
-    p[0] = p[1] - p[3]
-
-
-def p_expression_term(p):
-    "expression : term"
-    p[0] = p[1]
-
-
-def p_term_times(p):
-    "term : term TIMES factor"
-    p[0] = p[1] * p[3]
-
-
-def p_term_div(p):
-    "term : term DIVIDE factor"
-    p[0] = p[1] / p[3]
-
-
-def p_term_factor(p):
-    "term : factor"
-    p[0] = p[1]
-
-
-def p_factor_num(p):
-    "factor : NUMBER"
-    p[0] = p[1]
-
-
-def p_factor_expr(p):
-    "factor : LPAREN expression RPAREN"
-    p[0] = p[2]
- """
+    """retorno : valor
+    | IDENTIFIER"""
 
 
 def p_block(p):
     """block : LBRACE sentencias RBRACE"""
 
-
 def p_sentencias(p):
     """sentencias : sentencias sentencia
     | sentencia
     | empty"""
-
 
 def p_empty(p):
     "empty :"

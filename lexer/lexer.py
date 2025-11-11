@@ -49,7 +49,8 @@ reserved = {
     "float32": "FLOAT32",
     "float64": "FLOAT64",
     "complex64": "COMPLEX64",
-    "complex128": "COMPLEX128"
+    "complex128": "COMPLEX128",
+    "map" : "MAP",
 }
 
 
