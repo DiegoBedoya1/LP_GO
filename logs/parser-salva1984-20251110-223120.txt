@@ -1,0 +1,21 @@
+=== Archivo: prueba1.go ===
+
+Resultado del análisis sintáctico:
+None
+
+--------------------------------------------------
+
+=== Archivo: prueba2.go ===
+
+Resultado del análisis sintáctico:
+None
+
+--------------------------------------------------
+
+=== Archivo: prueba3.go ===
+
+Resultado del análisis sintáctico:
+None
+
+--------------------------------------------------
+

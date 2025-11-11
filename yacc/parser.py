@@ -5,12 +5,38 @@ import os, datetime
 
 # contribucion Salvador Muñoz
 def p_sentencia(p):
+<<<<<<< HEAD
+    """sentencia : asignacion
+    | asignacion_corta
+    | expresion
+    | pedirDatos
+    | imprimir
+    | crearVariable
+    | funcion_anonima
+    """
+=======
     '''sentencia : asignacion
                  | asignacion_corta
                  | expresion
                  | pedirDatos
                  | imprimir
                  | crearVariable'''
+>>>>>>> 90660ae891e4727dedca8c05c449800803a7adfa
+
+
+# contribucion Salvador Muñoz
+def p_funcion_anonima(p):
+    """funcion_anonima : FUNC LPAREN valores RPAREN LBRACE sentencias RBRACE"""
+
+
+def p_sentencias(p):
+    """sentencias : lista_sentencias
+    |"""  # bloque vacío permitido
+
+
+def p_lista_sentencias(p):
+    """lista_sentencias : sentencia
+    | lista_sentencias sentencia"""
 
 
 # contribucion Salvador Muñoz
@@ -126,8 +152,9 @@ def p_imprimir(p):
 
 
 def p_valores(p):
-    ''' valores : IDENTIFIER 
-                | IDENTIFIER COMA valores'''
+    """valores : IDENTIFIER
+    | IDENTIFIER COMA valores
+    |"""  # linea vacia significa que es opcional
 
 #Estructuras de datos
 #contribucion Steven Mirabá
@@ -218,40 +245,23 @@ def p_sentencias(p):
 def p_empty(p):
     'empty :'
 
-# Error rule for syntax errors
-#log sintactico para archivo
-errores_sintacticos = []
+syntax_errors = []
+
 
 def p_error(p):
-    if p:
-        errores_sintacticos.append(
-            f"Error sintáctico en línea {getattr(p,'lineno','?')}: token inesperado '{p.value}'")
-    else:
-        errores_sintacticos.append("Error sintáctico: fin de archivo inesperado (EOF)")
-
-def generar_log_sintactico(usuario_git):
-    ts = datetime.datetime.now().strftime('%Y%m%d-%H%M%S')
-    nombre = f"sintactico-{usuario_git}-{ts}.txt"
-    os.makedirs("logs", exist_ok=True)
-    with open(os.path.join("logs", nombre), "w", encoding="utf-8") as f:
-        if errores_sintacticos:
-            f.write("ERRORES SINTÁCTICOS:\n\n")
-            for e in errores_sintacticos:
-                f.write(f"- {e}\n")
-        else:
-            f.write("Sin errores sintácticos.\n")
-    print(f"Log sintáctico generado: {nombre}")
+    msg = f"Syntax error at token '{p.value}' (type={p.type})"
+    syntax_errors.append(msg)
 
 
 # Build the parser
 parser_obj = yacc.yacc()
 
-while True:
-    try:
-        s = input("calc > ")
-    except EOFError:
-        break
-    if not s:
-        continue
-    result = parser_obj.parse(s)
-    print(result)
+# while True:
+#     try:
+#         s = input("calc > ")
+#     except EOFError:
+#         break
+#     if not s:
+#         continue
+#     result = parser_obj.parse(s)
+#     print(result)

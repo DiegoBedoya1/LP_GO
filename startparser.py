@@ -1,6 +1,6 @@
 import os
 import datetime
-from yacc.parser import parser_obj as parser
+from yacc import parser
 
 
 
@@ -46,8 +46,11 @@ def main():
             log.write(f"=== Archivo: {nombre_archivo} ===\n\n")
 
             try:
-                resultado = parser.parse(codigo)  # Llamada al parser
-                log.write(f"Resultado del análisis sintáctico:\n{resultado}\n")
+                resultado = parser.parser_obj.parse(codigo)  # Llamada al parser
+                if parser.syntax_errors:
+                    for err in parser.syntax_errors:
+                        log.write(f"[SyntaxError] {err}\n")
+
             except Exception as e:
                 log.write(f"[ERROR] Fallo al parsear {nombre_archivo}: {e}\n")
 

@@ -1,0 +1,62 @@
+=== Archivo: prueba1.go ===
+
+[SyntaxError] Syntax error at token 'package' (type=PACKAGE)
+[SyntaxError] Syntax error at token 'var' (type=VAR)
+[SyntaxError] Syntax error at token '{' (type=LBRACE)
+[SyntaxError] Syntax error at token '"x es mayor que 5"' (type=STRING)
+[SyntaxError] Syntax error at token '"x es menor o igual que 5"' (type=STRING)
+[SyntaxError] Syntax error at token ';' (type=SEMICOLON)
+[SyntaxError] Syntax error at token ';' (type=SEMICOLON)
+[SyntaxError] Syntax error at token '}' (type=RBRACE)
+[SyntaxError] Syntax error at token 'int' (type=INT)
+[SyntaxError] Syntax error at token 'fmt' (type=FMT)
+
+--------------------------------------------------
+
+=== Archivo: prueba2.go ===
+
+[SyntaxError] Syntax error at token 'package' (type=PACKAGE)
+[SyntaxError] Syntax error at token 'var' (type=VAR)
+[SyntaxError] Syntax error at token '{' (type=LBRACE)
+[SyntaxError] Syntax error at token '"x es mayor que 5"' (type=STRING)
+[SyntaxError] Syntax error at token '"x es menor o igual que 5"' (type=STRING)
+[SyntaxError] Syntax error at token ';' (type=SEMICOLON)
+[SyntaxError] Syntax error at token ';' (type=SEMICOLON)
+[SyntaxError] Syntax error at token '}' (type=RBRACE)
+[SyntaxError] Syntax error at token 'int' (type=INT)
+[SyntaxError] Syntax error at token 'fmt' (type=FMT)
+[SyntaxError] Syntax error at token 'package' (type=PACKAGE)
+[SyntaxError] Syntax error at token 'for' (type=FOR)
+[SyntaxError] Syntax error at token ';' (type=SEMICOLON)
+[SyntaxError] Syntax error at token ';' (type=SEMICOLON)
+[SyntaxError] Syntax error at token '{' (type=LBRACE)
+[SyntaxError] Syntax error at token '"hola mundo"' (type=STRING)
+
+--------------------------------------------------
+
+=== Archivo: prueba3.go ===
+
+[SyntaxError] Syntax error at token 'package' (type=PACKAGE)
+[SyntaxError] Syntax error at token 'var' (type=VAR)
+[SyntaxError] Syntax error at token '{' (type=LBRACE)
+[SyntaxError] Syntax error at token '"x es mayor que 5"' (type=STRING)
+[SyntaxError] Syntax error at token '"x es menor o igual que 5"' (type=STRING)
+[SyntaxError] Syntax error at token ';' (type=SEMICOLON)
+[SyntaxError] Syntax error at token ';' (type=SEMICOLON)
+[SyntaxError] Syntax error at token '}' (type=RBRACE)
+[SyntaxError] Syntax error at token 'int' (type=INT)
+[SyntaxError] Syntax error at token 'fmt' (type=FMT)
+[SyntaxError] Syntax error at token 'package' (type=PACKAGE)
+[SyntaxError] Syntax error at token 'for' (type=FOR)
+[SyntaxError] Syntax error at token ';' (type=SEMICOLON)
+[SyntaxError] Syntax error at token ';' (type=SEMICOLON)
+[SyntaxError] Syntax error at token '{' (type=LBRACE)
+[SyntaxError] Syntax error at token '"hola mundo"' (type=STRING)
+[SyntaxError] Syntax error at token 'package' (type=PACKAGE)
+[SyntaxError] Syntax error at token '"Ingresa tu nombre: "' (type=STRING)
+[SyntaxError] Syntax error at token 'nombre' (type=IDENTIFIER)
+[SyntaxError] Syntax error at token '"hola andres"' (type=STRING)
+[SyntaxError] Syntax error at token '"no te conozco"' (type=STRING)
+
+--------------------------------------------------
+
