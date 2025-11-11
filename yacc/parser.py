@@ -10,7 +10,23 @@ def p_sentencia(p):
     | pedirDatos
     | imprimir
     | crearVariable
+    | funcion_anonima
     """
+
+
+# contribucion Salvador Muñoz
+def p_funcion_anonima(p):
+    """funcion_anonima : FUNC LPAREN valores RPAREN LBRACE sentencias RBRACE"""
+
+
+def p_sentencias(p):
+    """sentencias : lista_sentencias
+    |"""  # bloque vacío permitido
+
+
+def p_lista_sentencias(p):
+    """lista_sentencias : sentencia
+    | lista_sentencias sentencia"""
 
 
 # contribucion Salvador Muñoz
@@ -135,7 +151,8 @@ def p_imprimir(p):
 
 def p_valores(p):
     """valores : IDENTIFIER
-    | IDENTIFIER COMA valores"""
+    | IDENTIFIER COMA valores
+    |"""  # linea vacia significa que es opcional
 
 
 """ def p_expression_plus(p):
@@ -179,20 +196,23 @@ def p_factor_expr(p):
  """
 
 
-# Error rule for syntax errors
+syntax_errors = []
+
+
 def p_error(p):
-    print(f"Syntax error in input! {p.value,p}")
+    msg = f"Syntax error at token '{p.value}' (type={p.type})"
+    syntax_errors.append(msg)
 
 
 # Build the parser
 parser_obj = yacc.yacc()
 
-while True:
-    try:
-        s = input("calc > ")
-    except EOFError:
-        break
-    if not s:
-        continue
-    result = parser_obj.parse(s)
-    print(result)
+# while True:
+#     try:
+#         s = input("calc > ")
+#     except EOFError:
+#         break
+#     if not s:
+#         continue
+#     result = parser_obj.parse(s)
+#     print(result)
