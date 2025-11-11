@@ -160,10 +160,14 @@ def p_elementos(p):
 
 # Estructuras de control
 # contribucion Steven Mirabá
-# if / else
+# if / else if / else
 def p_if_stmt(p):
     """if_stmt : IF expresionBooleana block else_opt"""
-
+    
+def p_elif_chain(p):
+    '''elif_chain : elif_chain ELIF expresionBooleana block
+                  | ELIF expresionBooleana block
+                  | empty'''
 
 def p_else_opt(p):
     """else_opt : ELSE block
