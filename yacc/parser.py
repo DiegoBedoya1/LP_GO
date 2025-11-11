@@ -165,8 +165,8 @@ def p_if_stmt(p):
     """if_stmt : IF expresionBooleana block else_opt"""
     
 def p_elif_chain(p):
-    '''elif_chain : elif_chain ELIF expresionBooleana block
-                  | ELIF expresionBooleana block
+    '''elif_chain : elif_chain ELSE IF expresionBooleana block
+                  | ELSE IF expresionBooleana block
                   | empty'''
 
 def p_else_opt(p):
@@ -188,7 +188,24 @@ def p_lista_parametros(p):
 
 # Salvador Muñoz 
 def p_funcion_anonima(p):
-    """funcion_anonima : FUNC LPAREN valores RPAREN LBRACE sentencias RBRACE """
+    """funcion_anonima : FUNC LPAREN arg_funcion RPAREN LBRACE sentencias RBRACE llamadaopcional """
+
+def p_llamada_opcional(p):
+    """llamadaopcional : LPAREN argllamadaopcional RPAREN
+    | empty"""
+
+def p_argllamadaopcional(p):
+    """argllamadaopcional : IDENTIFIER
+    | argllamadaopcional COMA IDENTIFIER
+    """
+
+
+
+def p_arg_funcion(p):
+    """arg_funcion : IDENTIFIER tipo
+    | arg_funcion COMA IDENTIFIER tipo
+    | empty"""
+
 
 def p_parametro(p):
     """parametro : IDENTIFIER IDENTIFIER"""
