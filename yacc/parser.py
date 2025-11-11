@@ -1,62 +1,67 @@
 import ply.yacc as yacc
 from lexer.lexer import tokens
+import os, datetime
 
 
 # contribucion Salvador Muñoz
 def p_sentencia(p):
-    """sentencia : asignacion
-    | asignacion_corta
-    | expresion
-    | pedirDatos
-    | imprimir
-    | crearVariable
-    """
+    '''sentencia : asignacion
+                 | asignacion_corta
+                 | expresion
+                 | pedirDatos
+                 | imprimir
+                 | crearVariable'''
 
 
 # contribucion Salvador Muñoz
 def p_asignacionCorta(p):
-    """asignacion_corta : IDENTIFIER SHORTASSIGN expresion"""
+    '''asignacion_corta : IDENTIFIER SHORTASSIGN expresion'''
 
 #contribucion Diego Bedoya
 def p_crearVariable(p):
-    '''crearVariable : VAR IDENTIFIER tipo ASSIGN expresion
-    '''
+    '''crearVariable : VAR IDENTIFIER tipo ASSIGN expresion'''
+
 def p_tipo(p):
-    '''tipo : int | float | complex | uint | bool | STRING
-    '''
+    '''tipo : int 
+            | float 
+            | complex 
+            | uint 
+            | bool 
+            | STRING'''
+
 def p_int(p):
-    ''' int : INT |
-    INT8 |
-    INT16 |
-    INT32 |
-    INT64
-    '''
+    ''' int : INT 
+            | INT8 
+            | INT16 
+            | INT32 
+            | INT64'''
+    
 def p_float(p):
-    ''' float: FLOAT32 | FLOAT64
-    '''
+    ''' float : FLOAT32 
+              | FLOAT64'''
+
 def p_uint(p):
-    ''' uint: UINT |
-    UINT8 |
-    UINT16 |
-    UINT32 |
-    UINT64
-    '''
+    ''' uint : UINT 
+             | UINT8 
+             | UINT16 
+             | UINT32 
+             | UINT64'''
+
 def p_complex(p):
-    ''' complex : COMPLEX64 | COMPLEX128
-    '''
+    ''' complex : COMPLEX64 
+                | COMPLEX128'''
 
 
 # Contribucion Salvador Muñoz
 # asignacion de tipo ID = 0
 def p_asignacion(p):
-    """asignacion : IDENTIFIER ASSIGN expresion"""
+    '''asignacion : IDENTIFIER ASSIGN expresion'''
 
 
 def p_expresion(p):
-    """expresion : expresionMatematica
-    | expresionBooleana
-    | STRING
-    """
+    '''expresion : expresionMatematica
+                 | expresionBooleana
+                 | STRING'''
 
 
 def p_expresionMatematica(p):
@@ -118,9 +123,47 @@ def p_pedirDatos(p):
 def p_imprimir(p):
     """imprimir : FMT DOT PRINTLN LPAREN valores RPAREN"""
 def p_valores(p):
-    ''' valores : IDENTIFIER | IDENTIFIER COMA valores
-    '''
+    ''' valores : IDENTIFIER 
+                | IDENTIFIER COMA valores'''
 
+#Estructuras de datos
+#contribucion Steven Mirabá
+#Struct
+def p_struct_decl(p):
+    '''struct_decl : TYPE IDENTIFIER STRUCT LBRACE struct_fields RBRACE'''
+
+def p_struct_fields(p):
+    '''struct_fields : struct_fields struct_field
+                     | struct_field'''
+    
+def p_struct_field(p):
+    '''struct_field : IDENTIFIER IDENTIFIER'''
+    
+
+#Estructuras de control
+#contribucion Steven Mirabá
+#if / else
+def p_if_stmt(p):
+    '''if_stmt : IF expresionBooleana block else_opt'''
+
+def p_else_opt(p):
+    '''else_opt : ELSE block
+                | empty'''
+    
+
+#Tipo de funciones
+#contribucion Steven Mirabá
+#metodo asociado a struct
+def p_func_metodo(p):
+    '''func_metodo : FUNC LPAREN IDENTIFIER IDENTIFIER RPAREN IDENTIFIER LPAREN RPAREN LBRACE sentencias RBRACE'''
+
+def p_lista_parametros(p):
+    '''lista_parametros : lista_parametros COMA parametro
+                        | parametro
+                        | empty'''
+
+def p_parametro(p):
+    '''parametro : IDENTIFIER IDENTIFIER'''
 
 """ def p_expression_plus(p):
     "expression : expression PLUS term"
@@ -162,10 +205,40 @@ def p_factor_expr(p):
     p[0] = p[2]
  """
 
+def p_block(p):
+    '''block : LBRACE sentencias RBRACE'''
+
+def p_sentencias(p):
+    '''sentencias : sentencias sentencia
+                  | sentencia
+                  | empty'''
+
+def p_empty(p):
+    'empty :'
 
 # Error rule for syntax errors
+#log sintactico para archivo
+errores_sintacticos = []
+
 def p_error(p):
-    print(f"Syntax error in input! {p.value,p}")
+    if p:
+        errores_sintacticos.append(
+            f"Error sintáctico en línea {getattr(p,'lineno','?')}: token inesperado '{p.value}'")
+    else:
+        errores_sintacticos.append("Error sintáctico: fin de archivo inesperado (EOF)")
+
+def generar_log_sintactico(usuario_git):
+    ts = datetime.datetime.now().strftime('%Y%m%d-%H%M%S')
+    nombre = f"sintactico-{usuario_git}-{ts}.txt"
+    os.makedirs("logs", exist_ok=True)
+    with open(os.path.join("logs", nombre), "w", encoding="utf-8") as f:
+        if errores_sintacticos:
+            f.write("ERRORES SINTÁCTICOS:\n\n")
+            for e in errores_sintacticos:
+                f.write(f"- {e}\n")
+        else:
+            f.write("Sin errores sintácticos.\n")
+    print(f"Log sintáctico generado: {nombre}")
 
 
 # Build the parser
