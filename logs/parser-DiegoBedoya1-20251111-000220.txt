@@ -1,0 +1,55 @@
+=== Archivo: prueba1.go ===
+
+[SyntaxError] Syntax error at token 'package' (type=PACKAGE)
+[SyntaxError] Syntax error at token 'var' (type=VAR)
+[SyntaxError] Syntax error at token '"x es mayor que 5"' (type=STRING)
+[SyntaxError] Syntax error at token '"x es menor o igual que 5"' (type=STRING)
+[SyntaxError] Syntax error at token 'func' (type=FUNC)
+[SyntaxError] Syntax error at token '}' (type=RBRACE)
+[SyntaxError] Syntax error at token 'int' (type=INT)
+[SyntaxError] Syntax error at token 'fmt' (type=FMT)
+
+--------------------------------------------------
+
+=== Archivo: prueba2.go ===
+
+[SyntaxError] Syntax error at token 'package' (type=PACKAGE)
+[SyntaxError] Syntax error at token 'var' (type=VAR)
+[SyntaxError] Syntax error at token '"x es mayor que 5"' (type=STRING)
+[SyntaxError] Syntax error at token '"x es menor o igual que 5"' (type=STRING)
+[SyntaxError] Syntax error at token 'func' (type=FUNC)
+[SyntaxError] Syntax error at token '}' (type=RBRACE)
+[SyntaxError] Syntax error at token 'int' (type=INT)
+[SyntaxError] Syntax error at token 'fmt' (type=FMT)
+[SyntaxError] Syntax error at token 'package' (type=PACKAGE)
+[SyntaxError] Syntax error at token 'int' (type=INT)
+[SyntaxError] Syntax error at token 'contador' (type=IDENTIFIER)
+[SyntaxError] Syntax error at token '{' (type=LBRACE)
+[SyntaxError] Syntax error at token '(' (type=LPAREN)
+
+--------------------------------------------------
+
+=== Archivo: prueba3.go ===
+
+[SyntaxError] Syntax error at token 'package' (type=PACKAGE)
+[SyntaxError] Syntax error at token 'var' (type=VAR)
+[SyntaxError] Syntax error at token '"x es mayor que 5"' (type=STRING)
+[SyntaxError] Syntax error at token '"x es menor o igual que 5"' (type=STRING)
+[SyntaxError] Syntax error at token 'func' (type=FUNC)
+[SyntaxError] Syntax error at token '}' (type=RBRACE)
+[SyntaxError] Syntax error at token 'int' (type=INT)
+[SyntaxError] Syntax error at token 'fmt' (type=FMT)
+[SyntaxError] Syntax error at token 'package' (type=PACKAGE)
+[SyntaxError] Syntax error at token 'int' (type=INT)
+[SyntaxError] Syntax error at token 'contador' (type=IDENTIFIER)
+[SyntaxError] Syntax error at token '{' (type=LBRACE)
+[SyntaxError] Syntax error at token '(' (type=LPAREN)
+[SyntaxError] Syntax error at token 'package' (type=PACKAGE)
+[SyntaxError] Syntax error at token 'for' (type=FOR)
+[SyntaxError] Syntax error at token '{' (type=LBRACE)
+[SyntaxError] Syntax error at token 'num' (type=IDENTIFIER)
+[SyntaxError] Syntax error at token '{' (type=LBRACE)
+[SyntaxError] Syntax error at token '(' (type=LPAREN)
+
+--------------------------------------------------
+
