@@ -10,10 +10,8 @@ Unused terminals:
     CONTINUE
     DECREMENT
     DEFAULT
-    ELSE
     FOR
     GOTO
-    IF
     IMPORT
     INCREMENT
     INTERFACE
@@ -27,7 +25,6 @@ Unused terminals:
     RBRACKET
     RETURN
     SEMICOLON
-    STRUCT
     SWITCH
     TYPE
     VARIADIC
@@ -41,6 +38,7 @@ Rule 3     sentencia -> expresion
 Rule 4     sentencia -> pedirDatos
 Rule 5     sentencia -> imprimir
 Rule 6     sentencia -> crearVariable
+<<<<<<< HEAD
 Rule 7     sentencia -> funcion_anonima
 Rule 8     funcion_anonima -> FUNC LPAREN valores RPAREN LBRACE sentencias RBRACE
 Rule 9     sentencias -> lista_sentencias
@@ -108,17 +106,105 @@ Terminals, with rules where they appear
 
 AMPERSAND            : 64
 ASSIGN               : 14 35
+=======
+Rule 7     asignacion_corta -> IDENTIFIER SHORTASSIGN expresion
+Rule 8     crearVariable -> VAR IDENTIFIER tipo ASSIGN expresion
+Rule 9     tipo -> int
+Rule 10    tipo -> float
+Rule 11    tipo -> complex
+Rule 12    tipo -> uint
+Rule 13    tipo -> bool
+Rule 14    tipo -> STRING
+Rule 15    int -> INT
+Rule 16    int -> INT8
+Rule 17    int -> INT16
+Rule 18    int -> INT32
+Rule 19    int -> INT64
+Rule 20    float -> FLOAT32
+Rule 21    float -> FLOAT64
+Rule 22    uint -> UINT
+Rule 23    uint -> UINT8
+Rule 24    uint -> UINT16
+Rule 25    uint -> UINT32
+Rule 26    uint -> UINT64
+Rule 27    complex -> COMPLEX64
+Rule 28    complex -> COMPLEX128
+Rule 29    asignacion -> IDENTIFIER ASSIGN expresion
+Rule 30    expresion -> expresionMatematica
+Rule 31    expresion -> expresionBooleana
+Rule 32    expresion -> STRING
+Rule 33    expresionMatematica -> termino
+Rule 34    expresionMatematica -> expresionMatematica operando termino
+Rule 35    termino -> IDENTIFIER
+Rule 36    termino -> numero
+Rule 37    termino -> LPAREN expresionMatematica RPAREN
+Rule 38    operando -> PLUS
+Rule 39    operando -> MINUS
+Rule 40    operando -> TIMES
+Rule 41    operando -> DIVIDE
+Rule 42    operando -> MODULO
+Rule 43    numero -> INTEGER
+Rule 44    numero -> FLOAT
+Rule 45    bool -> TRUE
+Rule 46    bool -> FALSE
+Rule 47    expresionBooleana -> expresionMatematica operandoBooleano expresionMatematica
+Rule 48    expresionBooleana -> expresionBooleana operador_logico expresionBooleana
+Rule 49    expresionBooleana -> bool
+Rule 50    operandoBooleano -> EQUALS
+Rule 51    operandoBooleano -> NOT_EQUALS
+Rule 52    operandoBooleano -> MORE_EQUAL
+Rule 53    operandoBooleano -> LESS_EQUAL
+Rule 54    operandoBooleano -> MORETHAN
+Rule 55    operandoBooleano -> LESSTHAN
+Rule 56    operador_logico -> LOGICAL_AND
+Rule 57    operador_logico -> LOGICAL_OR
+Rule 58    pedirDatos -> FMT DOT SCANLN LPAREN AMPERSAND IDENTIFIER RPAREN
+Rule 59    imprimir -> FMT DOT PRINTLN LPAREN valores RPAREN
+Rule 60    valores -> IDENTIFIER
+Rule 61    valores -> IDENTIFIER COMA valores
+Rule 62    struct_decl -> TYPE IDENTIFIER STRUCT LBRACE struct_fields RBRACE
+Rule 63    struct_fields -> struct_fields struct_field
+Rule 64    struct_fields -> struct_field
+Rule 65    struct_field -> IDENTIFIER IDENTIFIER
+Rule 66    if_stmt -> IF expresionBooleana block else_opt
+Rule 67    else_opt -> ELSE block
+Rule 68    else_opt -> empty
+Rule 69    func_metodo -> FUNC LPAREN IDENTIFIER IDENTIFIER RPAREN IDENTIFIER LPAREN RPAREN LBRACE sentencias RBRACE
+Rule 70    lista_parametros -> lista_parametros COMA parametro
+Rule 71    lista_parametros -> parametro
+Rule 72    lista_parametros -> empty
+Rule 73    parametro -> IDENTIFIER IDENTIFIER
+Rule 74    block -> LBRACE sentencias RBRACE
+Rule 75    sentencias -> sentencias sentencia
+Rule 76    sentencias -> sentencia
+Rule 77    sentencias -> empty
+Rule 78    empty -> <empty>
+
+Terminals, with rules where they appear
+
+AMPERSAND            : 58
+ASSIGN               : 8 29
+AMPERSAND            : 58
+ASSIGN               : 8 29
+>>>>>>> 90660ae891e4727dedca8c05c449800803a7adfa
 BOOL                 : 
 BREAK                : 
 CASE                 : 
 COLON                : 
+<<<<<<< HEAD
 COMA                 : 67
 COMPLEX128           : 34
 COMPLEX64            : 33
+=======
+COMA                 : 61 70
+COMPLEX128           : 28
+COMPLEX64            : 27
+>>>>>>> 90660ae891e4727dedca8c05c449800803a7adfa
 CONST                : 
 CONTINUE             : 
 DECREMENT            : 
 DEFAULT              : 
+<<<<<<< HEAD
 DIVIDE               : 47
 DOT                  : 64 65
 ELSE                 : 
@@ -181,6 +267,83 @@ UINT32               : 31
 UINT64               : 32
 UINT8                : 29
 VAR                  : 14
+=======
+DIVIDE               : 41
+DOT                  : 58 59
+ELSE                 : 67
+EQUALS               : 50
+FALSE                : 46
+FLOAT                : 44
+FLOAT32              : 20
+FLOAT64              : 21
+FMT                  : 58 59
+FOR                  : 
+FUNC                 : 69
+GOTO                 : 
+IDENTIFIER           : 7 8 29 35 58 60 61 62 65 65 69 69 69 73 73
+IF                   : 66
+IMPORT               : 
+INCREMENT            : 
+INT                  : 15
+INT16                : 17
+INT32                : 18
+INT64                : 19
+INT8                 : 16
+INTEGER              : 43
+INT                  : 15
+INT16                : 17
+INT32                : 18
+INT64                : 19
+INT8                 : 16
+INTEGER              : 43
+INTERFACE            : 
+IOTA                 : 
+LBRACE               : 62 69 74
+LBRACKET             : 
+LESSTHAN             : 55
+LESS_EQUAL           : 53
+LOGICAL_AND          : 56
+LOGICAL_OR           : 57
+LPAREN               : 37 58 59 69 69
+MAKE                 : 
+MINUS                : 39
+MODULO               : 42
+MORETHAN             : 54
+MORE_EQUAL           : 52
+MINUS                : 39
+MODULO               : 42
+MORETHAN             : 54
+MORE_EQUAL           : 52
+NIL                  : 
+NOT                  : 
+NOT_EQUALS           : 51
+NOT_EQUALS           : 51
+PACKAGE              : 
+PLUS                 : 38
+PRINTLN              : 59
+PLUS                 : 38
+PRINTLN              : 59
+RANGE                : 
+RBRACE               : 62 69 74
+RBRACKET             : 
+RETURN               : 
+RPAREN               : 37 58 59 69 69
+SCANLN               : 58
+SEMICOLON            : 
+SHORTASSIGN          : 7
+STRING               : 14 32
+STRUCT               : 62
+SWITCH               : 
+TIMES                : 40
+TRUE                 : 45
+TYPE                 : 62
+UINT                 : 22
+UINT16               : 24
+UINT32               : 25
+UINT64               : 26
+UINT8                : 23
+VAR                  : 8
+>>>>>>> 90660ae891e4727dedca8c05c449800803a7adfa
 VARIADIC             : 
 error                : 
 
@@ -188,6 +351,7 @@ Nonterminals, with rules where they appear
 
 asignacion           : 1
 asignacion_corta     : 2
+<<<<<<< HEAD
 bool                 : 19 55
 complex              : 17
 crearVariable        : 6
@@ -210,6 +374,38 @@ termino              : 39 40
 tipo                 : 14
 uint                 : 18
 valores              : 8 65 67
+=======
+block                : 66 67
+bool                 : 13 49
+complex              : 11
+crearVariable        : 6
+else_opt             : 66
+empty                : 68 72 77
+expresion            : 3 7 8 29
+expresionBooleana    : 31 48 48 66
+expresionMatematica  : 30 34 37 47 47
+float                : 10
+func_metodo          : 
+if_stmt              : 
+imprimir             : 5
+int                  : 9
+lista_parametros     : 70
+numero               : 36
+operador_logico      : 48
+operando             : 34
+operandoBooleano     : 47
+parametro            : 70 71
+pedirDatos           : 4
+sentencia            : 75 76 0
+sentencias           : 69 74 75
+struct_decl          : 
+struct_field         : 63 64
+struct_fields        : 62 63
+termino              : 33 34
+tipo                 : 8
+uint                 : 12
+valores              : 59 61
+>>>>>>> 90660ae891e4727dedca8c05c449800803a7adfa
 
 Parsing method: LALR
 
@@ -222,6 +418,7 @@ state 0
     (4) sentencia -> . pedirDatos
     (5) sentencia -> . imprimir
     (6) sentencia -> . crearVariable
+<<<<<<< HEAD
     (7) sentencia -> . funcion_anonima
     (35) asignacion -> . IDENTIFIER ASSIGN expresion
     (13) asignacion_corta -> . IDENTIFIER SHORTASSIGN expresion
@@ -255,6 +452,68 @@ state 0
     FALSE           shift and go to state 21
     INTEGER         shift and go to state 22
     FLOAT           shift and go to state 23
+=======
+    (29) asignacion -> . IDENTIFIER ASSIGN expresion
+    (7) asignacion_corta -> . IDENTIFIER SHORTASSIGN expresion
+    (30) expresion -> . expresionMatematica
+    (31) expresion -> . expresionBooleana
+    (32) expresion -> . STRING
+    (58) pedirDatos -> . FMT DOT SCANLN LPAREN AMPERSAND IDENTIFIER RPAREN
+    (59) imprimir -> . FMT DOT PRINTLN LPAREN valores RPAREN
+    (8) crearVariable -> . VAR IDENTIFIER tipo ASSIGN expresion
+    (33) expresionMatematica -> . termino
+    (34) expresionMatematica -> . expresionMatematica operando termino
+    (47) expresionBooleana -> . expresionMatematica operandoBooleano expresionMatematica
+    (48) expresionBooleana -> . expresionBooleana operador_logico expresionBooleana
+    (49) expresionBooleana -> . bool
+    (35) termino -> . IDENTIFIER
+    (36) termino -> . numero
+    (37) termino -> . LPAREN expresionMatematica RPAREN
+    (45) bool -> . TRUE
+    (46) bool -> . FALSE
+    (43) numero -> . INTEGER
+    (44) numero -> . FLOAT
+    (6) sentencia -> . crearVariable
+    (29) asignacion -> . IDENTIFIER ASSIGN expresion
+    (7) asignacion_corta -> . IDENTIFIER SHORTASSIGN expresion
+    (30) expresion -> . expresionMatematica
+    (31) expresion -> . expresionBooleana
+    (32) expresion -> . STRING
+    (58) pedirDatos -> . FMT DOT SCANLN LPAREN AMPERSAND IDENTIFIER RPAREN
+    (59) imprimir -> . FMT DOT PRINTLN LPAREN valores RPAREN
+    (8) crearVariable -> . VAR IDENTIFIER tipo ASSIGN expresion
+    (33) expresionMatematica -> . termino
+    (34) expresionMatematica -> . expresionMatematica operando termino
+    (47) expresionBooleana -> . expresionMatematica operandoBooleano expresionMatematica
+    (48) expresionBooleana -> . expresionBooleana operador_logico expresionBooleana
+    (49) expresionBooleana -> . bool
+    (35) termino -> . IDENTIFIER
+    (36) termino -> . numero
+    (37) termino -> . LPAREN expresionMatematica RPAREN
+    (45) bool -> . TRUE
+    (46) bool -> . FALSE
+    (43) numero -> . INTEGER
+    (44) numero -> . FLOAT
+
+    IDENTIFIER      shift and go to state 8
+    STRING          shift and go to state 11
+    FMT             shift and go to state 12
+    VAR             shift and go to state 14
+    LPAREN          shift and go to state 13
+    TRUE            shift and go to state 18
+    FALSE           shift and go to state 19
+    INTEGER         shift and go to state 20
+    FLOAT           shift and go to state 21
+    IDENTIFIER      shift and go to state 8
+    STRING          shift and go to state 11
+    FMT             shift and go to state 12
+    VAR             shift and go to state 14
+    LPAREN          shift and go to state 13
+    TRUE            shift and go to state 18
+    FALSE           shift and go to state 19
+    INTEGER         shift and go to state 20
+    FLOAT           shift and go to state 21
+>>>>>>> 90660ae891e4727dedca8c05c449800803a7adfa
 
     sentencia                      shift and go to state 1
     asignacion                     shift and go to state 2
@@ -263,12 +522,26 @@ state 0
     pedirDatos                     shift and go to state 5
     imprimir                       shift and go to state 6
     crearVariable                  shift and go to state 7
+<<<<<<< HEAD
     funcion_anonima                shift and go to state 8
     expresionMatematica            shift and go to state 10
     expresionBooleana              shift and go to state 11
     termino                        shift and go to state 17
     bool                           shift and go to state 18
     numero                         shift and go to state 19
+=======
+    expresionMatematica            shift and go to state 9
+    expresionBooleana              shift and go to state 10
+    termino                        shift and go to state 15
+    bool                           shift and go to state 16
+    numero                         shift and go to state 17
+    crearVariable                  shift and go to state 7
+    expresionMatematica            shift and go to state 9
+    expresionBooleana              shift and go to state 10
+    termino                        shift and go to state 15
+    bool                           shift and go to state 16
+    numero                         shift and go to state 17
+>>>>>>> 90660ae891e4727dedca8c05c449800803a7adfa
 
 state 1
 
@@ -371,6 +644,7 @@ state 7
     (6) sentencia -> crearVariable .
 
     $end            reduce using rule 6 (sentencia -> crearVariable .)
+<<<<<<< HEAD
     IDENTIFIER      reduce using rule 6 (sentencia -> crearVariable .)
     STRING          reduce using rule 6 (sentencia -> crearVariable .)
     FMT             reduce using rule 6 (sentencia -> crearVariable .)
@@ -382,6 +656,11 @@ state 7
     INTEGER         reduce using rule 6 (sentencia -> crearVariable .)
     FLOAT           reduce using rule 6 (sentencia -> crearVariable .)
     RBRACE          reduce using rule 6 (sentencia -> crearVariable .)
+=======
+    (6) sentencia -> crearVariable .
+
+    $end            reduce using rule 6 (sentencia -> crearVariable .)
+>>>>>>> 90660ae891e4727dedca8c05c449800803a7adfa
 
 
 state 8
@@ -401,9 +680,29 @@ state 8
     FLOAT           reduce using rule 7 (sentencia -> funcion_anonima .)
     RBRACE          reduce using rule 7 (sentencia -> funcion_anonima .)
 
+    (29) asignacion -> IDENTIFIER . ASSIGN expresion
+    (7) asignacion_corta -> IDENTIFIER . SHORTASSIGN expresion
+    (35) termino -> IDENTIFIER .
+
+    ASSIGN          shift and go to state 22
+    SHORTASSIGN     shift and go to state 23
+    PLUS            reduce using rule 35 (termino -> IDENTIFIER .)
+    MINUS           reduce using rule 35 (termino -> IDENTIFIER .)
+    TIMES           reduce using rule 35 (termino -> IDENTIFIER .)
+    DIVIDE          reduce using rule 35 (termino -> IDENTIFIER .)
+    MODULO          reduce using rule 35 (termino -> IDENTIFIER .)
+    EQUALS          reduce using rule 35 (termino -> IDENTIFIER .)
+    NOT_EQUALS      reduce using rule 35 (termino -> IDENTIFIER .)
+    MORE_EQUAL      reduce using rule 35 (termino -> IDENTIFIER .)
+    LESS_EQUAL      reduce using rule 35 (termino -> IDENTIFIER .)
+    MORETHAN        reduce using rule 35 (termino -> IDENTIFIER .)
+    LESSTHAN        reduce using rule 35 (termino -> IDENTIFIER .)
+    $end            reduce using rule 35 (termino -> IDENTIFIER .)
+
 
 state 9
 
+<<<<<<< HEAD
     (35) asignacion -> IDENTIFIER . ASSIGN expresion
     (13) asignacion_corta -> IDENTIFIER . SHORTASSIGN expresion
     (41) termino -> IDENTIFIER .
@@ -500,6 +799,95 @@ state 11
     RBRACE          reduce using rule 37 (expresion -> expresionBooleana .)
     LOGICAL_AND     shift and go to state 40
     LOGICAL_OR      shift and go to state 41
+=======
+    (30) expresion -> expresionMatematica .
+    (34) expresionMatematica -> expresionMatematica . operando termino
+    (47) expresionBooleana -> expresionMatematica . operandoBooleano expresionMatematica
+    (38) operando -> . PLUS
+    (39) operando -> . MINUS
+    (40) operando -> . TIMES
+    (41) operando -> . DIVIDE
+    (42) operando -> . MODULO
+    (50) operandoBooleano -> . EQUALS
+    (51) operandoBooleano -> . NOT_EQUALS
+    (52) operandoBooleano -> . MORE_EQUAL
+    (53) operandoBooleano -> . LESS_EQUAL
+    (54) operandoBooleano -> . MORETHAN
+    (55) operandoBooleano -> . LESSTHAN
+    (30) expresion -> expresionMatematica .
+    (34) expresionMatematica -> expresionMatematica . operando termino
+    (47) expresionBooleana -> expresionMatematica . operandoBooleano expresionMatematica
+    (38) operando -> . PLUS
+    (39) operando -> . MINUS
+    (40) operando -> . TIMES
+    (41) operando -> . DIVIDE
+    (42) operando -> . MODULO
+    (50) operandoBooleano -> . EQUALS
+    (51) operandoBooleano -> . NOT_EQUALS
+    (52) operandoBooleano -> . MORE_EQUAL
+    (53) operandoBooleano -> . LESS_EQUAL
+    (54) operandoBooleano -> . MORETHAN
+    (55) operandoBooleano -> . LESSTHAN
+
+    $end            reduce using rule 30 (expresion -> expresionMatematica .)
+    PLUS            shift and go to state 26
+    MINUS           shift and go to state 27
+    TIMES           shift and go to state 28
+    DIVIDE          shift and go to state 29
+    MODULO          shift and go to state 30
+    EQUALS          shift and go to state 31
+    NOT_EQUALS      shift and go to state 32
+    MORE_EQUAL      shift and go to state 33
+    LESS_EQUAL      shift and go to state 34
+    MORETHAN        shift and go to state 35
+    LESSTHAN        shift and go to state 36
+    $end            reduce using rule 30 (expresion -> expresionMatematica .)
+    PLUS            shift and go to state 26
+    MINUS           shift and go to state 27
+    TIMES           shift and go to state 28
+    DIVIDE          shift and go to state 29
+    MODULO          shift and go to state 30
+    EQUALS          shift and go to state 31
+    NOT_EQUALS      shift and go to state 32
+    MORE_EQUAL      shift and go to state 33
+    LESS_EQUAL      shift and go to state 34
+    MORETHAN        shift and go to state 35
+    LESSTHAN        shift and go to state 36
+
+    operando                       shift and go to state 24
+    operandoBooleano               shift and go to state 25
+    operando                       shift and go to state 24
+    operandoBooleano               shift and go to state 25
+
+state 10
+
+    (31) expresion -> expresionBooleana .
+    (48) expresionBooleana -> expresionBooleana . operador_logico expresionBooleana
+    (56) operador_logico -> . LOGICAL_AND
+    (57) operador_logico -> . LOGICAL_OR
+    (31) expresion -> expresionBooleana .
+    (48) expresionBooleana -> expresionBooleana . operador_logico expresionBooleana
+    (56) operador_logico -> . LOGICAL_AND
+    (57) operador_logico -> . LOGICAL_OR
+
+    $end            reduce using rule 31 (expresion -> expresionBooleana .)
+    LOGICAL_AND     shift and go to state 38
+    LOGICAL_OR      shift and go to state 39
+    $end            reduce using rule 31 (expresion -> expresionBooleana .)
+    LOGICAL_AND     shift and go to state 38
+    LOGICAL_OR      shift and go to state 39
+
+    operador_logico                shift and go to state 37
+    operador_logico                shift and go to state 37
+
+state 11
+
+    (32) expresion -> STRING .
+    (32) expresion -> STRING .
+
+    $end            reduce using rule 32 (expresion -> STRING .)
+    $end            reduce using rule 32 (expresion -> STRING .)
+>>>>>>> 90660ae891e4727dedca8c05c449800803a7adfa
 
     operador_logico                shift and go to state 39
 
@@ -520,6 +908,11 @@ state 12
     FLOAT           reduce using rule 38 (expresion -> STRING .)
     RBRACE          reduce using rule 38 (expresion -> STRING .)
 
+    (58) pedirDatos -> FMT . DOT SCANLN LPAREN AMPERSAND IDENTIFIER RPAREN
+    (59) imprimir -> FMT . DOT PRINTLN LPAREN valores RPAREN
+
+    DOT             shift and go to state 40
+
 
 state 13
 
@@ -528,6 +921,7 @@ state 13
 
     DOT             shift and go to state 42
 
+<<<<<<< HEAD
 
 state 14
 
@@ -544,6 +938,36 @@ state 14
     LPAREN          shift and go to state 14
     INTEGER         shift and go to state 22
     FLOAT           shift and go to state 23
+=======
+    expresionMatematica            shift and go to state 41
+    termino                        shift and go to state 15
+    numero                         shift and go to state 17
+    (37) termino -> LPAREN . expresionMatematica RPAREN
+    (33) expresionMatematica -> . termino
+    (34) expresionMatematica -> . expresionMatematica operando termino
+    (35) termino -> . IDENTIFIER
+    (36) termino -> . numero
+    (37) termino -> . LPAREN expresionMatematica RPAREN
+    (43) numero -> . INTEGER
+    (44) numero -> . FLOAT
+
+    IDENTIFIER      shift and go to state 42
+    LPAREN          shift and go to state 13
+    INTEGER         shift and go to state 20
+    FLOAT           shift and go to state 21
+
+    expresionMatematica            shift and go to state 41
+    termino                        shift and go to state 15
+    numero                         shift and go to state 17
+
+state 14
+
+    (8) crearVariable -> VAR . IDENTIFIER tipo ASSIGN expresion
+    (8) crearVariable -> VAR . IDENTIFIER tipo ASSIGN expresion
+
+    IDENTIFIER      shift and go to state 43
+    IDENTIFIER      shift and go to state 43
+>>>>>>> 90660ae891e4727dedca8c05c449800803a7adfa
 
     expresionMatematica            shift and go to state 43
     termino                        shift and go to state 17
@@ -551,22 +975,71 @@ state 14
 
 state 15
 
+<<<<<<< HEAD
     (14) crearVariable -> VAR . IDENTIFIER tipo ASSIGN expresion
 
     IDENTIFIER      shift and go to state 45
+=======
+    (33) expresionMatematica -> termino .
+    (33) expresionMatematica -> termino .
+
+    PLUS            reduce using rule 33 (expresionMatematica -> termino .)
+    MINUS           reduce using rule 33 (expresionMatematica -> termino .)
+    TIMES           reduce using rule 33 (expresionMatematica -> termino .)
+    DIVIDE          reduce using rule 33 (expresionMatematica -> termino .)
+    MODULO          reduce using rule 33 (expresionMatematica -> termino .)
+    EQUALS          reduce using rule 33 (expresionMatematica -> termino .)
+    NOT_EQUALS      reduce using rule 33 (expresionMatematica -> termino .)
+    MORE_EQUAL      reduce using rule 33 (expresionMatematica -> termino .)
+    LESS_EQUAL      reduce using rule 33 (expresionMatematica -> termino .)
+    MORETHAN        reduce using rule 33 (expresionMatematica -> termino .)
+    LESSTHAN        reduce using rule 33 (expresionMatematica -> termino .)
+    $end            reduce using rule 33 (expresionMatematica -> termino .)
+    RPAREN          reduce using rule 33 (expresionMatematica -> termino .)
+    LOGICAL_AND     reduce using rule 33 (expresionMatematica -> termino .)
+    LOGICAL_OR      reduce using rule 33 (expresionMatematica -> termino .)
+    PLUS            reduce using rule 33 (expresionMatematica -> termino .)
+    MINUS           reduce using rule 33 (expresionMatematica -> termino .)
+    TIMES           reduce using rule 33 (expresionMatematica -> termino .)
+    DIVIDE          reduce using rule 33 (expresionMatematica -> termino .)
+    MODULO          reduce using rule 33 (expresionMatematica -> termino .)
+    EQUALS          reduce using rule 33 (expresionMatematica -> termino .)
+    NOT_EQUALS      reduce using rule 33 (expresionMatematica -> termino .)
+    MORE_EQUAL      reduce using rule 33 (expresionMatematica -> termino .)
+    LESS_EQUAL      reduce using rule 33 (expresionMatematica -> termino .)
+    MORETHAN        reduce using rule 33 (expresionMatematica -> termino .)
+    LESSTHAN        reduce using rule 33 (expresionMatematica -> termino .)
+    $end            reduce using rule 33 (expresionMatematica -> termino .)
+    RPAREN          reduce using rule 33 (expresionMatematica -> termino .)
+    LOGICAL_AND     reduce using rule 33 (expresionMatematica -> termino .)
+    LOGICAL_OR      reduce using rule 33 (expresionMatematica -> termino .)
+>>>>>>> 90660ae891e4727dedca8c05c449800803a7adfa
 
 
 state 16
 
+<<<<<<< HEAD
     (8) funcion_anonima -> FUNC . LPAREN valores RPAREN LBRACE sentencias RBRACE
 
     LPAREN          shift and go to state 46
+=======
+    (49) expresionBooleana -> bool .
+    (49) expresionBooleana -> bool .
+
+    LOGICAL_AND     reduce using rule 49 (expresionBooleana -> bool .)
+    LOGICAL_OR      reduce using rule 49 (expresionBooleana -> bool .)
+    $end            reduce using rule 49 (expresionBooleana -> bool .)
+    LOGICAL_AND     reduce using rule 49 (expresionBooleana -> bool .)
+    LOGICAL_OR      reduce using rule 49 (expresionBooleana -> bool .)
+    $end            reduce using rule 49 (expresionBooleana -> bool .)
+>>>>>>> 90660ae891e4727dedca8c05c449800803a7adfa
 
 
 state 17
 
     (39) expresionMatematica -> termino .
 
+<<<<<<< HEAD
     PLUS            reduce using rule 39 (expresionMatematica -> termino .)
     MINUS           reduce using rule 39 (expresionMatematica -> termino .)
     TIMES           reduce using rule 39 (expresionMatematica -> termino .)
@@ -593,12 +1066,47 @@ state 17
     RBRACE          reduce using rule 39 (expresionMatematica -> termino .)
     LOGICAL_AND     reduce using rule 39 (expresionMatematica -> termino .)
     LOGICAL_OR      reduce using rule 39 (expresionMatematica -> termino .)
+=======
+    PLUS            reduce using rule 36 (termino -> numero .)
+    MINUS           reduce using rule 36 (termino -> numero .)
+    TIMES           reduce using rule 36 (termino -> numero .)
+    DIVIDE          reduce using rule 36 (termino -> numero .)
+    MODULO          reduce using rule 36 (termino -> numero .)
+    EQUALS          reduce using rule 36 (termino -> numero .)
+    NOT_EQUALS      reduce using rule 36 (termino -> numero .)
+    MORE_EQUAL      reduce using rule 36 (termino -> numero .)
+    LESS_EQUAL      reduce using rule 36 (termino -> numero .)
+    MORETHAN        reduce using rule 36 (termino -> numero .)
+    LESSTHAN        reduce using rule 36 (termino -> numero .)
+    $end            reduce using rule 36 (termino -> numero .)
+    RPAREN          reduce using rule 36 (termino -> numero .)
+    LOGICAL_AND     reduce using rule 36 (termino -> numero .)
+    LOGICAL_OR      reduce using rule 36 (termino -> numero .)
+    (36) termino -> numero .
+
+    PLUS            reduce using rule 36 (termino -> numero .)
+    MINUS           reduce using rule 36 (termino -> numero .)
+    TIMES           reduce using rule 36 (termino -> numero .)
+    DIVIDE          reduce using rule 36 (termino -> numero .)
+    MODULO          reduce using rule 36 (termino -> numero .)
+    EQUALS          reduce using rule 36 (termino -> numero .)
+    NOT_EQUALS      reduce using rule 36 (termino -> numero .)
+    MORE_EQUAL      reduce using rule 36 (termino -> numero .)
+    LESS_EQUAL      reduce using rule 36 (termino -> numero .)
+    MORETHAN        reduce using rule 36 (termino -> numero .)
+    LESSTHAN        reduce using rule 36 (termino -> numero .)
+    $end            reduce using rule 36 (termino -> numero .)
+    RPAREN          reduce using rule 36 (termino -> numero .)
+    LOGICAL_AND     reduce using rule 36 (termino -> numero .)
+    LOGICAL_OR      reduce using rule 36 (termino -> numero .)
+>>>>>>> 90660ae891e4727dedca8c05c449800803a7adfa
 
 
 state 18
 
     (55) expresionBooleana -> bool .
 
+<<<<<<< HEAD
     LOGICAL_AND     reduce using rule 55 (expresionBooleana -> bool .)
     LOGICAL_OR      reduce using rule 55 (expresionBooleana -> bool .)
     $end            reduce using rule 55 (expresionBooleana -> bool .)
@@ -613,12 +1121,25 @@ state 18
     INTEGER         reduce using rule 55 (expresionBooleana -> bool .)
     FLOAT           reduce using rule 55 (expresionBooleana -> bool .)
     RBRACE          reduce using rule 55 (expresionBooleana -> bool .)
+=======
+    LOGICAL_AND     reduce using rule 45 (bool -> TRUE .)
+    LOGICAL_OR      reduce using rule 45 (bool -> TRUE .)
+    $end            reduce using rule 45 (bool -> TRUE .)
+    ASSIGN          reduce using rule 45 (bool -> TRUE .)
+    (45) bool -> TRUE .
+
+    LOGICAL_AND     reduce using rule 45 (bool -> TRUE .)
+    LOGICAL_OR      reduce using rule 45 (bool -> TRUE .)
+    $end            reduce using rule 45 (bool -> TRUE .)
+    ASSIGN          reduce using rule 45 (bool -> TRUE .)
+>>>>>>> 90660ae891e4727dedca8c05c449800803a7adfa
 
 
 state 19
 
     (42) termino -> numero .
 
+<<<<<<< HEAD
     PLUS            reduce using rule 42 (termino -> numero .)
     MINUS           reduce using rule 42 (termino -> numero .)
     TIMES           reduce using rule 42 (termino -> numero .)
@@ -645,6 +1166,18 @@ state 19
     RBRACE          reduce using rule 42 (termino -> numero .)
     LOGICAL_AND     reduce using rule 42 (termino -> numero .)
     LOGICAL_OR      reduce using rule 42 (termino -> numero .)
+=======
+    LOGICAL_AND     reduce using rule 46 (bool -> FALSE .)
+    LOGICAL_OR      reduce using rule 46 (bool -> FALSE .)
+    $end            reduce using rule 46 (bool -> FALSE .)
+    ASSIGN          reduce using rule 46 (bool -> FALSE .)
+    (46) bool -> FALSE .
+
+    LOGICAL_AND     reduce using rule 46 (bool -> FALSE .)
+    LOGICAL_OR      reduce using rule 46 (bool -> FALSE .)
+    $end            reduce using rule 46 (bool -> FALSE .)
+    ASSIGN          reduce using rule 46 (bool -> FALSE .)
+>>>>>>> 90660ae891e4727dedca8c05c449800803a7adfa
 
 
 state 20
@@ -667,6 +1200,24 @@ state 20
     RBRACE          reduce using rule 51 (bool -> TRUE .)
     ASSIGN          reduce using rule 51 (bool -> TRUE .)
 
+    (43) numero -> INTEGER .
+
+    PLUS            reduce using rule 43 (numero -> INTEGER .)
+    MINUS           reduce using rule 43 (numero -> INTEGER .)
+    TIMES           reduce using rule 43 (numero -> INTEGER .)
+    DIVIDE          reduce using rule 43 (numero -> INTEGER .)
+    MODULO          reduce using rule 43 (numero -> INTEGER .)
+    EQUALS          reduce using rule 43 (numero -> INTEGER .)
+    NOT_EQUALS      reduce using rule 43 (numero -> INTEGER .)
+    MORE_EQUAL      reduce using rule 43 (numero -> INTEGER .)
+    LESS_EQUAL      reduce using rule 43 (numero -> INTEGER .)
+    MORETHAN        reduce using rule 43 (numero -> INTEGER .)
+    LESSTHAN        reduce using rule 43 (numero -> INTEGER .)
+    $end            reduce using rule 43 (numero -> INTEGER .)
+    RPAREN          reduce using rule 43 (numero -> INTEGER .)
+    LOGICAL_AND     reduce using rule 43 (numero -> INTEGER .)
+    LOGICAL_OR      reduce using rule 43 (numero -> INTEGER .)
+
 
 state 21
 
@@ -688,10 +1239,63 @@ state 21
     RBRACE          reduce using rule 52 (bool -> FALSE .)
     ASSIGN          reduce using rule 52 (bool -> FALSE .)
 
+    (44) numero -> FLOAT .
+
+    PLUS            reduce using rule 44 (numero -> FLOAT .)
+    MINUS           reduce using rule 44 (numero -> FLOAT .)
+    TIMES           reduce using rule 44 (numero -> FLOAT .)
+    DIVIDE          reduce using rule 44 (numero -> FLOAT .)
+    MODULO          reduce using rule 44 (numero -> FLOAT .)
+    EQUALS          reduce using rule 44 (numero -> FLOAT .)
+    NOT_EQUALS      reduce using rule 44 (numero -> FLOAT .)
+    MORE_EQUAL      reduce using rule 44 (numero -> FLOAT .)
+    LESS_EQUAL      reduce using rule 44 (numero -> FLOAT .)
+    MORETHAN        reduce using rule 44 (numero -> FLOAT .)
+    LESSTHAN        reduce using rule 44 (numero -> FLOAT .)
+    $end            reduce using rule 44 (numero -> FLOAT .)
+    RPAREN          reduce using rule 44 (numero -> FLOAT .)
+    LOGICAL_AND     reduce using rule 44 (numero -> FLOAT .)
+    LOGICAL_OR      reduce using rule 44 (numero -> FLOAT .)
+
 
 state 22
 
+<<<<<<< HEAD
     (49) numero -> INTEGER .
+=======
+    (29) asignacion -> IDENTIFIER ASSIGN . expresion
+    (30) expresion -> . expresionMatematica
+    (31) expresion -> . expresionBooleana
+    (32) expresion -> . STRING
+    (33) expresionMatematica -> . termino
+    (34) expresionMatematica -> . expresionMatematica operando termino
+    (47) expresionBooleana -> . expresionMatematica operandoBooleano expresionMatematica
+    (48) expresionBooleana -> . expresionBooleana operador_logico expresionBooleana
+    (49) expresionBooleana -> . bool
+    (35) termino -> . IDENTIFIER
+    (36) termino -> . numero
+    (37) termino -> . LPAREN expresionMatematica RPAREN
+    (45) bool -> . TRUE
+    (46) bool -> . FALSE
+    (43) numero -> . INTEGER
+    (44) numero -> . FLOAT
+    (29) asignacion -> IDENTIFIER ASSIGN . expresion
+    (30) expresion -> . expresionMatematica
+    (31) expresion -> . expresionBooleana
+    (32) expresion -> . STRING
+    (33) expresionMatematica -> . termino
+    (34) expresionMatematica -> . expresionMatematica operando termino
+    (47) expresionBooleana -> . expresionMatematica operandoBooleano expresionMatematica
+    (48) expresionBooleana -> . expresionBooleana operador_logico expresionBooleana
+    (49) expresionBooleana -> . bool
+    (35) termino -> . IDENTIFIER
+    (36) termino -> . numero
+    (37) termino -> . LPAREN expresionMatematica RPAREN
+    (45) bool -> . TRUE
+    (46) bool -> . FALSE
+    (43) numero -> . INTEGER
+    (44) numero -> . FLOAT
+>>>>>>> 90660ae891e4727dedca8c05c449800803a7adfa
 
     PLUS            reduce using rule 49 (numero -> INTEGER .)
     MINUS           reduce using rule 49 (numero -> INTEGER .)
@@ -720,10 +1324,68 @@ state 22
     LOGICAL_AND     reduce using rule 49 (numero -> INTEGER .)
     LOGICAL_OR      reduce using rule 49 (numero -> INTEGER .)
 
+<<<<<<< HEAD
 
 state 23
 
     (50) numero -> FLOAT .
+=======
+    expresion                      shift and go to state 44
+    expresionMatematica            shift and go to state 9
+    expresionBooleana              shift and go to state 10
+    termino                        shift and go to state 15
+    bool                           shift and go to state 16
+    numero                         shift and go to state 17
+    STRING          shift and go to state 11
+    IDENTIFIER      shift and go to state 42
+    LPAREN          shift and go to state 13
+    TRUE            shift and go to state 18
+    FALSE           shift and go to state 19
+    INTEGER         shift and go to state 20
+    FLOAT           shift and go to state 21
+
+    expresion                      shift and go to state 44
+    expresionMatematica            shift and go to state 9
+    expresionBooleana              shift and go to state 10
+    termino                        shift and go to state 15
+    bool                           shift and go to state 16
+    numero                         shift and go to state 17
+
+state 23
+
+    (7) asignacion_corta -> IDENTIFIER SHORTASSIGN . expresion
+    (30) expresion -> . expresionMatematica
+    (31) expresion -> . expresionBooleana
+    (32) expresion -> . STRING
+    (33) expresionMatematica -> . termino
+    (34) expresionMatematica -> . expresionMatematica operando termino
+    (47) expresionBooleana -> . expresionMatematica operandoBooleano expresionMatematica
+    (48) expresionBooleana -> . expresionBooleana operador_logico expresionBooleana
+    (49) expresionBooleana -> . bool
+    (35) termino -> . IDENTIFIER
+    (36) termino -> . numero
+    (37) termino -> . LPAREN expresionMatematica RPAREN
+    (45) bool -> . TRUE
+    (46) bool -> . FALSE
+    (43) numero -> . INTEGER
+    (44) numero -> . FLOAT
+    (7) asignacion_corta -> IDENTIFIER SHORTASSIGN . expresion
+    (30) expresion -> . expresionMatematica
+    (31) expresion -> . expresionBooleana
+    (32) expresion -> . STRING
+    (33) expresionMatematica -> . termino
+    (34) expresionMatematica -> . expresionMatematica operando termino
+    (47) expresionBooleana -> . expresionMatematica operandoBooleano expresionMatematica
+    (48) expresionBooleana -> . expresionBooleana operador_logico expresionBooleana
+    (49) expresionBooleana -> . bool
+    (35) termino -> . IDENTIFIER
+    (36) termino -> . numero
+    (37) termino -> . LPAREN expresionMatematica RPAREN
+    (45) bool -> . TRUE
+    (46) bool -> . FALSE
+    (43) numero -> . INTEGER
+    (44) numero -> . FLOAT
+>>>>>>> 90660ae891e4727dedca8c05c449800803a7adfa
 
     PLUS            reduce using rule 50 (numero -> FLOAT .)
     MINUS           reduce using rule 50 (numero -> FLOAT .)
@@ -752,6 +1414,29 @@ state 23
     LOGICAL_AND     reduce using rule 50 (numero -> FLOAT .)
     LOGICAL_OR      reduce using rule 50 (numero -> FLOAT .)
 
+<<<<<<< HEAD
+=======
+    expresion                      shift and go to state 45
+    expresionMatematica            shift and go to state 9
+    expresionBooleana              shift and go to state 10
+    termino                        shift and go to state 15
+    bool                           shift and go to state 16
+    numero                         shift and go to state 17
+    STRING          shift and go to state 11
+    IDENTIFIER      shift and go to state 42
+    LPAREN          shift and go to state 13
+    TRUE            shift and go to state 18
+    FALSE           shift and go to state 19
+    INTEGER         shift and go to state 20
+    FLOAT           shift and go to state 21
+
+    expresion                      shift and go to state 45
+    expresionMatematica            shift and go to state 9
+    expresionBooleana              shift and go to state 10
+    termino                        shift and go to state 15
+    bool                           shift and go to state 16
+    numero                         shift and go to state 17
+>>>>>>> 90660ae891e4727dedca8c05c449800803a7adfa
 
 state 24
 
@@ -780,12 +1465,31 @@ state 24
     INTEGER         shift and go to state 22
     FLOAT           shift and go to state 23
 
+<<<<<<< HEAD
     expresion                      shift and go to state 47
     expresionMatematica            shift and go to state 10
     expresionBooleana              shift and go to state 11
     termino                        shift and go to state 17
     bool                           shift and go to state 18
     numero                         shift and go to state 19
+=======
+    termino                        shift and go to state 46
+    numero                         shift and go to state 17
+    (34) expresionMatematica -> expresionMatematica operando . termino
+    (35) termino -> . IDENTIFIER
+    (36) termino -> . numero
+    (37) termino -> . LPAREN expresionMatematica RPAREN
+    (43) numero -> . INTEGER
+    (44) numero -> . FLOAT
+
+    IDENTIFIER      shift and go to state 42
+    LPAREN          shift and go to state 13
+    INTEGER         shift and go to state 20
+    FLOAT           shift and go to state 21
+
+    termino                        shift and go to state 46
+    numero                         shift and go to state 17
+>>>>>>> 90660ae891e4727dedca8c05c449800803a7adfa
 
 state 25
 
@@ -814,6 +1518,7 @@ state 25
     INTEGER         shift and go to state 22
     FLOAT           shift and go to state 23
 
+<<<<<<< HEAD
     expresion                      shift and go to state 48
     expresionMatematica            shift and go to state 10
     expresionBooleana              shift and go to state 11
@@ -834,12 +1539,49 @@ state 26
     LPAREN          shift and go to state 14
     INTEGER         shift and go to state 22
     FLOAT           shift and go to state 23
+=======
+    expresionMatematica            shift and go to state 47
+    termino                        shift and go to state 15
+    numero                         shift and go to state 17
+    (47) expresionBooleana -> expresionMatematica operandoBooleano . expresionMatematica
+    (33) expresionMatematica -> . termino
+    (34) expresionMatematica -> . expresionMatematica operando termino
+    (35) termino -> . IDENTIFIER
+    (36) termino -> . numero
+    (37) termino -> . LPAREN expresionMatematica RPAREN
+    (43) numero -> . INTEGER
+    (44) numero -> . FLOAT
+
+    IDENTIFIER      shift and go to state 42
+    LPAREN          shift and go to state 13
+    INTEGER         shift and go to state 20
+    FLOAT           shift and go to state 21
+
+    expresionMatematica            shift and go to state 47
+    termino                        shift and go to state 15
+    numero                         shift and go to state 17
+
+state 26
+
+    (38) operando -> PLUS .
+    (38) operando -> PLUS .
+
+    IDENTIFIER      reduce using rule 38 (operando -> PLUS .)
+    LPAREN          reduce using rule 38 (operando -> PLUS .)
+    INTEGER         reduce using rule 38 (operando -> PLUS .)
+    FLOAT           reduce using rule 38 (operando -> PLUS .)
+    IDENTIFIER      reduce using rule 38 (operando -> PLUS .)
+    LPAREN          reduce using rule 38 (operando -> PLUS .)
+    INTEGER         reduce using rule 38 (operando -> PLUS .)
+    FLOAT           reduce using rule 38 (operando -> PLUS .)
+>>>>>>> 90660ae891e4727dedca8c05c449800803a7adfa
 
     termino                        shift and go to state 49
     numero                         shift and go to state 19
 
 state 27
 
+<<<<<<< HEAD
     (53) expresionBooleana -> expresionMatematica operandoBooleano . expresionMatematica
     (39) expresionMatematica -> . termino
     (40) expresionMatematica -> . expresionMatematica operando termino
@@ -853,6 +1595,19 @@ state 27
     LPAREN          shift and go to state 14
     INTEGER         shift and go to state 22
     FLOAT           shift and go to state 23
+=======
+    (39) operando -> MINUS .
+    (39) operando -> MINUS .
+
+    IDENTIFIER      reduce using rule 39 (operando -> MINUS .)
+    LPAREN          reduce using rule 39 (operando -> MINUS .)
+    INTEGER         reduce using rule 39 (operando -> MINUS .)
+    FLOAT           reduce using rule 39 (operando -> MINUS .)
+    IDENTIFIER      reduce using rule 39 (operando -> MINUS .)
+    LPAREN          reduce using rule 39 (operando -> MINUS .)
+    INTEGER         reduce using rule 39 (operando -> MINUS .)
+    FLOAT           reduce using rule 39 (operando -> MINUS .)
+>>>>>>> 90660ae891e4727dedca8c05c449800803a7adfa
 
     expresionMatematica            shift and go to state 50
     termino                        shift and go to state 17
@@ -860,72 +1615,170 @@ state 27
 
 state 28
 
+<<<<<<< HEAD
     (44) operando -> PLUS .
 
     IDENTIFIER      reduce using rule 44 (operando -> PLUS .)
     LPAREN          reduce using rule 44 (operando -> PLUS .)
     INTEGER         reduce using rule 44 (operando -> PLUS .)
     FLOAT           reduce using rule 44 (operando -> PLUS .)
+=======
+    (40) operando -> TIMES .
+    (40) operando -> TIMES .
+
+    IDENTIFIER      reduce using rule 40 (operando -> TIMES .)
+    LPAREN          reduce using rule 40 (operando -> TIMES .)
+    INTEGER         reduce using rule 40 (operando -> TIMES .)
+    FLOAT           reduce using rule 40 (operando -> TIMES .)
+    IDENTIFIER      reduce using rule 40 (operando -> TIMES .)
+    LPAREN          reduce using rule 40 (operando -> TIMES .)
+    INTEGER         reduce using rule 40 (operando -> TIMES .)
+    FLOAT           reduce using rule 40 (operando -> TIMES .)
+>>>>>>> 90660ae891e4727dedca8c05c449800803a7adfa
 
 
 state 29
 
+<<<<<<< HEAD
     (45) operando -> MINUS .
 
     IDENTIFIER      reduce using rule 45 (operando -> MINUS .)
     LPAREN          reduce using rule 45 (operando -> MINUS .)
     INTEGER         reduce using rule 45 (operando -> MINUS .)
     FLOAT           reduce using rule 45 (operando -> MINUS .)
+=======
+    (41) operando -> DIVIDE .
+    (41) operando -> DIVIDE .
+
+    IDENTIFIER      reduce using rule 41 (operando -> DIVIDE .)
+    LPAREN          reduce using rule 41 (operando -> DIVIDE .)
+    INTEGER         reduce using rule 41 (operando -> DIVIDE .)
+    FLOAT           reduce using rule 41 (operando -> DIVIDE .)
+    IDENTIFIER      reduce using rule 41 (operando -> DIVIDE .)
+    LPAREN          reduce using rule 41 (operando -> DIVIDE .)
+    INTEGER         reduce using rule 41 (operando -> DIVIDE .)
+    FLOAT           reduce using rule 41 (operando -> DIVIDE .)
+>>>>>>> 90660ae891e4727dedca8c05c449800803a7adfa
 
 
 state 30
 
+<<<<<<< HEAD
     (46) operando -> TIMES .
 
     IDENTIFIER      reduce using rule 46 (operando -> TIMES .)
     LPAREN          reduce using rule 46 (operando -> TIMES .)
     INTEGER         reduce using rule 46 (operando -> TIMES .)
     FLOAT           reduce using rule 46 (operando -> TIMES .)
+=======
+    (42) operando -> MODULO .
+    (42) operando -> MODULO .
+
+    IDENTIFIER      reduce using rule 42 (operando -> MODULO .)
+    LPAREN          reduce using rule 42 (operando -> MODULO .)
+    INTEGER         reduce using rule 42 (operando -> MODULO .)
+    FLOAT           reduce using rule 42 (operando -> MODULO .)
+    IDENTIFIER      reduce using rule 42 (operando -> MODULO .)
+    LPAREN          reduce using rule 42 (operando -> MODULO .)
+    INTEGER         reduce using rule 42 (operando -> MODULO .)
+    FLOAT           reduce using rule 42 (operando -> MODULO .)
+>>>>>>> 90660ae891e4727dedca8c05c449800803a7adfa
 
 
 state 31
 
+<<<<<<< HEAD
     (47) operando -> DIVIDE .
 
     IDENTIFIER      reduce using rule 47 (operando -> DIVIDE .)
     LPAREN          reduce using rule 47 (operando -> DIVIDE .)
     INTEGER         reduce using rule 47 (operando -> DIVIDE .)
     FLOAT           reduce using rule 47 (operando -> DIVIDE .)
+=======
+    (50) operandoBooleano -> EQUALS .
+    (50) operandoBooleano -> EQUALS .
+
+    IDENTIFIER      reduce using rule 50 (operandoBooleano -> EQUALS .)
+    LPAREN          reduce using rule 50 (operandoBooleano -> EQUALS .)
+    INTEGER         reduce using rule 50 (operandoBooleano -> EQUALS .)
+    FLOAT           reduce using rule 50 (operandoBooleano -> EQUALS .)
+    IDENTIFIER      reduce using rule 50 (operandoBooleano -> EQUALS .)
+    LPAREN          reduce using rule 50 (operandoBooleano -> EQUALS .)
+    INTEGER         reduce using rule 50 (operandoBooleano -> EQUALS .)
+    FLOAT           reduce using rule 50 (operandoBooleano -> EQUALS .)
+>>>>>>> 90660ae891e4727dedca8c05c449800803a7adfa
 
 
 state 32
 
+<<<<<<< HEAD
     (48) operando -> MODULO .
 
     IDENTIFIER      reduce using rule 48 (operando -> MODULO .)
     LPAREN          reduce using rule 48 (operando -> MODULO .)
     INTEGER         reduce using rule 48 (operando -> MODULO .)
     FLOAT           reduce using rule 48 (operando -> MODULO .)
+=======
+    (51) operandoBooleano -> NOT_EQUALS .
+    (51) operandoBooleano -> NOT_EQUALS .
+
+    IDENTIFIER      reduce using rule 51 (operandoBooleano -> NOT_EQUALS .)
+    LPAREN          reduce using rule 51 (operandoBooleano -> NOT_EQUALS .)
+    INTEGER         reduce using rule 51 (operandoBooleano -> NOT_EQUALS .)
+    FLOAT           reduce using rule 51 (operandoBooleano -> NOT_EQUALS .)
+    IDENTIFIER      reduce using rule 51 (operandoBooleano -> NOT_EQUALS .)
+    LPAREN          reduce using rule 51 (operandoBooleano -> NOT_EQUALS .)
+    INTEGER         reduce using rule 51 (operandoBooleano -> NOT_EQUALS .)
+    FLOAT           reduce using rule 51 (operandoBooleano -> NOT_EQUALS .)
+>>>>>>> 90660ae891e4727dedca8c05c449800803a7adfa
 
 
 state 33
 
+<<<<<<< HEAD
     (56) operandoBooleano -> EQUALS .
 
     IDENTIFIER      reduce using rule 56 (operandoBooleano -> EQUALS .)
     LPAREN          reduce using rule 56 (operandoBooleano -> EQUALS .)
     INTEGER         reduce using rule 56 (operandoBooleano -> EQUALS .)
     FLOAT           reduce using rule 56 (operandoBooleano -> EQUALS .)
+=======
+    (52) operandoBooleano -> MORE_EQUAL .
+    (52) operandoBooleano -> MORE_EQUAL .
+
+    IDENTIFIER      reduce using rule 52 (operandoBooleano -> MORE_EQUAL .)
+    LPAREN          reduce using rule 52 (operandoBooleano -> MORE_EQUAL .)
+    INTEGER         reduce using rule 52 (operandoBooleano -> MORE_EQUAL .)
+    FLOAT           reduce using rule 52 (operandoBooleano -> MORE_EQUAL .)
+    IDENTIFIER      reduce using rule 52 (operandoBooleano -> MORE_EQUAL .)
+    LPAREN          reduce using rule 52 (operandoBooleano -> MORE_EQUAL .)
+    INTEGER         reduce using rule 52 (operandoBooleano -> MORE_EQUAL .)
+    FLOAT           reduce using rule 52 (operandoBooleano -> MORE_EQUAL .)
+>>>>>>> 90660ae891e4727dedca8c05c449800803a7adfa
 
 
 state 34
 
+<<<<<<< HEAD
     (57) operandoBooleano -> NOT_EQUALS .
 
     IDENTIFIER      reduce using rule 57 (operandoBooleano -> NOT_EQUALS .)
     LPAREN          reduce using rule 57 (operandoBooleano -> NOT_EQUALS .)
     INTEGER         reduce using rule 57 (operandoBooleano -> NOT_EQUALS .)
     FLOAT           reduce using rule 57 (operandoBooleano -> NOT_EQUALS .)
+=======
+    (53) operandoBooleano -> LESS_EQUAL .
+    (53) operandoBooleano -> LESS_EQUAL .
+
+    IDENTIFIER      reduce using rule 53 (operandoBooleano -> LESS_EQUAL .)
+    LPAREN          reduce using rule 53 (operandoBooleano -> LESS_EQUAL .)
+    INTEGER         reduce using rule 53 (operandoBooleano -> LESS_EQUAL .)
+    FLOAT           reduce using rule 53 (operandoBooleano -> LESS_EQUAL .)
+    IDENTIFIER      reduce using rule 53 (operandoBooleano -> LESS_EQUAL .)
+    LPAREN          reduce using rule 53 (operandoBooleano -> LESS_EQUAL .)
+    INTEGER         reduce using rule 53 (operandoBooleano -> LESS_EQUAL .)
+    FLOAT           reduce using rule 53 (operandoBooleano -> LESS_EQUAL .)
+>>>>>>> 90660ae891e4727dedca8c05c449800803a7adfa
 
 
 state 35
@@ -937,15 +1790,35 @@ state 35
     INTEGER         reduce using rule 58 (operandoBooleano -> MORE_EQUAL .)
     FLOAT           reduce using rule 58 (operandoBooleano -> MORE_EQUAL .)
 
+    (54) operandoBooleano -> MORETHAN .
+
+    IDENTIFIER      reduce using rule 54 (operandoBooleano -> MORETHAN .)
+    LPAREN          reduce using rule 54 (operandoBooleano -> MORETHAN .)
+    INTEGER         reduce using rule 54 (operandoBooleano -> MORETHAN .)
+    FLOAT           reduce using rule 54 (operandoBooleano -> MORETHAN .)
+
 
 state 36
 
     (59) operandoBooleano -> LESS_EQUAL .
 
+<<<<<<< HEAD
     IDENTIFIER      reduce using rule 59 (operandoBooleano -> LESS_EQUAL .)
     LPAREN          reduce using rule 59 (operandoBooleano -> LESS_EQUAL .)
     INTEGER         reduce using rule 59 (operandoBooleano -> LESS_EQUAL .)
     FLOAT           reduce using rule 59 (operandoBooleano -> LESS_EQUAL .)
+=======
+    IDENTIFIER      reduce using rule 55 (operandoBooleano -> LESSTHAN .)
+    LPAREN          reduce using rule 55 (operandoBooleano -> LESSTHAN .)
+    INTEGER         reduce using rule 55 (operandoBooleano -> LESSTHAN .)
+    FLOAT           reduce using rule 55 (operandoBooleano -> LESSTHAN .)
+    (55) operandoBooleano -> LESSTHAN .
+
+    IDENTIFIER      reduce using rule 55 (operandoBooleano -> LESSTHAN .)
+    LPAREN          reduce using rule 55 (operandoBooleano -> LESSTHAN .)
+    INTEGER         reduce using rule 55 (operandoBooleano -> LESSTHAN .)
+    FLOAT           reduce using rule 55 (operandoBooleano -> LESSTHAN .)
+>>>>>>> 90660ae891e4727dedca8c05c449800803a7adfa
 
 
 state 37
@@ -957,15 +1830,66 @@ state 37
     INTEGER         reduce using rule 60 (operandoBooleano -> MORETHAN .)
     FLOAT           reduce using rule 60 (operandoBooleano -> MORETHAN .)
 
+<<<<<<< HEAD
+=======
+    expresionBooleana              shift and go to state 48
+    expresionMatematica            shift and go to state 49
+    bool                           shift and go to state 16
+    termino                        shift and go to state 15
+    numero                         shift and go to state 17
+    (48) expresionBooleana -> expresionBooleana operador_logico . expresionBooleana
+    (47) expresionBooleana -> . expresionMatematica operandoBooleano expresionMatematica
+    (48) expresionBooleana -> . expresionBooleana operador_logico expresionBooleana
+    (49) expresionBooleana -> . bool
+    (33) expresionMatematica -> . termino
+    (34) expresionMatematica -> . expresionMatematica operando termino
+    (45) bool -> . TRUE
+    (46) bool -> . FALSE
+    (35) termino -> . IDENTIFIER
+    (36) termino -> . numero
+    (37) termino -> . LPAREN expresionMatematica RPAREN
+    (43) numero -> . INTEGER
+    (44) numero -> . FLOAT
+
+    TRUE            shift and go to state 18
+    FALSE           shift and go to state 19
+    IDENTIFIER      shift and go to state 42
+    LPAREN          shift and go to state 13
+    INTEGER         shift and go to state 20
+    FLOAT           shift and go to state 21
+
+    expresionBooleana              shift and go to state 48
+    expresionMatematica            shift and go to state 49
+    bool                           shift and go to state 16
+    termino                        shift and go to state 15
+    numero                         shift and go to state 17
+>>>>>>> 90660ae891e4727dedca8c05c449800803a7adfa
 
 state 38
 
     (61) operandoBooleano -> LESSTHAN .
 
+<<<<<<< HEAD
     IDENTIFIER      reduce using rule 61 (operandoBooleano -> LESSTHAN .)
     LPAREN          reduce using rule 61 (operandoBooleano -> LESSTHAN .)
     INTEGER         reduce using rule 61 (operandoBooleano -> LESSTHAN .)
     FLOAT           reduce using rule 61 (operandoBooleano -> LESSTHAN .)
+=======
+    TRUE            reduce using rule 56 (operador_logico -> LOGICAL_AND .)
+    FALSE           reduce using rule 56 (operador_logico -> LOGICAL_AND .)
+    IDENTIFIER      reduce using rule 56 (operador_logico -> LOGICAL_AND .)
+    LPAREN          reduce using rule 56 (operador_logico -> LOGICAL_AND .)
+    INTEGER         reduce using rule 56 (operador_logico -> LOGICAL_AND .)
+    FLOAT           reduce using rule 56 (operador_logico -> LOGICAL_AND .)
+    (56) operador_logico -> LOGICAL_AND .
+
+    TRUE            reduce using rule 56 (operador_logico -> LOGICAL_AND .)
+    FALSE           reduce using rule 56 (operador_logico -> LOGICAL_AND .)
+    IDENTIFIER      reduce using rule 56 (operador_logico -> LOGICAL_AND .)
+    LPAREN          reduce using rule 56 (operador_logico -> LOGICAL_AND .)
+    INTEGER         reduce using rule 56 (operador_logico -> LOGICAL_AND .)
+    FLOAT           reduce using rule 56 (operador_logico -> LOGICAL_AND .)
+>>>>>>> 90660ae891e4727dedca8c05c449800803a7adfa
 
 
 state 39
@@ -991,22 +1915,44 @@ state 39
     INTEGER         shift and go to state 22
     FLOAT           shift and go to state 23
 
+<<<<<<< HEAD
     expresionBooleana              shift and go to state 51
     expresionMatematica            shift and go to state 52
     bool                           shift and go to state 18
     termino                        shift and go to state 17
     numero                         shift and go to state 19
+=======
+    (57) operador_logico -> LOGICAL_OR .
+
+    TRUE            reduce using rule 57 (operador_logico -> LOGICAL_OR .)
+    FALSE           reduce using rule 57 (operador_logico -> LOGICAL_OR .)
+    IDENTIFIER      reduce using rule 57 (operador_logico -> LOGICAL_OR .)
+    LPAREN          reduce using rule 57 (operador_logico -> LOGICAL_OR .)
+    INTEGER         reduce using rule 57 (operador_logico -> LOGICAL_OR .)
+    FLOAT           reduce using rule 57 (operador_logico -> LOGICAL_OR .)
+
+>>>>>>> 90660ae891e4727dedca8c05c449800803a7adfa
 
 state 40
 
     (62) operador_logico -> LOGICAL_AND .
 
+<<<<<<< HEAD
     TRUE            reduce using rule 62 (operador_logico -> LOGICAL_AND .)
     FALSE           reduce using rule 62 (operador_logico -> LOGICAL_AND .)
     IDENTIFIER      reduce using rule 62 (operador_logico -> LOGICAL_AND .)
     LPAREN          reduce using rule 62 (operador_logico -> LOGICAL_AND .)
     INTEGER         reduce using rule 62 (operador_logico -> LOGICAL_AND .)
     FLOAT           reduce using rule 62 (operador_logico -> LOGICAL_AND .)
+=======
+    SCANLN          shift and go to state 50
+    PRINTLN         shift and go to state 51
+    (58) pedirDatos -> FMT DOT . SCANLN LPAREN AMPERSAND IDENTIFIER RPAREN
+    (59) imprimir -> FMT DOT . PRINTLN LPAREN valores RPAREN
+
+    SCANLN          shift and go to state 50
+    PRINTLN         shift and go to state 51
+>>>>>>> 90660ae891e4727dedca8c05c449800803a7adfa
 
 
 state 41
@@ -1020,14 +1966,69 @@ state 41
     INTEGER         reduce using rule 63 (operador_logico -> LOGICAL_OR .)
     FLOAT           reduce using rule 63 (operador_logico -> LOGICAL_OR .)
 
+<<<<<<< HEAD
+=======
+    operando                       shift and go to state 24
+    (37) termino -> LPAREN expresionMatematica . RPAREN
+    (34) expresionMatematica -> expresionMatematica . operando termino
+    (38) operando -> . PLUS
+    (39) operando -> . MINUS
+    (40) operando -> . TIMES
+    (41) operando -> . DIVIDE
+    (42) operando -> . MODULO
+
+    RPAREN          shift and go to state 52
+    PLUS            shift and go to state 26
+    MINUS           shift and go to state 27
+    TIMES           shift and go to state 28
+    DIVIDE          shift and go to state 29
+    MODULO          shift and go to state 30
+
+    operando                       shift and go to state 24
+>>>>>>> 90660ae891e4727dedca8c05c449800803a7adfa
 
 state 42
 
     (64) pedirDatos -> FMT DOT . SCANLN LPAREN AMPERSAND IDENTIFIER RPAREN
     (65) imprimir -> FMT DOT . PRINTLN LPAREN valores RPAREN
 
+<<<<<<< HEAD
     SCANLN          shift and go to state 53
     PRINTLN         shift and go to state 54
+=======
+    RPAREN          reduce using rule 35 (termino -> IDENTIFIER .)
+    PLUS            reduce using rule 35 (termino -> IDENTIFIER .)
+    MINUS           reduce using rule 35 (termino -> IDENTIFIER .)
+    TIMES           reduce using rule 35 (termino -> IDENTIFIER .)
+    DIVIDE          reduce using rule 35 (termino -> IDENTIFIER .)
+    MODULO          reduce using rule 35 (termino -> IDENTIFIER .)
+    EQUALS          reduce using rule 35 (termino -> IDENTIFIER .)
+    NOT_EQUALS      reduce using rule 35 (termino -> IDENTIFIER .)
+    MORE_EQUAL      reduce using rule 35 (termino -> IDENTIFIER .)
+    LESS_EQUAL      reduce using rule 35 (termino -> IDENTIFIER .)
+    MORETHAN        reduce using rule 35 (termino -> IDENTIFIER .)
+    LESSTHAN        reduce using rule 35 (termino -> IDENTIFIER .)
+    $end            reduce using rule 35 (termino -> IDENTIFIER .)
+    LOGICAL_AND     reduce using rule 35 (termino -> IDENTIFIER .)
+    LOGICAL_OR      reduce using rule 35 (termino -> IDENTIFIER .)
+    (35) termino -> IDENTIFIER .
+
+    RPAREN          reduce using rule 35 (termino -> IDENTIFIER .)
+    PLUS            reduce using rule 35 (termino -> IDENTIFIER .)
+    MINUS           reduce using rule 35 (termino -> IDENTIFIER .)
+    TIMES           reduce using rule 35 (termino -> IDENTIFIER .)
+    DIVIDE          reduce using rule 35 (termino -> IDENTIFIER .)
+    MODULO          reduce using rule 35 (termino -> IDENTIFIER .)
+    EQUALS          reduce using rule 35 (termino -> IDENTIFIER .)
+    NOT_EQUALS      reduce using rule 35 (termino -> IDENTIFIER .)
+    MORE_EQUAL      reduce using rule 35 (termino -> IDENTIFIER .)
+    LESS_EQUAL      reduce using rule 35 (termino -> IDENTIFIER .)
+    MORETHAN        reduce using rule 35 (termino -> IDENTIFIER .)
+    LESSTHAN        reduce using rule 35 (termino -> IDENTIFIER .)
+    $end            reduce using rule 35 (termino -> IDENTIFIER .)
+    LOGICAL_AND     reduce using rule 35 (termino -> IDENTIFIER .)
+    LOGICAL_OR      reduce using rule 35 (termino -> IDENTIFIER .)
+>>>>>>> 90660ae891e4727dedca8c05c449800803a7adfa
 
 
 state 43
@@ -1047,7 +2048,64 @@ state 43
     DIVIDE          shift and go to state 31
     MODULO          shift and go to state 32
 
+<<<<<<< HEAD
     operando                       shift and go to state 26
+=======
+    tipo                           shift and go to state 53
+    int                            shift and go to state 54
+    float                          shift and go to state 55
+    complex                        shift and go to state 56
+    uint                           shift and go to state 57
+    bool                           shift and go to state 58
+    (8) crearVariable -> VAR IDENTIFIER . tipo ASSIGN expresion
+    (9) tipo -> . int
+    (10) tipo -> . float
+    (11) tipo -> . complex
+    (12) tipo -> . uint
+    (13) tipo -> . bool
+    (14) tipo -> . STRING
+    (15) int -> . INT
+    (16) int -> . INT8
+    (17) int -> . INT16
+    (18) int -> . INT32
+    (19) int -> . INT64
+    (20) float -> . FLOAT32
+    (21) float -> . FLOAT64
+    (27) complex -> . COMPLEX64
+    (28) complex -> . COMPLEX128
+    (22) uint -> . UINT
+    (23) uint -> . UINT8
+    (24) uint -> . UINT16
+    (25) uint -> . UINT32
+    (26) uint -> . UINT64
+    (45) bool -> . TRUE
+    (46) bool -> . FALSE
+
+    STRING          shift and go to state 59
+    INT             shift and go to state 60
+    INT8            shift and go to state 61
+    INT16           shift and go to state 62
+    INT32           shift and go to state 63
+    INT64           shift and go to state 64
+    FLOAT32         shift and go to state 65
+    FLOAT64         shift and go to state 66
+    COMPLEX64       shift and go to state 67
+    COMPLEX128      shift and go to state 68
+    UINT            shift and go to state 69
+    UINT8           shift and go to state 70
+    UINT16          shift and go to state 71
+    UINT32          shift and go to state 72
+    UINT64          shift and go to state 73
+    TRUE            shift and go to state 18
+    FALSE           shift and go to state 19
+
+    tipo                           shift and go to state 53
+    int                            shift and go to state 54
+    float                          shift and go to state 55
+    complex                        shift and go to state 56
+    uint                           shift and go to state 57
+    bool                           shift and go to state 58
+>>>>>>> 90660ae891e4727dedca8c05c449800803a7adfa
 
 state 44
 
@@ -1079,6 +2137,10 @@ state 44
     RBRACE          reduce using rule 41 (termino -> IDENTIFIER .)
     LOGICAL_AND     reduce using rule 41 (termino -> IDENTIFIER .)
     LOGICAL_OR      reduce using rule 41 (termino -> IDENTIFIER .)
+
+    (29) asignacion -> IDENTIFIER ASSIGN expresion .
+
+    $end            reduce using rule 29 (asignacion -> IDENTIFIER ASSIGN expresion .)
 
 
 state 45
@@ -1125,12 +2187,19 @@ state 45
     TRUE            shift and go to state 20
     FALSE           shift and go to state 21
 
+<<<<<<< HEAD
     tipo                           shift and go to state 56
     int                            shift and go to state 57
     float                          shift and go to state 58
     complex                        shift and go to state 59
     uint                           shift and go to state 60
     bool                           shift and go to state 61
+=======
+    (7) asignacion_corta -> IDENTIFIER SHORTASSIGN expresion .
+
+    $end            reduce using rule 7 (asignacion_corta -> IDENTIFIER SHORTASSIGN expresion .)
+
+>>>>>>> 90660ae891e4727dedca8c05c449800803a7adfa
 
 state 46
 
@@ -1142,7 +2211,28 @@ state 46
     IDENTIFIER      shift and go to state 78
     RPAREN          reduce using rule 68 (valores -> .)
 
+<<<<<<< HEAD
     valores                        shift and go to state 77
+=======
+    (34) expresionMatematica -> expresionMatematica operando termino .
+
+    PLUS            reduce using rule 34 (expresionMatematica -> expresionMatematica operando termino .)
+    MINUS           reduce using rule 34 (expresionMatematica -> expresionMatematica operando termino .)
+    TIMES           reduce using rule 34 (expresionMatematica -> expresionMatematica operando termino .)
+    DIVIDE          reduce using rule 34 (expresionMatematica -> expresionMatematica operando termino .)
+    MODULO          reduce using rule 34 (expresionMatematica -> expresionMatematica operando termino .)
+    EQUALS          reduce using rule 34 (expresionMatematica -> expresionMatematica operando termino .)
+    NOT_EQUALS      reduce using rule 34 (expresionMatematica -> expresionMatematica operando termino .)
+    MORE_EQUAL      reduce using rule 34 (expresionMatematica -> expresionMatematica operando termino .)
+    LESS_EQUAL      reduce using rule 34 (expresionMatematica -> expresionMatematica operando termino .)
+    MORETHAN        reduce using rule 34 (expresionMatematica -> expresionMatematica operando termino .)
+    LESSTHAN        reduce using rule 34 (expresionMatematica -> expresionMatematica operando termino .)
+    $end            reduce using rule 34 (expresionMatematica -> expresionMatematica operando termino .)
+    RPAREN          reduce using rule 34 (expresionMatematica -> expresionMatematica operando termino .)
+    LOGICAL_AND     reduce using rule 34 (expresionMatematica -> expresionMatematica operando termino .)
+    LOGICAL_OR      reduce using rule 34 (expresionMatematica -> expresionMatematica operando termino .)
+
+>>>>>>> 90660ae891e4727dedca8c05c449800803a7adfa
 
 state 47
 
@@ -1161,6 +2251,28 @@ state 47
     FLOAT           reduce using rule 35 (asignacion -> IDENTIFIER ASSIGN expresion .)
     RBRACE          reduce using rule 35 (asignacion -> IDENTIFIER ASSIGN expresion .)
 
+<<<<<<< HEAD
+=======
+    operando                       shift and go to state 24
+    (47) expresionBooleana -> expresionMatematica operandoBooleano expresionMatematica .
+    (34) expresionMatematica -> expresionMatematica . operando termino
+    (38) operando -> . PLUS
+    (39) operando -> . MINUS
+    (40) operando -> . TIMES
+    (41) operando -> . DIVIDE
+    (42) operando -> . MODULO
+
+    LOGICAL_AND     reduce using rule 47 (expresionBooleana -> expresionMatematica operandoBooleano expresionMatematica .)
+    LOGICAL_OR      reduce using rule 47 (expresionBooleana -> expresionMatematica operandoBooleano expresionMatematica .)
+    $end            reduce using rule 47 (expresionBooleana -> expresionMatematica operandoBooleano expresionMatematica .)
+    PLUS            shift and go to state 26
+    MINUS           shift and go to state 27
+    TIMES           shift and go to state 28
+    DIVIDE          shift and go to state 29
+    MODULO          shift and go to state 30
+
+    operando                       shift and go to state 24
+>>>>>>> 90660ae891e4727dedca8c05c449800803a7adfa
 
 state 48
 
@@ -1179,6 +2291,28 @@ state 48
     FLOAT           reduce using rule 13 (asignacion_corta -> IDENTIFIER SHORTASSIGN expresion .)
     RBRACE          reduce using rule 13 (asignacion_corta -> IDENTIFIER SHORTASSIGN expresion .)
 
+<<<<<<< HEAD
+=======
+  ! LOGICAL_AND     [ reduce using rule 48 (expresionBooleana -> expresionBooleana operador_logico expresionBooleana .) ]
+  ! LOGICAL_OR      [ reduce using rule 48 (expresionBooleana -> expresionBooleana operador_logico expresionBooleana .) ]
+
+    operador_logico                shift and go to state 37
+    (48) expresionBooleana -> expresionBooleana operador_logico expresionBooleana .
+    (48) expresionBooleana -> expresionBooleana . operador_logico expresionBooleana
+    (56) operador_logico -> . LOGICAL_AND
+    (57) operador_logico -> . LOGICAL_OR
+
+  ! shift/reduce conflict for LOGICAL_AND resolved as shift
+  ! shift/reduce conflict for LOGICAL_OR resolved as shift
+    $end            reduce using rule 48 (expresionBooleana -> expresionBooleana operador_logico expresionBooleana .)
+    LOGICAL_AND     shift and go to state 38
+    LOGICAL_OR      shift and go to state 39
+
+  ! LOGICAL_AND     [ reduce using rule 48 (expresionBooleana -> expresionBooleana operador_logico expresionBooleana .) ]
+  ! LOGICAL_OR      [ reduce using rule 48 (expresionBooleana -> expresionBooleana operador_logico expresionBooleana .) ]
+
+    operador_logico                shift and go to state 37
+>>>>>>> 90660ae891e4727dedca8c05c449800803a7adfa
 
 state 49
 
@@ -1211,6 +2345,7 @@ state 49
     LOGICAL_AND     reduce using rule 40 (expresionMatematica -> expresionMatematica operando termino .)
     LOGICAL_OR      reduce using rule 40 (expresionMatematica -> expresionMatematica operando termino .)
 
+<<<<<<< HEAD
 
 state 50
 
@@ -1241,11 +2376,52 @@ state 50
     TIMES           shift and go to state 30
     DIVIDE          shift and go to state 31
     MODULO          shift and go to state 32
+=======
+    operandoBooleano               shift and go to state 25
+    operando                       shift and go to state 24
+    (47) expresionBooleana -> expresionMatematica . operandoBooleano expresionMatematica
+    (34) expresionMatematica -> expresionMatematica . operando termino
+    (50) operandoBooleano -> . EQUALS
+    (51) operandoBooleano -> . NOT_EQUALS
+    (52) operandoBooleano -> . MORE_EQUAL
+    (53) operandoBooleano -> . LESS_EQUAL
+    (54) operandoBooleano -> . MORETHAN
+    (55) operandoBooleano -> . LESSTHAN
+    (38) operando -> . PLUS
+    (39) operando -> . MINUS
+    (40) operando -> . TIMES
+    (41) operando -> . DIVIDE
+    (42) operando -> . MODULO
+
+    EQUALS          shift and go to state 31
+    NOT_EQUALS      shift and go to state 32
+    MORE_EQUAL      shift and go to state 33
+    LESS_EQUAL      shift and go to state 34
+    MORETHAN        shift and go to state 35
+    LESSTHAN        shift and go to state 36
+    PLUS            shift and go to state 26
+    MINUS           shift and go to state 27
+    TIMES           shift and go to state 28
+    DIVIDE          shift and go to state 29
+    MODULO          shift and go to state 30
+
+    operandoBooleano               shift and go to state 25
+    operando                       shift and go to state 24
+
+state 50
+
+    (58) pedirDatos -> FMT DOT SCANLN . LPAREN AMPERSAND IDENTIFIER RPAREN
+    (58) pedirDatos -> FMT DOT SCANLN . LPAREN AMPERSAND IDENTIFIER RPAREN
+
+    LPAREN          shift and go to state 74
+    LPAREN          shift and go to state 74
+>>>>>>> 90660ae891e4727dedca8c05c449800803a7adfa
 
     operando                       shift and go to state 26
 
 state 51
 
+<<<<<<< HEAD
     (54) expresionBooleana -> expresionBooleana operador_logico expresionBooleana .
     (54) expresionBooleana -> expresionBooleana . operador_logico expresionBooleana
     (62) operador_logico -> . LOGICAL_AND
@@ -1267,6 +2443,13 @@ state 51
     RBRACE          reduce using rule 54 (expresionBooleana -> expresionBooleana operador_logico expresionBooleana .)
     LOGICAL_AND     shift and go to state 40
     LOGICAL_OR      shift and go to state 41
+=======
+    (59) imprimir -> FMT DOT PRINTLN . LPAREN valores RPAREN
+    (59) imprimir -> FMT DOT PRINTLN . LPAREN valores RPAREN
+
+    LPAREN          shift and go to state 75
+    LPAREN          shift and go to state 75
+>>>>>>> 90660ae891e4727dedca8c05c449800803a7adfa
 
   ! LOGICAL_AND     [ reduce using rule 54 (expresionBooleana -> expresionBooleana operador_logico expresionBooleana .) ]
   ! LOGICAL_OR      [ reduce using rule 54 (expresionBooleana -> expresionBooleana operador_logico expresionBooleana .) ]
@@ -1289,6 +2472,7 @@ state 52
     (47) operando -> . DIVIDE
     (48) operando -> . MODULO
 
+<<<<<<< HEAD
     EQUALS          shift and go to state 33
     NOT_EQUALS      shift and go to state 34
     MORE_EQUAL      shift and go to state 35
@@ -1300,26 +2484,77 @@ state 52
     TIMES           shift and go to state 30
     DIVIDE          shift and go to state 31
     MODULO          shift and go to state 32
+=======
+    PLUS            reduce using rule 37 (termino -> LPAREN expresionMatematica RPAREN .)
+    MINUS           reduce using rule 37 (termino -> LPAREN expresionMatematica RPAREN .)
+    TIMES           reduce using rule 37 (termino -> LPAREN expresionMatematica RPAREN .)
+    DIVIDE          reduce using rule 37 (termino -> LPAREN expresionMatematica RPAREN .)
+    MODULO          reduce using rule 37 (termino -> LPAREN expresionMatematica RPAREN .)
+    EQUALS          reduce using rule 37 (termino -> LPAREN expresionMatematica RPAREN .)
+    NOT_EQUALS      reduce using rule 37 (termino -> LPAREN expresionMatematica RPAREN .)
+    MORE_EQUAL      reduce using rule 37 (termino -> LPAREN expresionMatematica RPAREN .)
+    LESS_EQUAL      reduce using rule 37 (termino -> LPAREN expresionMatematica RPAREN .)
+    MORETHAN        reduce using rule 37 (termino -> LPAREN expresionMatematica RPAREN .)
+    LESSTHAN        reduce using rule 37 (termino -> LPAREN expresionMatematica RPAREN .)
+    $end            reduce using rule 37 (termino -> LPAREN expresionMatematica RPAREN .)
+    RPAREN          reduce using rule 37 (termino -> LPAREN expresionMatematica RPAREN .)
+    LOGICAL_AND     reduce using rule 37 (termino -> LPAREN expresionMatematica RPAREN .)
+    LOGICAL_OR      reduce using rule 37 (termino -> LPAREN expresionMatematica RPAREN .)
+    (37) termino -> LPAREN expresionMatematica RPAREN .
+
+    PLUS            reduce using rule 37 (termino -> LPAREN expresionMatematica RPAREN .)
+    MINUS           reduce using rule 37 (termino -> LPAREN expresionMatematica RPAREN .)
+    TIMES           reduce using rule 37 (termino -> LPAREN expresionMatematica RPAREN .)
+    DIVIDE          reduce using rule 37 (termino -> LPAREN expresionMatematica RPAREN .)
+    MODULO          reduce using rule 37 (termino -> LPAREN expresionMatematica RPAREN .)
+    EQUALS          reduce using rule 37 (termino -> LPAREN expresionMatematica RPAREN .)
+    NOT_EQUALS      reduce using rule 37 (termino -> LPAREN expresionMatematica RPAREN .)
+    MORE_EQUAL      reduce using rule 37 (termino -> LPAREN expresionMatematica RPAREN .)
+    LESS_EQUAL      reduce using rule 37 (termino -> LPAREN expresionMatematica RPAREN .)
+    MORETHAN        reduce using rule 37 (termino -> LPAREN expresionMatematica RPAREN .)
+    LESSTHAN        reduce using rule 37 (termino -> LPAREN expresionMatematica RPAREN .)
+    $end            reduce using rule 37 (termino -> LPAREN expresionMatematica RPAREN .)
+    RPAREN          reduce using rule 37 (termino -> LPAREN expresionMatematica RPAREN .)
+    LOGICAL_AND     reduce using rule 37 (termino -> LPAREN expresionMatematica RPAREN .)
+    LOGICAL_OR      reduce using rule 37 (termino -> LPAREN expresionMatematica RPAREN .)
+>>>>>>> 90660ae891e4727dedca8c05c449800803a7adfa
 
     operandoBooleano               shift and go to state 27
     operando                       shift and go to state 26
 
 state 53
 
+<<<<<<< HEAD
     (64) pedirDatos -> FMT DOT SCANLN . LPAREN AMPERSAND IDENTIFIER RPAREN
 
     LPAREN          shift and go to state 79
+=======
+    (8) crearVariable -> VAR IDENTIFIER tipo . ASSIGN expresion
+    (8) crearVariable -> VAR IDENTIFIER tipo . ASSIGN expresion
+
+    ASSIGN          shift and go to state 76
+    ASSIGN          shift and go to state 76
+>>>>>>> 90660ae891e4727dedca8c05c449800803a7adfa
 
 
 state 54
 
+<<<<<<< HEAD
     (65) imprimir -> FMT DOT PRINTLN . LPAREN valores RPAREN
 
     LPAREN          shift and go to state 80
+=======
+    (9) tipo -> int .
+    (9) tipo -> int .
+
+    ASSIGN          reduce using rule 9 (tipo -> int .)
+    ASSIGN          reduce using rule 9 (tipo -> int .)
+>>>>>>> 90660ae891e4727dedca8c05c449800803a7adfa
 
 
 state 55
 
+<<<<<<< HEAD
     (43) termino -> LPAREN expresionMatematica RPAREN .
 
     PLUS            reduce using rule 43 (termino -> LPAREN expresionMatematica RPAREN .)
@@ -1348,6 +2583,13 @@ state 55
     RBRACE          reduce using rule 43 (termino -> LPAREN expresionMatematica RPAREN .)
     LOGICAL_AND     reduce using rule 43 (termino -> LPAREN expresionMatematica RPAREN .)
     LOGICAL_OR      reduce using rule 43 (termino -> LPAREN expresionMatematica RPAREN .)
+=======
+    (10) tipo -> float .
+    (10) tipo -> float .
+
+    ASSIGN          reduce using rule 10 (tipo -> float .)
+    ASSIGN          reduce using rule 10 (tipo -> float .)
+>>>>>>> 90660ae891e4727dedca8c05c449800803a7adfa
 
 
 state 56
@@ -1522,10 +2764,215 @@ state 79
 
 state 80
 
+<<<<<<< HEAD
     (65) imprimir -> FMT DOT PRINTLN LPAREN . valores RPAREN
     (66) valores -> . IDENTIFIER
     (67) valores -> . IDENTIFIER COMA valores
     (68) valores -> .
+=======
+    (8) crearVariable -> VAR IDENTIFIER tipo ASSIGN expresion .
+    (11) tipo -> complex .
+
+    ASSIGN          reduce using rule 11 (tipo -> complex .)
+
+
+state 57
+
+    (12) tipo -> uint .
+
+    ASSIGN          reduce using rule 12 (tipo -> uint .)
+
+
+state 58
+
+    (13) tipo -> bool .
+
+    ASSIGN          reduce using rule 13 (tipo -> bool .)
+
+
+state 59
+
+    (14) tipo -> STRING .
+
+    ASSIGN          reduce using rule 14 (tipo -> STRING .)
+
+
+state 60
+
+    (15) int -> INT .
+
+    ASSIGN          reduce using rule 15 (int -> INT .)
+
+
+state 61
+
+    (16) int -> INT8 .
+
+    ASSIGN          reduce using rule 16 (int -> INT8 .)
+
+
+state 62
+
+    (17) int -> INT16 .
+
+    ASSIGN          reduce using rule 17 (int -> INT16 .)
+
+
+state 63
+
+    (18) int -> INT32 .
+
+    ASSIGN          reduce using rule 18 (int -> INT32 .)
+
+
+state 64
+
+    (19) int -> INT64 .
+
+    ASSIGN          reduce using rule 19 (int -> INT64 .)
+
+
+state 65
+
+    (20) float -> FLOAT32 .
+
+    ASSIGN          reduce using rule 20 (float -> FLOAT32 .)
+
+
+state 66
+
+    (21) float -> FLOAT64 .
+
+    ASSIGN          reduce using rule 21 (float -> FLOAT64 .)
+
+
+state 67
+
+    (27) complex -> COMPLEX64 .
+
+    ASSIGN          reduce using rule 27 (complex -> COMPLEX64 .)
+
+
+state 68
+
+    (28) complex -> COMPLEX128 .
+
+    ASSIGN          reduce using rule 28 (complex -> COMPLEX128 .)
+
+
+state 69
+
+    (22) uint -> UINT .
+
+    ASSIGN          reduce using rule 22 (uint -> UINT .)
+
+
+state 70
+
+    (23) uint -> UINT8 .
+
+    ASSIGN          reduce using rule 23 (uint -> UINT8 .)
+
+
+state 71
+
+    (24) uint -> UINT16 .
+
+    ASSIGN          reduce using rule 24 (uint -> UINT16 .)
+
+
+state 72
+
+    (25) uint -> UINT32 .
+
+    ASSIGN          reduce using rule 25 (uint -> UINT32 .)
+
+
+state 73
+
+    (26) uint -> UINT64 .
+
+    ASSIGN          reduce using rule 26 (uint -> UINT64 .)
+
+
+state 74
+
+    (58) pedirDatos -> FMT DOT SCANLN LPAREN . AMPERSAND IDENTIFIER RPAREN
+
+    AMPERSAND       shift and go to state 77
+
+
+state 75
+
+    (59) imprimir -> FMT DOT PRINTLN LPAREN . valores RPAREN
+    (60) valores -> . IDENTIFIER
+    (61) valores -> . IDENTIFIER COMA valores
+
+    IDENTIFIER      shift and go to state 79
+
+    valores                        shift and go to state 78
+
+state 76
+
+    (8) crearVariable -> VAR IDENTIFIER tipo ASSIGN . expresion
+    (30) expresion -> . expresionMatematica
+    (31) expresion -> . expresionBooleana
+    (32) expresion -> . STRING
+    (33) expresionMatematica -> . termino
+    (34) expresionMatematica -> . expresionMatematica operando termino
+    (47) expresionBooleana -> . expresionMatematica operandoBooleano expresionMatematica
+    (48) expresionBooleana -> . expresionBooleana operador_logico expresionBooleana
+    (49) expresionBooleana -> . bool
+    (35) termino -> . IDENTIFIER
+    (36) termino -> . numero
+    (37) termino -> . LPAREN expresionMatematica RPAREN
+    (45) bool -> . TRUE
+    (46) bool -> . FALSE
+    (43) numero -> . INTEGER
+    (44) numero -> . FLOAT
+
+    STRING          shift and go to state 11
+    IDENTIFIER      shift and go to state 42
+    LPAREN          shift and go to state 13
+    TRUE            shift and go to state 18
+    FALSE           shift and go to state 19
+    INTEGER         shift and go to state 20
+    FLOAT           shift and go to state 21
+
+    expresion                      shift and go to state 80
+    expresionMatematica            shift and go to state 9
+    expresionBooleana              shift and go to state 10
+    termino                        shift and go to state 15
+    bool                           shift and go to state 16
+    numero                         shift and go to state 17
+
+state 77
+
+    (58) pedirDatos -> FMT DOT SCANLN LPAREN AMPERSAND . IDENTIFIER RPAREN
+
+    IDENTIFIER      shift and go to state 81
+
+
+state 78
+
+    (59) imprimir -> FMT DOT PRINTLN LPAREN valores . RPAREN
+
+    RPAREN          shift and go to state 82
+
+
+state 79
+
+    (60) valores -> IDENTIFIER .
+    (61) valores -> IDENTIFIER . COMA valores
+
+    RPAREN          reduce using rule 60 (valores -> IDENTIFIER .)
+    COMA            shift and go to state 83
+
+
+state 80
+
+    (8) crearVariable -> VAR IDENTIFIER tipo ASSIGN expresion .
+>>>>>>> 90660ae891e4727dedca8c05c449800803a7adfa
 
     IDENTIFIER      shift and go to state 78
     RPAREN          reduce using rule 68 (valores -> .)
@@ -1596,6 +3043,7 @@ state 85
 
     (65) imprimir -> FMT DOT PRINTLN LPAREN valores . RPAREN
 
+<<<<<<< HEAD
     RPAREN          shift and go to state 90
 
 
@@ -1847,9 +3295,58 @@ state 96
     INTEGER         reduce using rule 12 (lista_sentencias -> lista_sentencias sentencia .)
     FLOAT           reduce using rule 12 (lista_sentencias -> lista_sentencias sentencia .)
     RBRACE          reduce using rule 12 (lista_sentencias -> lista_sentencias sentencia .)
+=======
+    RPAREN          reduce using rule 61 (valores -> IDENTIFIER COMA valores .)
+    $end            reduce using rule 8 (crearVariable -> VAR IDENTIFIER tipo ASSIGN expresion .)
+
+
+state 81
+
+    (58) pedirDatos -> FMT DOT SCANLN LPAREN AMPERSAND IDENTIFIER . RPAREN
+
+    RPAREN          shift and go to state 84
+
+
+state 82
+
+    (59) imprimir -> FMT DOT PRINTLN LPAREN valores RPAREN .
+
+    $end            reduce using rule 59 (imprimir -> FMT DOT PRINTLN LPAREN valores RPAREN .)
+
+
+state 83
+
+    (61) valores -> IDENTIFIER COMA . valores
+    (60) valores -> . IDENTIFIER
+    (61) valores -> . IDENTIFIER COMA valores
+
+    IDENTIFIER      shift and go to state 79
+
+    valores                        shift and go to state 85
+
+state 84
+
+    (58) pedirDatos -> FMT DOT SCANLN LPAREN AMPERSAND IDENTIFIER RPAREN .
+
+    $end            reduce using rule 58 (pedirDatos -> FMT DOT SCANLN LPAREN AMPERSAND IDENTIFIER RPAREN .)
+
+
+state 85
+
+    (61) valores -> IDENTIFIER COMA valores .
+
+    RPAREN          reduce using rule 61 (valores -> IDENTIFIER COMA valores .)
+>>>>>>> 90660ae891e4727dedca8c05c449800803a7adfa
 
 WARNING: 
 WARNING: Conflicts:
 WARNING: 
+<<<<<<< HEAD
 WARNING: shift/reduce conflict for LOGICAL_AND in state 51 resolved as shift
 WARNING: shift/reduce conflict for LOGICAL_OR in state 51 resolved as shift
+=======
+WARNING: shift/reduce conflict for LOGICAL_AND in state 48 resolved as shift
+WARNING: shift/reduce conflict for LOGICAL_OR in state 48 resolved as shift
+WARNING: shift/reduce conflict for LOGICAL_AND in state 48 resolved as shift
+WARNING: shift/reduce conflict for LOGICAL_OR in state 48 resolved as shift
+>>>>>>> 90660ae891e4727dedca8c05c449800803a7adfa
