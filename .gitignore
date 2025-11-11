@@ -5,6 +5,10 @@ __pycache__/
 *.pyo
 *.pyd
 lexer/__pycache__/
+yacc/parser.out
+yacc/parsetab.py
+yacc/parser.out
+yacc/parsetab.py
 
 .vscode/
 .idea/
@@ -141,7 +145,5 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 lexer/__pycache__/lexer.cpython-313.pyc
-yacc/parser.out
 
 
-yacc/parsetab.py
