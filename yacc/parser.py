@@ -98,7 +98,6 @@ def p_operando(p):
     | DIVIDE
     | MODULO"""
 
-
 def p_numero(p):
     """numero : INTEGER
     | FLOAT"""
@@ -107,8 +106,9 @@ def p_numero(p):
 def p_boolean(p):
     """bool : TRUE
     | FALSE"""
+
 def p_valor(p):
-    """ valor: STRING
+    """ valor : STRING
     | bool
     | numero
     """
@@ -254,17 +254,6 @@ def p_factor_num(p):
 def p_factor_expr(p):
     "factor : LPAREN expression RPAREN"
     p[0] = p[2]
-
-#Struct
-def p_struct_decl(p):
-    '''struct_decl : TYPE IDENTIFIER STRUCT LBRACE struct_fields RBRACE'''
-
-def p_struct_fields(p):
-    '''struct_fields : struct_fields struct_field
-                     | struct_field'''
-    
-def p_struct_field(p):
-    '''struct_field : IDENTIFIER IDENTIFIER'''
  """
 
 
