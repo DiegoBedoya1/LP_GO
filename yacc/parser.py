@@ -13,6 +13,14 @@ def p_sentencia(p):
 def p_asignacionCorta(p):
     """asignacion_corta : IDENTIFIER SHORTASSIGN expresion"""
 
+#contribucion Diego Bedoya
+def p_crearVariable(p):
+    '''crearVariable : VAR IDENTIFIER tipo ASSIGN expresion
+    '''
+def p_tipo(p):
+    '''tipo: 
+    '''
+
 
 # Contribucion Salvador Muñoz
 # asignacion de tipo ID = 0
