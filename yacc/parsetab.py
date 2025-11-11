@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'AMPERSAND ASSIGN BOOL BREAK CASE COLON COMA CONST CONTINUE DECREMENT DEFAULT DIVIDE DOT ELSE EQUALS FALSE FLOAT FMT FOR FUNC GOTO IDENTIFIER IF IMPORT INCREMENT INT INTEGER INTERFACE IOTA LBRACE LBRACKET LESSTHAN LESS_EQUAL LOGICAL_AND LOGICAL_OR LPAREN MAKE MINUS MODULO MORETHAN MORE_EQUAL NIL NOT NOT_EQUALS PACKAGE PLUS PRINTLN RANGE RBRACE RBRACKET RETURN RPAREN SCANLN SEMICOLON SHORTASSIGN STRING STRUCT SWITCH TIMES TRUE TYPE VAR VARIADICsentencia : asignacion\n| asignacion_corta\n| expresion\n| pedirDatos\n| imprimirasignacion_corta : IDENTIFIER SHORTASSIGN expresionasignacion : IDENTIFIER ASSIGN expresionexpresion : expresionMatematica\n| expresionBooleana\n| STRING\nexpresionMatematica : termino\n| expresionMatematica operando terminotermino : IDENTIFIER\n| numero\n| LPAREN expresionMatematica RPARENoperando : PLUS\n| MINUS\n| TIMES\n| DIVIDE\n| MODULOnumero : INTEGER\n| FLOATbool : TRUE\n| FALSEexpresionBooleana : expresionMatematica operandoBooleano expresionMatematica\n| expresionBooleana operador_logico expresionBooleana\n| booloperandoBooleano : EQUALS\n| NOT_EQUALS\n| MORE_EQUAL\n| LESS_EQUAL\n| MORETHAN\n| LESSTHANoperador_logico : LOGICAL_AND\n| LOGICAL_ORpedirDatos : FMT DOT SCANLN LPAREN AMPERSAND IDENTIFIER RPARENimprimir : FMT DOT PRINTLN LPAREN IDENTIFIER RPAREN'
+_lr_signature = 'AMPERSAND ASSIGN BOOL BREAK CASE COLON COMA COMPLEX128 COMPLEX64 CONST CONTINUE DECREMENT DEFAULT DIVIDE DOT ELSE EQUALS FALSE FLOAT FLOAT32 FLOAT64 FMT FOR FUNC GOTO IDENTIFIER IF IMPORT INCREMENT INT INT16 INT32 INT64 INT8 INTEGER INTERFACE IOTA LBRACE LBRACKET LESSTHAN LESS_EQUAL LOGICAL_AND LOGICAL_OR LPAREN MAKE MINUS MODULO MORETHAN MORE_EQUAL NIL NOT NOT_EQUALS PACKAGE PLUS PRINTLN RANGE RBRACE RBRACKET RETURN RPAREN SCANLN SEMICOLON SHORTASSIGN STRING STRUCT SWITCH TIMES TRUE TYPE UINT UINT16 UINT32 UINT64 UINT8 VAR VARIADICsentencia : asignacion\n| asignacion_corta\n| expresion\n| pedirDatos\n| imprimir\n| crearVariable\nasignacion_corta : IDENTIFIER SHORTASSIGN expresioncrearVariable : VAR IDENTIFIER tipo ASSIGN expresiontipo : int\n| float\n| complex\n| uint\n| bool\n| STRINGint : INT\n| INT8\n| INT16\n| INT32\n| INT64\nfloat : FLOAT32\n| FLOAT64uint : UINT\n| UINT8\n| UINT16\n| UINT32\n| UINT64\ncomplex : COMPLEX64\n| COMPLEX128asignacion : IDENTIFIER ASSIGN expresionexpresion : expresionMatematica\n| expresionBooleana\n| STRING\nexpresionMatematica : termino\n| expresionMatematica operando terminotermino : IDENTIFIER\n| numero\n| LPAREN expresionMatematica RPARENoperando : PLUS\n| MINUS\n| TIMES\n| DIVIDE\n| MODULOnumero : INTEGER\n| FLOATbool : TRUE\n| FALSEexpresionBooleana : expresionMatematica operandoBooleano expresionMatematica\n| expresionBooleana operador_logico expresionBooleana\n| booloperandoBooleano : EQUALS\n| NOT_EQUALS\n| MORE_EQUAL\n| LESS_EQUAL\n| MORETHAN\n| LESSTHANoperador_logico : LOGICAL_AND\n| LOGICAL_ORpedirDatos : FMT DOT SCANLN LPAREN AMPERSAND IDENTIFIER RPARENimprimir : FMT DOT PRINTLN LPAREN valores RPARENvalores : IDENTIFIER\n| IDENTIFIER COMA valores'
     
-_lr_action_items = {'IDENTIFIER':([0,12,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,51,52,],[7,40,40,40,40,40,-16,-17,-18,-19,-20,-28,-29,-30,-31,-32,-33,40,-34,-35,53,54,]),'STRING':([0,20,21,],[10,10,10,]),'FMT':([0,],[11,]),'LPAREN':([0,12,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,47,48,],[12,12,12,12,12,12,-16,-17,-18,-19,-20,-28,-29,-30,-31,-32,-33,12,-34,-35,50,51,]),'TRUE':([0,20,21,35,36,37,],[16,16,16,16,-34,-35,]),'FALSE':([0,20,21,35,36,37,],[17,17,17,17,-34,-35,]),'INTEGER':([0,12,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,],[18,18,18,18,18,18,-16,-17,-18,-19,-20,-28,-29,-30,-31,-32,-33,18,-34,-35,]),'FLOAT':([0,12,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,],[19,19,19,19,19,19,-16,-17,-18,-19,-20,-28,-29,-30,-31,-32,-33,19,-34,-35,]),'$end':([1,2,3,4,5,6,7,8,9,10,13,14,15,16,17,18,19,40,41,42,43,44,45,49,55,56,],[0,-1,-2,-3,-4,-5,-13,-8,-9,-10,-11,-27,-14,-23,-24,-21,-22,-13,-7,-6,-12,-25,-26,-15,-37,-36,]),'ASSIGN':([7,],[20,]),'SHORTASSIGN':([7,],[21,]),'PLUS':([7,8,13,15,18,19,39,40,43,44,46,49,],[-13,24,-11,-14,-21,-22,24,-13,-12,24,24,-15,]),'MINUS':([7,8,13,15,18,19,39,40,43,44,46,49,],[-13,25,-11,-14,-21,-22,25,-13,-12,25,25,-15,]),'TIMES':([7,8,13,15,18,19,39,40,43,44,46,49,],[-13,26,-11,-14,-21,-22,26,-13,-12,26,26,-15,]),'DIVIDE':([7,8,13,15,18,19,39,40,43,44,46,49,],[-13,27,-11,-14,-21,-22,27,-13,-12,27,27,-15,]),'MODULO':([7,8,13,15,18,19,39,40,43,44,46,49,],[-13,28,-11,-14,-21,-22,28,-13,-12,28,28,-15,]),'EQUALS':([7,8,13,15,18,19,40,43,46,49,],[-13,29,-11,-14,-21,-22,-13,-12,29,-15,]),'NOT_EQUALS':([7,8,13,15,18,19,40,43,46,49,],[-13,30,-11,-14,-21,-22,-13,-12,30,-15,]),'MORE_EQUAL':([7,8,13,15,18,19,40,43,46,49,],[-13,31,-11,-14,-21,-22,-13,-12,31,-15,]),'LESS_EQUAL':([7,8,13,15,18,19,40,43,46,49,],[-13,32,-11,-14,-21,-22,-13,-12,32,-15,]),'MORETHAN':([7,8,13,15,18,19,40,43,46,49,],[-13,33,-11,-14,-21,-22,-13,-12,33,-15,]),'LESSTHAN':([7,8,13,15,18,19,40,43,46,49,],[-13,34,-11,-14,-21,-22,-13,-12,34,-15,]),'LOGICAL_AND':([9,13,14,15,16,17,18,19,40,43,44,45,49,],[36,-11,-27,-14,-23,-24,-21,-22,-13,-12,-25,36,-15,]),'LOGICAL_OR':([9,13,14,15,16,17,18,19,40,43,44,45,49,],[37,-11,-27,-14,-23,-24,-21,-22,-13,-12,-25,37,-15,]),'DOT':([11,],[38,]),'RPAREN':([13,15,18,19,39,40,43,49,53,54,],[-11,-14,-21,-22,49,-13,-12,-15,55,56,]),'SCANLN':([38,],[47,]),'PRINTLN':([38,],[48,]),'AMPERSAND':([50,],[52,]),}
+_lr_action_items = {'IDENTIFIER':([0,13,14,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,75,76,77,83,],[8,42,43,42,42,42,42,-38,-39,-40,-41,-42,-50,-51,-52,-53,-54,-55,42,-56,-57,79,42,81,79,]),'STRING':([0,22,23,43,76,],[11,11,11,59,11,]),'FMT':([0,],[12,]),'VAR':([0,],[14,]),'LPAREN':([0,13,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,50,51,76,],[13,13,13,13,13,13,-38,-39,-40,-41,-42,-50,-51,-52,-53,-54,-55,13,-56,-57,74,75,13,]),'TRUE':([0,22,23,37,38,39,43,76,],[18,18,18,18,-56,-57,18,18,]),'FALSE':([0,22,23,37,38,39,43,76,],[19,19,19,19,-56,-57,19,19,]),'INTEGER':([0,13,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,76,],[20,20,20,20,20,20,-38,-39,-40,-41,-42,-50,-51,-52,-53,-54,-55,20,-56,-57,20,]),'FLOAT':([0,13,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,76,],[21,21,21,21,21,21,-38,-39,-40,-41,-42,-50,-51,-52,-53,-54,-55,21,-56,-57,21,]),'$end':([1,2,3,4,5,6,7,8,9,10,11,15,16,17,18,19,20,21,42,44,45,46,47,48,52,80,82,84,],[0,-1,-2,-3,-4,-5,-6,-35,-30,-31,-32,-33,-49,-36,-45,-46,-43,-44,-35,-29,-7,-34,-47,-48,-37,-8,-59,-58,]),'ASSIGN':([8,18,19,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,],[22,-45,-46,76,-9,-10,-11,-12,-13,-14,-15,-16,-17,-18,-19,-20,-21,-27,-28,-22,-23,-24,-25,-26,]),'SHORTASSIGN':([8,],[23,]),'PLUS':([8,9,15,17,20,21,41,42,46,47,49,52,],[-35,26,-33,-36,-43,-44,26,-35,-34,26,26,-37,]),'MINUS':([8,9,15,17,20,21,41,42,46,47,49,52,],[-35,27,-33,-36,-43,-44,27,-35,-34,27,27,-37,]),'TIMES':([8,9,15,17,20,21,41,42,46,47,49,52,],[-35,28,-33,-36,-43,-44,28,-35,-34,28,28,-37,]),'DIVIDE':([8,9,15,17,20,21,41,42,46,47,49,52,],[-35,29,-33,-36,-43,-44,29,-35,-34,29,29,-37,]),'MODULO':([8,9,15,17,20,21,41,42,46,47,49,52,],[-35,30,-33,-36,-43,-44,30,-35,-34,30,30,-37,]),'EQUALS':([8,9,15,17,20,21,42,46,49,52,],[-35,31,-33,-36,-43,-44,-35,-34,31,-37,]),'NOT_EQUALS':([8,9,15,17,20,21,42,46,49,52,],[-35,32,-33,-36,-43,-44,-35,-34,32,-37,]),'MORE_EQUAL':([8,9,15,17,20,21,42,46,49,52,],[-35,33,-33,-36,-43,-44,-35,-34,33,-37,]),'LESS_EQUAL':([8,9,15,17,20,21,42,46,49,52,],[-35,34,-33,-36,-43,-44,-35,-34,34,-37,]),'MORETHAN':([8,9,15,17,20,21,42,46,49,52,],[-35,35,-33,-36,-43,-44,-35,-34,35,-37,]),'LESSTHAN':([8,9,15,17,20,21,42,46,49,52,],[-35,36,-33,-36,-43,-44,-35,-34,36,-37,]),'LOGICAL_AND':([10,15,16,17,18,19,20,21,42,46,47,48,52,],[38,-33,-49,-36,-45,-46,-43,-44,-35,-34,-47,38,-37,]),'LOGICAL_OR':([10,15,16,17,18,19,20,21,42,46,47,48,52,],[39,-33,-49,-36,-45,-46,-43,-44,-35,-34,-47,39,-37,]),'DOT':([12,],[40,]),'RPAREN':([15,17,20,21,41,42,46,52,78,79,81,85,],[-33,-36,-43,-44,52,-35,-34,-37,82,-60,84,-61,]),'SCANLN':([40,],[50,]),'PRINTLN':([40,],[51,]),'INT':([43,],[60,]),'INT8':([43,],[61,]),'INT16':([43,],[62,]),'INT32':([43,],[63,]),'INT64':([43,],[64,]),'FLOAT32':([43,],[65,]),'FLOAT64':([43,],[66,]),'COMPLEX64':([43,],[67,]),'COMPLEX128':([43,],[68,]),'UINT':([43,],[69,]),'UINT8':([43,],[70,]),'UINT16':([43,],[71,]),'UINT32':([43,],[72,]),'UINT64':([43,],[73,]),'AMPERSAND':([74,],[77,]),'COMA':([79,],[83,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'sentencia':([0,],[1,]),'asignacion':([0,],[2,]),'asignacion_corta':([0,],[3,]),'expresion':([0,20,21,],[4,41,42,]),'pedirDatos':([0,],[5,]),'imprimir':([0,],[6,]),'expresionMatematica':([0,12,20,21,23,35,],[8,39,8,8,44,46,]),'expresionBooleana':([0,20,21,35,],[9,9,9,45,]),'termino':([0,12,20,21,22,23,35,],[13,13,13,13,43,13,13,]),'bool':([0,20,21,35,],[14,14,14,14,]),'numero':([0,12,20,21,22,23,35,],[15,15,15,15,15,15,15,]),'operando':([8,39,44,46,],[22,22,22,22,]),'operandoBooleano':([8,46,],[23,23,]),'operador_logico':([9,45,],[35,35,]),}
+_lr_goto_items = {'sentencia':([0,],[1,]),'asignacion':([0,],[2,]),'asignacion_corta':([0,],[3,]),'expresion':([0,22,23,76,],[4,44,45,80,]),'pedirDatos':([0,],[5,]),'imprimir':([0,],[6,]),'crearVariable':([0,],[7,]),'expresionMatematica':([0,13,22,23,25,37,76,],[9,41,9,9,47,49,9,]),'expresionBooleana':([0,22,23,37,76,],[10,10,10,48,10,]),'termino':([0,13,22,23,24,25,37,76,],[15,15,15,15,46,15,15,15,]),'bool':([0,22,23,37,43,76,],[16,16,16,16,58,16,]),'numero':([0,13,22,23,24,25,37,76,],[17,17,17,17,17,17,17,17,]),'operando':([9,41,47,49,],[24,24,24,24,]),'operandoBooleano':([9,49,],[25,25,]),'operador_logico':([10,48,],[37,37,]),'tipo':([43,],[53,]),'int':([43,],[54,]),'float':([43,],[55,]),'complex':([43,],[56,]),'uint':([43,],[57,]),'valores':([75,83,],[78,85,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -32,36 +32,60 @@ _lr_productions = [
   ('sentencia -> expresion','sentencia',1,'p_sentencia','parser.py',9),
   ('sentencia -> pedirDatos','sentencia',1,'p_sentencia','parser.py',10),
   ('sentencia -> imprimir','sentencia',1,'p_sentencia','parser.py',11),
-  ('asignacion_corta -> IDENTIFIER SHORTASSIGN expresion','asignacion_corta',3,'p_asignacionCorta','parser.py',16),
-  ('asignacion -> IDENTIFIER ASSIGN expresion','asignacion',3,'p_asignacion','parser.py',22),
-  ('expresion -> expresionMatematica','expresion',1,'p_expresion','parser.py',26),
-  ('expresion -> expresionBooleana','expresion',1,'p_expresion','parser.py',27),
-  ('expresion -> STRING','expresion',1,'p_expresion','parser.py',28),
-  ('expresionMatematica -> termino','expresionMatematica',1,'p_expresionMatematica','parser.py',33),
-  ('expresionMatematica -> expresionMatematica operando termino','expresionMatematica',3,'p_expresionMatematica','parser.py',34),
-  ('termino -> IDENTIFIER','termino',1,'p_termino','parser.py',38),
-  ('termino -> numero','termino',1,'p_termino','parser.py',39),
-  ('termino -> LPAREN expresionMatematica RPAREN','termino',3,'p_termino','parser.py',40),
-  ('operando -> PLUS','operando',1,'p_operando','parser.py',44),
-  ('operando -> MINUS','operando',1,'p_operando','parser.py',45),
-  ('operando -> TIMES','operando',1,'p_operando','parser.py',46),
-  ('operando -> DIVIDE','operando',1,'p_operando','parser.py',47),
-  ('operando -> MODULO','operando',1,'p_operando','parser.py',48),
-  ('numero -> INTEGER','numero',1,'p_numero','parser.py',52),
-  ('numero -> FLOAT','numero',1,'p_numero','parser.py',53),
-  ('bool -> TRUE','bool',1,'p_boolean','parser.py',57),
-  ('bool -> FALSE','bool',1,'p_boolean','parser.py',58),
-  ('expresionBooleana -> expresionMatematica operandoBooleano expresionMatematica','expresionBooleana',3,'p_expresionBooleana','parser.py',63),
-  ('expresionBooleana -> expresionBooleana operador_logico expresionBooleana','expresionBooleana',3,'p_expresionBooleana','parser.py',64),
-  ('expresionBooleana -> bool','expresionBooleana',1,'p_expresionBooleana','parser.py',65),
-  ('operandoBooleano -> EQUALS','operandoBooleano',1,'p_operandoBooleano','parser.py',70),
-  ('operandoBooleano -> NOT_EQUALS','operandoBooleano',1,'p_operandoBooleano','parser.py',71),
-  ('operandoBooleano -> MORE_EQUAL','operandoBooleano',1,'p_operandoBooleano','parser.py',72),
-  ('operandoBooleano -> LESS_EQUAL','operandoBooleano',1,'p_operandoBooleano','parser.py',73),
-  ('operandoBooleano -> MORETHAN','operandoBooleano',1,'p_operandoBooleano','parser.py',74),
-  ('operandoBooleano -> LESSTHAN','operandoBooleano',1,'p_operandoBooleano','parser.py',75),
-  ('operador_logico -> LOGICAL_AND','operador_logico',1,'p_operador_logico','parser.py',79),
-  ('operador_logico -> LOGICAL_OR','operador_logico',1,'p_operador_logico','parser.py',80),
-  ('pedirDatos -> FMT DOT SCANLN LPAREN AMPERSAND IDENTIFIER RPAREN','pedirDatos',7,'p_pedirDatos','parser.py',85),
-  ('imprimir -> FMT DOT PRINTLN LPAREN IDENTIFIER RPAREN','imprimir',6,'p_imprimir','parser.py',89),
+  ('sentencia -> crearVariable','sentencia',1,'p_sentencia','parser.py',12),
+  ('asignacion_corta -> IDENTIFIER SHORTASSIGN expresion','asignacion_corta',3,'p_asignacionCorta','parser.py',18),
+  ('crearVariable -> VAR IDENTIFIER tipo ASSIGN expresion','crearVariable',5,'p_crearVariable','parser.py',23),
+  ('tipo -> int','tipo',1,'p_tipo','parser.py',27),
+  ('tipo -> float','tipo',1,'p_tipo','parser.py',28),
+  ('tipo -> complex','tipo',1,'p_tipo','parser.py',29),
+  ('tipo -> uint','tipo',1,'p_tipo','parser.py',30),
+  ('tipo -> bool','tipo',1,'p_tipo','parser.py',31),
+  ('tipo -> STRING','tipo',1,'p_tipo','parser.py',32),
+  ('int -> INT','int',1,'p_int','parser.py',36),
+  ('int -> INT8','int',1,'p_int','parser.py',37),
+  ('int -> INT16','int',1,'p_int','parser.py',38),
+  ('int -> INT32','int',1,'p_int','parser.py',39),
+  ('int -> INT64','int',1,'p_int','parser.py',40),
+  ('float -> FLOAT32','float',1,'p_float','parser.py',45),
+  ('float -> FLOAT64','float',1,'p_float','parser.py',46),
+  ('uint -> UINT','uint',1,'p_uint','parser.py',50),
+  ('uint -> UINT8','uint',1,'p_uint','parser.py',51),
+  ('uint -> UINT16','uint',1,'p_uint','parser.py',52),
+  ('uint -> UINT32','uint',1,'p_uint','parser.py',53),
+  ('uint -> UINT64','uint',1,'p_uint','parser.py',54),
+  ('complex -> COMPLEX64','complex',1,'p_complex','parser.py',59),
+  ('complex -> COMPLEX128','complex',1,'p_complex','parser.py',60),
+  ('asignacion -> IDENTIFIER ASSIGN expresion','asignacion',3,'p_asignacion','parser.py',66),
+  ('expresion -> expresionMatematica','expresion',1,'p_expresion','parser.py',70),
+  ('expresion -> expresionBooleana','expresion',1,'p_expresion','parser.py',71),
+  ('expresion -> STRING','expresion',1,'p_expresion','parser.py',72),
+  ('expresionMatematica -> termino','expresionMatematica',1,'p_expresionMatematica','parser.py',77),
+  ('expresionMatematica -> expresionMatematica operando termino','expresionMatematica',3,'p_expresionMatematica','parser.py',78),
+  ('termino -> IDENTIFIER','termino',1,'p_termino','parser.py',82),
+  ('termino -> numero','termino',1,'p_termino','parser.py',83),
+  ('termino -> LPAREN expresionMatematica RPAREN','termino',3,'p_termino','parser.py',84),
+  ('operando -> PLUS','operando',1,'p_operando','parser.py',88),
+  ('operando -> MINUS','operando',1,'p_operando','parser.py',89),
+  ('operando -> TIMES','operando',1,'p_operando','parser.py',90),
+  ('operando -> DIVIDE','operando',1,'p_operando','parser.py',91),
+  ('operando -> MODULO','operando',1,'p_operando','parser.py',92),
+  ('numero -> INTEGER','numero',1,'p_numero','parser.py',96),
+  ('numero -> FLOAT','numero',1,'p_numero','parser.py',97),
+  ('bool -> TRUE','bool',1,'p_boolean','parser.py',101),
+  ('bool -> FALSE','bool',1,'p_boolean','parser.py',102),
+  ('expresionBooleana -> expresionMatematica operandoBooleano expresionMatematica','expresionBooleana',3,'p_expresionBooleana','parser.py',107),
+  ('expresionBooleana -> expresionBooleana operador_logico expresionBooleana','expresionBooleana',3,'p_expresionBooleana','parser.py',108),
+  ('expresionBooleana -> bool','expresionBooleana',1,'p_expresionBooleana','parser.py',109),
+  ('operandoBooleano -> EQUALS','operandoBooleano',1,'p_operandoBooleano','parser.py',114),
+  ('operandoBooleano -> NOT_EQUALS','operandoBooleano',1,'p_operandoBooleano','parser.py',115),
+  ('operandoBooleano -> MORE_EQUAL','operandoBooleano',1,'p_operandoBooleano','parser.py',116),
+  ('operandoBooleano -> LESS_EQUAL','operandoBooleano',1,'p_operandoBooleano','parser.py',117),
+  ('operandoBooleano -> MORETHAN','operandoBooleano',1,'p_operandoBooleano','parser.py',118),
+  ('operandoBooleano -> LESSTHAN','operandoBooleano',1,'p_operandoBooleano','parser.py',119),
+  ('operador_logico -> LOGICAL_AND','operador_logico',1,'p_operador_logico','parser.py',123),
+  ('operador_logico -> LOGICAL_OR','operador_logico',1,'p_operador_logico','parser.py',124),
+  ('pedirDatos -> FMT DOT SCANLN LPAREN AMPERSAND IDENTIFIER RPAREN','pedirDatos',7,'p_pedirDatos','parser.py',129),
+  ('imprimir -> FMT DOT PRINTLN LPAREN valores RPAREN','imprimir',6,'p_imprimir','parser.py',133),
+  ('valores -> IDENTIFIER','valores',1,'p_valores','parser.py',137),
+  ('valores -> IDENTIFIER COMA valores','valores',3,'p_valores','parser.py',138),
 ]
