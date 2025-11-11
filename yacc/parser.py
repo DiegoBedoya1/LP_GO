@@ -163,6 +163,19 @@ def p_struct_fields(p):
     
 def p_struct_field(p):
     '''struct_field : IDENTIFIER IDENTIFIER'''
+
+#contribucion Diego Bedoya
+#map
+def p_map_decl(p):
+    '''map_decl : IDENTIFIER SHORTASSIGN MAP LBRACKET IDENTIFIER RBRACKET IDENTIFIER LBRACE lista_pares RBRACE'''
+
+def p_lista_pares(p):
+    '''lista_pares : par_map  COMA lista_pares
+                   | par_map'''
+   
+
+def p_par_map(p):
+    '''par_map : STRING COLON expresion'''
     
 
 #Estructuras de control
@@ -179,6 +192,23 @@ def p_elif_chain(p):
 def p_else_opt(p):
     '''else_opt : ELSE block
                 | empty'''
+
+#contribucion Diego Bedoya 
+#switch
+def p_switch_stmt(p):
+    '''switch_stmt : SWITCH expresion LBRACE case_clauses default_clause RBRACE'''
+
+def p_case_clauses(p):
+    '''case_clauses : case_clause case_clauses
+                    | case_clause
+                    | empty'''
+
+def p_case_clause(p):
+    '''case_clause : CASE expresion COLON sentencia'''
+
+def p_default_clause(p):
+    '''default_clause : DEFAULT COLON sentencia
+                |empty'''
     
 
 # Tipo de funciones
@@ -188,7 +218,7 @@ def p_func_metodo(p):
     '''func_metodo : FUNC LPAREN IDENTIFIER IDENTIFIER RPAREN IDENTIFIER LPAREN RPAREN LBRACE sentencias RBRACE'''
 
 def p_lista_parametros(p):
-    """lista_parametros : lista_parametros COMA parametro
+    """lista_parametros : parametro COMA lista_parametros  
     | parametro
     | empty"""
 
@@ -215,6 +245,15 @@ def p_arg_funcion(p):
 
 def p_parametro(p):
     '''parametro : IDENTIFIER IDENTIFIER'''
+
+#contribucion Diego Bedoya
+#funcion de retorno simple
+def p_func_con_retorno(p):
+    '''func_con_retorno : FUNC IDENTIFIER LPAREN lista_parametros RPAREN IDENTIFIER LBRACE sentencia RETURN retorno RBRACE'''
+def p_retorno(p):
+    """ retorno : valor | IDENTIFIER
+    """
+
 
 """ def p_expression_plus(p):
     "expression : expression PLUS term"
