@@ -6,7 +6,9 @@ from lexer.lexer import tokens
 def p_sentencia(p):
     """sentencia : asignacion
     | asignacion_corta
-    | expresion"""
+    | expresion
+    | pedirDatos
+    | imprimir"""
 
 
 # contribucion Salvador Muñoz
@@ -85,13 +87,15 @@ def p_operador_logico(p):
     """operador_logico : LOGICAL_AND
     | LOGICAL_OR"""
 
-#contribucion Diego Bedoya
+
+# contribucion Diego Bedoya
 def p_pedirDatos(p):
-    ''' pedirDatos : 'fmt' DOT 'Scanln' LPAREN AMPERSAND IDENTIFIER RPAREN
-    '''
+    """pedirDatos : FMT DOT SCANLN LPAREN AMPERSAND IDENTIFIER RPAREN"""
+
+
 def p_imprimir(p):
-    '''imprimir : 'fmt' DOT 'Println' LPAREN IDENTIFIER RPAREN
-    '''
+    """imprimir : FMT DOT PRINTLN LPAREN IDENTIFIER RPAREN"""
+
 
 """ def p_expression_plus(p):
     "expression : expression PLUS term"
