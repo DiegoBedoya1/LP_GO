@@ -132,7 +132,7 @@ def p_factor_expr(p):
 
 # Error rule for syntax errors
 def p_error(p):
-    print("Syntax error in input!")
+    print(f"Syntax error in input! {p.value,p}")
 
 
 # Build the parser
