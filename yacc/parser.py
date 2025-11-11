@@ -3,35 +3,6 @@ from lexer.lexer import tokens
 import os, datetime
 
 
-
-
-# ++++++++++++++++++++
-# Interfaces
-# ++++++++++++++++++++
-
-def p_interface_decl(p):
-    '''interface_decl : TYPE IDENTIFIER INTERFACE LBRACE interface_methods RBRACE'''
-
-def p_interface_methods(p):
-    '''interface_methods : interface_method interface_methods
-                         | interface_method'''
-
-def p_interface_method(p):
-    '''interface_method : IDENTIFIER LPAREN RPAREN'''
-
-
-
-
-
-
-
-
-
-
-
-
-
-# contribucion Salvador Muñoz
 def p_sentencia(p):
     """sentencia : asignacion
     | asignacion_corta
@@ -40,14 +11,49 @@ def p_sentencia(p):
     | imprimir
     | crearVariable
     | funcion_anonima
+    | struct_decl
+    | map_decl
+    | slice_decl_simple
+    | slice_decl
+    | if_stmt
+    | switch_stmt
+    | for_stmt
+    | func_con_retorno
+    | func_metodo
+    | interface_decl
     """
 
 
-# contribucion Salvador Muñoz
-def p_lista_sentencias(p):
-    """lista_sentencias : sentencia
-    | lista_sentencias sentencia"""
+# ++++++++++++++++++++
+# Interfaces
+# ++++++++++++++++++++
 
+
+def p_interface_decl(p):
+    """interface_decl : TYPE IDENTIFIER INTERFACE LBRACE interface_methods RBRACE"""
+
+
+def p_interface_methods(p):
+    """interface_methods : interface_method interface_methods
+    | interface_method"""
+
+
+def p_interface_method(p):
+    """interface_method : IDENTIFIER LPAREN RPAREN"""
+
+
+
+# ++++++++++++++++++++
+# DEF expresion
+# ++++++++++++++++++++
+
+def p_expresion(p):
+    """expresion : expresionMatematica
+    | expresionBooleana
+    | STRING"""
+
+
+# contribucion Salvador Muñoz
 
 # contribucion Salvador Muñoz
 def p_asignacionCorta(p):
@@ -100,10 +106,6 @@ def p_asignacion(p):
     """asignacion : IDENTIFIER ASSIGN expresion"""
 
 
-def p_expresion(p):
-    """expresion : expresionMatematica
-    | expresionBooleana
-    | STRING"""
 
 
 def p_expresionMatematica(p):
@@ -252,7 +254,7 @@ def p_switch_stmt(p):
 
 
 def p_case_clauses(p):
-    """case_clauses : case_clause case_clauses
+    """case_clauses : case_clauses case_clause 
     | case_clause
     | empty"""
 
@@ -265,20 +267,20 @@ def p_default_clause(p):
     """default_clause : DEFAULT COLON sentencia
     | empty"""
 
+
 # For
 def p_for_stmt(p):
-    '''for_stmt : FOR for_header block'''
+    """for_stmt : FOR for_header block"""
+
 
 def p_for_header(p):
-    '''for_header : asignacion_corta SEMICOLON expresionBooleana SEMICOLON incremento
-                  | empty'''
+    """for_header : asignacion_corta SEMICOLON expresionBooleana SEMICOLON incremento
+    | empty"""
+
 
 def p_incremento(p):
-    '''incremento : IDENTIFIER INCREMENT
-                  | IDENTIFIER DECREMENT'''
-
-
-
+    """incremento : IDENTIFIER INCREMENT
+    | IDENTIFIER DECREMENT"""
 
 
 # Tipo de funciones
@@ -334,10 +336,12 @@ def p_retorno(p):
 def p_block(p):
     """block : LBRACE sentencias RBRACE"""
 
+
 def p_sentencias(p):
     """sentencias : sentencias sentencia
     | sentencia
     | empty"""
+
 
 def p_empty(p):
     "empty :"
@@ -354,12 +358,12 @@ def p_error(p):
 # Build the parser
 parser_obj = yacc.yacc()
 
-# while True:
-#     try:
-#         s = input("calc > ")
-#     except EOFError:
-#         break
-#     if not s:
-#         continue
-#     result = parser_obj.parse(s)
-#     print(result)
+while True:
+    try:
+        s = input("calc > ")
+    except EOFError:
+        break
+    if not s:
+        continue
+    result = parser_obj.parse(s)
+    print(result)
