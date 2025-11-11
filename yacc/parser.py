@@ -152,17 +152,9 @@ def p_else_opt(p):
 
 #Tipo de funciones
 #contribucion Steven Mirabá
-#metodo asociado a struct
-def p_func_metodo(p):
-    '''func_metodo : FUNC LPAREN IDENTIFIER IDENTIFIER RPAREN IDENTIFIER LPAREN RPAREN LBRACE sentencias RBRACE'''
-
-def p_lista_parametros(p):
-    '''lista_parametros : lista_parametros COMA parametro
-                        | parametro
-                        | empty'''
-
-def p_parametro(p):
-    '''parametro : IDENTIFIER IDENTIFIER'''
+#retorno simple
+def p_funcion_simple(p):
+    '''funcion_simple : FUNC IDENTIFIER LPAREN lista_parametros RPAREN tipo LBRACE sentencias RBRACE'''
 
 """ def p_expression_plus(p):
     "expression : expression PLUS term"
