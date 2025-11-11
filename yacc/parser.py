@@ -107,6 +107,11 @@ def p_numero(p):
 def p_boolean(p):
     """bool : TRUE
     | FALSE"""
+def p_valor(p):
+    """ valor: STRING
+    | bool
+    | numero
+    """
 
 
 # contribucion Salvador Muñoz
@@ -146,21 +151,23 @@ def p_valores(p):
     |"""  # linea vacia significa que es opcional
 
 
-# Estructuras de datos
-# contribucion Steven Mirabá
-# array
-def p_array_decl(p):
-    """array_decl : VAR IDENTIFIER ASSIGN LBRACKET INTEGER RBRACKET tipo LBRACE elementos RBRACE"""
+#Estructuras de datos
+#contribucion Steven Mirabá
+#Struct
+def p_struct_decl(p):
+    '''struct_decl : TYPE IDENTIFIER STRUCT LBRACE struct_fields RBRACE'''
 
+def p_struct_fields(p):
+    '''struct_fields : struct_fields struct_field
+                     | struct_field'''
+    
+def p_struct_field(p):
+    '''struct_field : IDENTIFIER IDENTIFIER'''
+    
 
-def p_elementos(p):
-    """elementos : elementos COMA expresion
-    | expresion"""
-
-
-# Estructuras de control
-# contribucion Steven Mirabá
-# if / else if / else
+#Estructuras de control
+#contribucion Steven Mirabá
+#if / else
 def p_if_stmt(p):
     """if_stmt : IF expresionBooleana block else_opt"""
     
@@ -170,16 +177,15 @@ def p_elif_chain(p):
                   | empty'''
 
 def p_else_opt(p):
-    """else_opt : ELSE block
-    | empty"""
-
+    '''else_opt : ELSE block
+                | empty'''
+    
 
 # Tipo de funciones
 # contribucion Steven Mirabá
 # metodo asociado a struct
 def p_func_metodo(p):
-    """func_metodo : FUNC LPAREN IDENTIFIER IDENTIFIER RPAREN IDENTIFIER LPAREN RPAREN LBRACE sentencias RBRACE"""
-
+    '''func_metodo : FUNC LPAREN IDENTIFIER IDENTIFIER RPAREN IDENTIFIER LPAREN RPAREN LBRACE sentencias RBRACE'''
 
 def p_lista_parametros(p):
     """lista_parametros : lista_parametros COMA parametro
@@ -208,8 +214,7 @@ def p_arg_funcion(p):
 
 
 def p_parametro(p):
-    """parametro : IDENTIFIER IDENTIFIER"""
-
+    '''parametro : IDENTIFIER IDENTIFIER'''
 
 """ def p_expression_plus(p):
     "expression : expression PLUS term"

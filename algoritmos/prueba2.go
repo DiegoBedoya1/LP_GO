@@ -1,11 +1,21 @@
 package main
-import "fmt"
 
-func main(){
-	numeros := 10
-	for i := 0; i<numeros; i++{
-		if i % 2 == 0{
-			fmt.Println("hola mundo")
+import (
+	"fmt"
+	"strings"
+)
+
+func contarVocales(texto string) int {
+	vocales := "aeiouáéíóú"
+	contador := 0
+
+	for _, r := range strings.ToLower(texto) {
+		if strings.ContainsRune(vocales, r) {
+			contador++
 		}
 	}
+	return contador
 }
+
+func main() {
+	fmt.Println(contarVocales("Programación en Go")) 
