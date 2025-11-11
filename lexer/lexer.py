@@ -6,6 +6,11 @@ import ply.lex as lex
 # Contribucion: Diego bedoya, más palabras reservadas
 #contribucion: Steven Miraba, algunas palabras reservadas
 reserved = {
+    #palabras de funciones reservadas
+    "fmt": "FMT",
+    "Scanln": "SCANLN",
+    "Println": "PRINTLN",
+    #palabras reservadas
     "if": "IF",
     "else": "ELSE",
     "for": "FOR",
@@ -74,6 +79,10 @@ tokens = (
     "VARIADIC"  #Contribucion: Steven Miraba
 ) + tuple(reserved.values())
 
+# expresiones para funciones reservadas
+t_FMT= r"fmt"
+t_SCANLN = r"Scanln"
+t_PRINTLN = r"Println"
 # Expresiones regulares para tokens simples
 # Contribucion: Salvador Muñoz
 t_SHORTASSIGN = r":="
