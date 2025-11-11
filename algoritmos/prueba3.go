@@ -1,13 +1,16 @@
 package main
+
 import "fmt"
 
-func main(){
-	var nombre string
-	fmt.Println("Ingresa tu nombre: ")
-	fmt.Scanln(nombre)
-	if nombre == "andres"{
-		fmt.Println("hola andres")
-	}else{
-		fmt.Println("no te conozco")
+func sumaDigitos(num int) int {
+	suma := 0
+	for num > 0 {
+		suma += num % 10
+		num /= 10
 	}
+	return suma
+}
+
+func main() {
+	fmt.Println(sumaDigitos(12345))
 }
