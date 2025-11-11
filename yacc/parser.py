@@ -2,7 +2,20 @@ import ply.yacc as yacc
 from lexer.lexer import tokens
 
 
+# contribucion Salvador Muñoz
+def p_sentencia(p):
+    """sentencia : asignacion
+    | asignacion_corta
+    | expresion"""
+
+
+# contribucion Salvador Muñoz
+def p_asignacionCorta(p):
+    """asignacion_corta : IDENTIFIER SHORTASSIGN expresion"""
+
+
 # Contribucion Salvador Muñoz
+# asignacion de tipo ID = 0
 def p_asignacion(p):
     """asignacion : IDENTIFIER ASSIGN expresion"""
 
@@ -45,13 +58,23 @@ def p_boolean(p):
 
 # contribucion Salvador Muñoz
 def p_expresionBooleana(p):
-    """expresionBooleana : expresionBooleana operandoBooleando termino
+    """expresionBooleana : expresionMatematica operandoBooleano expresionMatematica
+    | expresionBooleana operador_logico expresionBooleana
     | bool"""
 
 
 # contribucion Salvador Muñoz
-def p_operandoBooleando(p):
-    """operandoBooleando : LOGICAL_AND
+def p_operandoBooleano(p):
+    """operandoBooleano : EQUALS
+    | NOT_EQUALS
+    | MORE_EQUAL
+    | LESS_EQUAL
+    | MORETHAN
+    | LESSTHAN"""
+
+
+def p_operador_logico(p):
+    """operador_logico : LOGICAL_AND
     | LOGICAL_OR"""
 
 
@@ -104,13 +127,12 @@ def p_error(p):
 # Build the parser
 parser_obj = yacc.yacc()
 
-""" while True:
+while True:
     try:
         s = input("calc > ")
     except EOFError:
         break
     if not s:
         continue
-    result = parser.parse(s)
+    result = parser_obj.parse(s)
     print(result)
- """

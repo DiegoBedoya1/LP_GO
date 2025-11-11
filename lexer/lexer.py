@@ -79,12 +79,12 @@ tokens = (
 t_SHORTASSIGN = r":="
 t_INCREMENT = r"\+\+"
 t_DECREMENT = r"--"
-t_LESS_EQUAL = r"<="
-t_MORE_EQUAL = r">="
-t_EQUALS = r"=="
-t_NOT_EQUALS = r"!="
-t_LOGICAL_AND = r"&&"
-t_LOGICAL_OR = r"\|\|"
+t_LESS_EQUAL = r"<="  #hecho en parser
+t_MORE_EQUAL = r">="  #hecho en parser
+t_EQUALS = r"=="   #hecho en parser
+t_NOT_EQUALS = r"!="   #hecho en parser
+t_LOGICAL_AND = r"&&"  #hecho en parser
+t_LOGICAL_OR = r"\|\|"   #hecho en parser
 t_LBRACKET = r"\["
 t_RBRACKET = r"\]"
 
@@ -95,11 +95,11 @@ t_RPAREN = r"\)"
 t_DIVIDE = r"/"
 t_TIMES = r"\*"
 t_MODULO = r"%"
-t_MORETHAN = r">"
+t_MORETHAN = r">"   #hecho en parser
 t_LBRACE = r"\{"  # contribucion: Diego Bedoya, definicion de tokens
 t_RBRACE = r"\}"
 t_ASSIGN = r"="
-t_LESSTHAN = r"<"
+t_LESSTHAN = r"<"   #hecho en parser
 t_COLON = r":"
 t_SEMICOLON = r";"
 t_DOT = r"\."
