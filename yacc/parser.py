@@ -182,9 +182,9 @@ def p_lista_parametros(p):
     | parametro
     | empty"""
 
-
+# Salvador Muñoz 
 def p_funcion_anonima(p):
-    """funcion_anonima : FUNC LPAREN valores RPAREN LBRACE sentencias RBRACE"""
+    """funcion_anonima : FUNC LPAREN valores RPAREN LBRACE sentencias RBRACE """
 
 def p_parametro(p):
     """parametro : IDENTIFIER IDENTIFIER"""
