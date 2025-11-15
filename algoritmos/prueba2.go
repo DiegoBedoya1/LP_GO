@@ -1,21 +1,26 @@
 package main
-
-import (
-	"fmt"
-	"strings"
-)
-
-func contarVocales(texto string) int {
-	vocales := "aeiouáéíóú"
-	contador := 0
-
-	for _, r := range strings.ToLower(texto) {
-		if strings.ContainsRune(vocales, r) {
-			contador++
-		}
-	}
-	return contador
-}
+import "fmt"
+type Operacion func(balance int , cantidad int) int 
 
 func main() {
-	fmt.Println(contarVocales("Programación en Go")) 
+	suma := crearOperacion("sumar")
+	resultado := suma(10,5)
+	fmt.Println("El resultado de la suma es: ",resultado)
+}
+
+func crearOperacion(tipo string)Operacion{
+	switch tipo{
+	case "sumar":
+		return func(num1 int, num2 int) int{
+			return num1+num2
+		}
+	case "restar":
+		return func(num1 int, num2 int) int{
+			return num1- num2
+		}
+	default:
+		return func(num1 int, num2 int)int{
+			return num1*num2
+		}
+	}
+}

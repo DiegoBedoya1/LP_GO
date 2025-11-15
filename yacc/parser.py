@@ -2,6 +2,17 @@ import ply.yacc as yacc
 from lexer.lexer import tokens
 import os, datetime
 
+tabla_simbolos = { 
+    "variables": {
+
+    },
+    "tipos": {
+
+    },
+    "constantes": {
+
+    }
+}
 
 def p_sentencia(p):
     """sentencia : asignacion
@@ -21,6 +32,7 @@ def p_sentencia(p):
     | func_con_retorno
     | func_metodo
     | interface_decl
+    | crearConstante
     """
 
 
@@ -39,7 +51,7 @@ def p_interface_methods(p):
 
 
 def p_interface_method(p):
-    """interface_method : IDENTIFIER LPAREN RPAREN"""
+    """interface_method : IDENTIFIER LPAREN RPAREN"""
 
 
 
@@ -51,6 +63,10 @@ def p_expresion(p):
     """expresion : expresionMatematica
     | expresionBooleana
     | STRING"""
+    if isintance(p[1],str) and p.slice[1].type == "STRING":
+        p[0] = "str"
+    else:
+        p[0] = p[1]
 
 
 # contribucion Salvador Muñoz
@@ -58,11 +74,33 @@ def p_expresion(p):
 # contribucion Salvador Muñoz
 def p_asignacionCorta(p):
     """asignacion_corta : IDENTIFIER SHORTASSIGN expresion"""
+    nombre = p[1]
+    tip = p[3]
+    if tip != None:
+        tabla_simbolos["variables"][nombre] = tip
 
 
 # contribucion Diego Bedoya
 def p_crearVariable(p):
     """crearVariable : VAR IDENTIFIER tipo ASSIGN expresion"""
+    nombre = p[2]
+    tip = p[3]
+    exp = p[5]
+    if tip != exp:
+        print(f"Error semántico: la variable '{nombre}' es de tipo '{tipo_var} pero se le asigna una expresión de tipo '{tipo_expr}")
+    if tip != None:
+        tabla_simbolos["variables"][nombre] = tip
+
+    
+    
+
+def p_crearConstante(p):
+    """ crearConstante : CONST IDENTIFIER ASSIGN expresion
+    """
+    nombre = p[2]
+    tip = p[4]
+    if tip != None:
+        tabla_simbolos["constantes"][nombre] = tip
 
 
 def p_tipo(p):
@@ -72,6 +110,7 @@ def p_tipo(p):
     | uint
     | bool
     | STRING"""
+    p[0] = p[1]
 
 
 def p_int(p):
@@ -80,11 +119,12 @@ def p_int(p):
     | INT16
     | INT32
     | INT64"""
-
+    p[0] = "int"
 
 def p_float(p):
     """float : FLOAT32
     | FLOAT64"""
+    p[0] = "float"
 
 
 def p_uint(p):
@@ -93,17 +133,27 @@ def p_uint(p):
     | UINT16
     | UINT32
     | UINT64"""
-
+    p[0] = "uint"
 
 def p_complex(p):
     """complex : COMPLEX64
     | COMPLEX128"""
-
+    p[0] = "complex"
 
 # Contribucion Salvador Muñoz
 # asignacion de tipo ID = 0
 def p_asignacion(p):
     """asignacion : IDENTIFIER ASSIGN expresion"""
+    nombre = p[1]
+    tip = p[3]
+
+    if nombre in tabla_simbolos["constantes"]: #Diego Bedoya: regla para evitar la reasignacion de constantes
+        print(f"Error semántico: no se puede reasignar constante '{nombre}'.")
+    elif nombre not in tabla_simbolos["variables"]:
+        print(f"Error semántico: variable '{nombre}' no definida.")
+    elif tip != None:
+        tabla_simbolos["variables"][nombre] = tip
+
 
 
 
@@ -111,12 +161,35 @@ def p_asignacion(p):
 def p_expresionMatematica(p):
     """expresionMatematica : termino
     | expresionMatematica operando termino"""
+   if len(p) == 2:
+        p[0] = p[1]   
+    else:
+        left = p[1]
+        right = p[3]
+
+        if left == "string" or right == "string":
+            print("Error: no se puede sumar string con número")
+        elif left == "float" or right == "float":
+            p[0] = "float"
+        else:
+            p[0] = "int"
+
 
 
 def p_termino(p):
     """termino : IDENTIFIER
     | numero
     | LPAREN expresionMatematica RPAREN"""  # para permitir (a + b) * 2
+    if len(p) == 2 and isinstance(p[1], str):  
+        nombre = p[1]
+        if nombre not in tabla_simbolos["variables"]:
+            print(f"Error semántico: variable '{nombre}' no definida.")
+        else:
+            p[0] = tabla_simbolos["variables"][nombre]
+     elif len(p) == 2:
+        p[0] = p[1]
+    elif len(p) == 4:
+        p[0] = p[2]
 
 
 def p_operando(p):
@@ -130,18 +203,41 @@ def p_operando(p):
 def p_numero(p):
     """numero : INTEGER
     | FLOAT"""
+    if isinstance(p[1], int):
+        p[0] = "int"
+    else:
+        p[0] = "float"
 
 
 def p_boolean(p):
     """bool : TRUE
     | FALSE"""
+    p[0] = "bool"
 
 
 def p_valor(p):
     """valor : STRING
-    | bool
-    | numero
+    | BOOL
+    | INTEGER
+    | FLOAT
+    | IDENTIFIER
     """
+    if isintance(p[1],int):
+        p[0] = "int"
+    elif isintance(p[1],float):
+        p[0] = "float"
+    elif isintance(p[1],str) and p.slice[1].type == "STRING":
+        p[0] = "string"
+    elif isintance(p[1],bool):
+        p[0] = "bool"
+    else:
+        nombre = p[1]
+        if nombre not in tabla_simbolos["variables"]:
+            print(f"Error semántico: la variable {nombre} no ha sido definida")
+        else:
+            p[0] = tabla_simbolos["variables"][nombre]
+
+    
 
 
 # contribucion Salvador Muñoz
@@ -149,6 +245,7 @@ def p_expresionBooleana(p):
     """expresionBooleana : expresionMatematica operandoBooleano expresionMatematica
     | expresionBooleana operador_logico expresionBooleana
     | bool"""
+    p[0] = "bool"
 
 
 # contribucion Salvador Muñoz
