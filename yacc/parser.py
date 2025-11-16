@@ -2,17 +2,8 @@ import ply.yacc as yacc
 from lexer.lexer import tokens
 import os, datetime
 
-tabla_simbolos = { 
-    "variables": {
+tabla_simbolos = {"variables": {}, "tipos": {}, "constantes": {}}
 
-    },
-    "tipos": {
-
-    },
-    "constantes": {
-
-    }
-}
 
 def p_sentencia(p):
     """sentencia : asignacion
@@ -54,22 +45,23 @@ def p_interface_method(p):
     """interface_method : IDENTIFIER LPAREN RPAREN"""
 
 
-
 # ++++++++++++++++++++
 # DEF expresion
 # ++++++++++++++++++++
+
 
 def p_expresion(p):
     """expresion : expresionMatematica
     | expresionBooleana
     | STRING"""
-    if isintance(p[1],str) and p.slice[1].type == "STRING":
+    if isinstance(p[1], str) and p.slice[1].type == "STRING":
         p[0] = "str"
     else:
         p[0] = p[1]
 
 
 # contribucion Salvador Muñoz
+
 
 # contribucion Salvador Muñoz
 def p_asignacionCorta(p):
@@ -87,16 +79,15 @@ def p_crearVariable(p):
     tip = p[3]
     exp = p[5]
     if tip != exp:
-        print(f"Error semántico: la variable '{nombre}' es de tipo '{tipo_var} pero se le asigna una expresión de tipo '{tipo_expr}")
+        print(
+            f"Error semántico: la variable '{nombre}' es de tipo '{tipo_var} pero se le asigna una expresión de tipo '{tipo_expr}"
+        )
     if tip != None:
         tabla_simbolos["variables"][nombre] = tip
 
-    
-    
 
 def p_crearConstante(p):
-    """ crearConstante : CONST IDENTIFIER ASSIGN expresion
-    """
+    """crearConstante : CONST IDENTIFIER ASSIGN expresion"""
     nombre = p[2]
     tip = p[4]
     if tip != None:
@@ -121,6 +112,7 @@ def p_int(p):
     | INT64"""
     p[0] = "int"
 
+
 def p_float(p):
     """float : FLOAT32
     | FLOAT64"""
@@ -135,19 +127,35 @@ def p_uint(p):
     | UINT64"""
     p[0] = "uint"
 
+
 def p_complex(p):
     """complex : COMPLEX64
     | COMPLEX128"""
     p[0] = "complex"
 
+
 # Contribucion Salvador Muñoz
+# asignacion de tipo var a = 0
+def p_declaracion(p):
+    """declaracion_var : VAR IDENTIFIER ASSIGN expresion"""
+    print("Ejectuando regla semantica declaracion")
+    id = p[2]
+    valor = p[4]
+    print(f"Id: {id}, valor: {id}")
+
+
 # asignacion de tipo ID = 0
 def p_asignacion(p):
     """asignacion : IDENTIFIER ASSIGN expresion"""
+    print("Ejectuando regla semantica asignacion: ")
     nombre = p[1]
+    print("Nombre de asignacion : ", nombre)
     tip = p[3]
-
-    if nombre in tabla_simbolos["constantes"]: #Diego Bedoya: regla para evitar la reasignacion de constantes
+    print("Tipo: ", tip)
+    print(tabla_simbolos)
+    if (
+        nombre in tabla_simbolos["constantes"]
+    ):  # Diego Bedoya: regla para evitar la reasignacion de constantes
         print(f"Error semántico: no se puede reasignar constante '{nombre}'.")
     elif nombre not in tabla_simbolos["variables"]:
         print(f"Error semántico: variable '{nombre}' no definida.")
@@ -155,14 +163,12 @@ def p_asignacion(p):
         tabla_simbolos["variables"][nombre] = tip
 
 
-
-
-
 def p_expresionMatematica(p):
     """expresionMatematica : termino
     | expresionMatematica operando termino"""
-   if len(p) == 2:
-        p[0] = p[1]   
+    print(f"Ejecutando expresion matematica:")
+    if len(p) == 2:
+        p[0] = p[1]
     else:
         left = p[1]
         right = p[3]
@@ -175,18 +181,27 @@ def p_expresionMatematica(p):
             p[0] = "int"
 
 
-
 def p_termino(p):
     """termino : IDENTIFIER
     | numero
     | LPAREN expresionMatematica RPAREN"""  # para permitir (a + b) * 2
-    if len(p) == 2 and isinstance(p[1], str):  
+    print("Ejecutando regla termino:")
+    print("=== Valores (p[i]) ===")
+    for i in range(len(p)):
+        print(f"p[{i}] =", p[i])
+
+    print("\n=== Tokens (p.slice) ===")
+    for tok in p.slice:
+        print(f"type={tok.type}, value={tok.value}")
+
+    if len(p) == 2 and isinstance(p[1], str):
+        print("Instance=str valor: ", p[1])
         nombre = p[1]
         if nombre not in tabla_simbolos["variables"]:
             print(f"Error semántico: variable '{nombre}' no definida.")
         else:
             p[0] = tabla_simbolos["variables"][nombre]
-     elif len(p) == 2:
+    elif len(p) == 2:
         p[0] = p[1]
     elif len(p) == 4:
         p[0] = p[2]
@@ -203,9 +218,12 @@ def p_operando(p):
 def p_numero(p):
     """numero : INTEGER
     | FLOAT"""
+    print("Ejecutando regla numero:")
     if isinstance(p[1], int):
+        print("Numero p ", p[1], " es entero")
         p[0] = "int"
     else:
+        print("Numero p ", p[1], " es float")
         p[0] = "float"
 
 
@@ -222,13 +240,13 @@ def p_valor(p):
     | FLOAT
     | IDENTIFIER
     """
-    if isintance(p[1],int):
+    if isinstance(p[1], int):
         p[0] = "int"
-    elif isintance(p[1],float):
+    elif isinstance(p[1], float):
         p[0] = "float"
-    elif isintance(p[1],str) and p.slice[1].type == "STRING":
+    elif isinstance(p[1], str) and p.slice[1].type == "STRING":
         p[0] = "string"
-    elif isintance(p[1],bool):
+    elif isinstance(p[1], bool):
         p[0] = "bool"
     else:
         nombre = p[1]
@@ -236,8 +254,6 @@ def p_valor(p):
             print(f"Error semántico: la variable {nombre} no ha sido definida")
         else:
             p[0] = tabla_simbolos["variables"][nombre]
-
-    
 
 
 # contribucion Salvador Muñoz
@@ -283,6 +299,7 @@ def p_valores(p):
 # Struct
 def p_struct_decl(p):
     """struct_decl : TYPE IDENTIFIER STRUCT LBRACE struct_fields RBRACE"""
+    p[2]
 
 
 def p_struct_fields(p):
@@ -351,7 +368,7 @@ def p_switch_stmt(p):
 
 
 def p_case_clauses(p):
-    """case_clauses : case_clauses case_clause 
+    """case_clauses : case_clauses case_clause
     | case_clause
     | empty"""
 
@@ -426,8 +443,7 @@ def p_func_con_retorno(p):
 
 
 def p_retorno(p):
-    """retorno : valor
-    | IDENTIFIER"""
+    """retorno : valor"""
 
 
 def p_block(p):
@@ -455,12 +471,12 @@ def p_error(p):
 # Build the parser
 parser_obj = yacc.yacc()
 
-# while True:
-#     try:
-#         s = input("calc > ")
-#     except EOFError:
-#         break
-#     if not s:
-#         continue
-#     result = parser_obj.parse(s)
-#     print(result)
+while True:
+    try:
+        s = input("calc > ")
+    except EOFError:
+        break
+    if not s:
+        continue
+    result = parser_obj.parse(s)
+    print(result)

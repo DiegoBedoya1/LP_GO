@@ -15,7 +15,7 @@ reserved = {
     "else": "ELSE",
     "for": "FOR",
     "break": "BREAK",
-    "continue": "CONTINUE",
+    "continue": "CONTYPETINUE",
     "goto": "GOTO",
     "switch": "SWITCH",
     "case": "CASE",
