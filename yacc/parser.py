@@ -72,6 +72,10 @@ def p_expresion(p):
 
 
 # contribucion Salvador Muñoz
+# Forma 4: Declaración Corta
+# Combina declaración e inferencia de tipo. Solo
+# puede usarse dentro de funciones y si la variable es
+# nueva.
 def p_asignacionCorta(p):
     """asignacion_corta : IDENTIFIER SHORTASSIGN expresion"""
     nombre = p[1]
@@ -81,6 +85,8 @@ def p_asignacionCorta(p):
 
 
 # contribucion Diego Bedoya
+# Inicialización Explícita 
+# var a int = 1
 def p_crearVariable(p):
     """crearVariable : VAR IDENTIFIER tipo ASSIGN expresion"""
     #     0            1    2         3     4        5
@@ -146,7 +152,6 @@ def p_complex(p):
 
 
 # Contribucion Salvador Muñoz
-# asignacion de tipo var a = 0
 # Si el tipo no es compatible con la reasignacion, se mantiene el original
 def p_reasignacion(p):
     """reasignacion_var :  IDENTIFIER ASSIGN expresion"""
@@ -262,7 +267,7 @@ def p_boolean(p):
     """bool_literal : BOOLEAN"""
     p[0] = "bool"
 
-
+# Valor solo se usa en funciones?
 def p_valor(p):
     """valor : STRING
     | BOOLEAN
