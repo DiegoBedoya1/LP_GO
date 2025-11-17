@@ -1,0 +1,81 @@
+=== Archivo: prueba1.go ===
+
+[Error semantico:] Error semántico: La variable x es de tipo int, pero se intento asignar string
+[Error semantico:] Error semántico: La variable y es de tipo float, pero se intento asignar int
+{'constantes': {},
+ 'tipos': {},
+ 'variables': {'flag': 'bool',
+               'i': 'int',
+               'msg': 'string',
+               'x': 'int',
+               'y': 'float'}}
+
+--------------------------------------------------
+
+=== Archivo: prueba2.go ===
+
+[Error semantico:] Error semántico: La variable x es de tipo int, pero se intento asignar string
+[Error semantico:] Error semántico: La variable y es de tipo float, pero se intento asignar int
+[Error semantico:] Error semántico: variable 'crearOperacion' no definida.
+[Error semantico:] Error semántico: variable 'suma' no definida.
+[Error semantico:] Error semántico: variable 'tipo' no definida.
+[Error semantico:] Error semántico: variable 'num1' no definida.
+[Error semantico:] Error semántico: variable 'num2' no definida.
+[Error semantico:] Error semántico: variable 'num1' no definida.
+[Error semantico:] Error semántico: variable 'num2' no definida.
+[Error semantico:] Error semántico: variable 'num1' no definida.
+[Error semantico:] Error semántico: variable 'num2' no definida.
+{'constantes': {},
+ 'tipos': {},
+ 'variables': {'flag': 'bool',
+               'i': 'int',
+               'msg': 'string',
+               'x': 'int',
+               'y': 'float'}}
+
+--------------------------------------------------
+
+=== Archivo: prueba3.go ===
+
+[Error semantico:] Error semántico: La variable x es de tipo int, pero se intento asignar string
+[Error semantico:] Error semántico: La variable y es de tipo float, pero se intento asignar int
+[Error semantico:] Error semántico: variable 'crearOperacion' no definida.
+[Error semantico:] Error semántico: variable 'suma' no definida.
+[Error semantico:] Error semántico: variable 'tipo' no definida.
+[Error semantico:] Error semántico: variable 'num1' no definida.
+[Error semantico:] Error semántico: variable 'num2' no definida.
+[Error semantico:] Error semántico: variable 'num1' no definida.
+[Error semantico:] Error semántico: variable 'num2' no definida.
+[Error semantico:] Error semántico: variable 'num1' no definida.
+[Error semantico:] Error semántico: variable 'num2' no definida.
+[Error semantico:] Error semántico: variable 'Descripcion' no definida.
+[Error semantico:] Error semántico: variable 'string' no definida.
+[Error semantico:] Error semántico: variable 'Ancho' no definida.
+[Error semantico:] Error semántico: variable 'Alto' no definida.
+[Error semantico:] Error semántico: variable 'Pi' no definida.
+[Error semantico:] Error semántico: variable 'Radio' no definida.
+[Error semantico:] Error semántico: variable 'Radio' no definida.
+[Error semantico:] Error semántico: variable 'Figura' no definida.
+[Error semantico:] Error semántico: variable 'f' no definida.
+[Error semantico:] Error semántico: variable 'append' no definida.
+[Error semantico:] Error semantico: Variable lista de tipo None no esta definido
+[Error semantico:] Error semántico: variable 'Descripcion' no definida.
+[Error semantico:] Error semántico: variable 'Area' no definida.
+[Error semantico:] Error semántico: variable 'opcion' no definida.
+[Error semantico:] Error semántico: variable 'agregarFigura' no definida.
+[Error semantico:] Error semántico: variable 'agregarFigura' no definida.
+[Error semantico:] Error semántico: variable 'agregarFigura' no definida.
+[Error semantico:] Error semántico: variable 'agregarFigura' no definida.
+[Error semantico:] Error semántico: variable 'mostrarFiguras' no definida.
+[Error semantico:] Error semántico: variable 'figuras' no definida.
+[Error semantico:] Error semántico: variable 'len' no definida.
+{'constantes': {},
+ 'tipos': {},
+ 'variables': {'flag': 'bool',
+               'i': 'int',
+               'msg': 'string',
+               'x': 'int',
+               'y': 'float'}}
+
+--------------------------------------------------
+

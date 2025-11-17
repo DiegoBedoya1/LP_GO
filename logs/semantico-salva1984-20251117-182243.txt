@@ -1,0 +1,50 @@
+=== Archivo: prueba1.go ===
+
+[Error semantico:] Error semántico: variable 'main' no definida.
+[Error semantico:] Error semántico: variable 'y' no definida.
+{'constantes': {},
+ 'tipos': {},
+ 'variables': {'i': 'int', 'msg': 'string', 'x': 'int'}}
+
+--------------------------------------------------
+
+=== Archivo: prueba2.go ===
+
+[Error semantico:] Error semántico: variable 'main' no definida.
+[Error semantico:] Error semántico: variable 'y' no definida.
+[Error semantico:] Error semántico: variable 'Operacion' no definida.
+[Error semantico:] Error semántico: variable 'crearOperacion' no definida.
+[Error semantico:] Error semántico: variable 'suma' no definida.
+[Error semantico:] Error semántico: variable 'tipo' no definida.
+[Error semantico:] Error semántico: variable 'num1' no definida.
+[Error semantico:] Error semántico: variable 'num2' no definida.
+[Error semantico:] Error semántico: variable 'num1' no definida.
+[Error semantico:] Error semántico: variable 'num2' no definida.
+[Error semantico:] Error semántico: variable 'num1' no definida.
+[Error semantico:] Error semántico: variable 'num2' no definida.
+{'constantes': {},
+ 'tipos': {},
+ 'variables': {'i': 'int', 'msg': 'string', 'x': 'int'}}
+
+--------------------------------------------------
+
+=== Archivo: prueba3.go ===
+
+[Error semantico:] Error semántico: variable 'main' no definida.
+[Error semantico:] Error semántico: variable 'y' no definida.
+[Error semantico:] Error semántico: variable 'Operacion' no definida.
+[Error semantico:] Error semántico: variable 'crearOperacion' no definida.
+[Error semantico:] Error semántico: variable 'suma' no definida.
+[Error semantico:] Error semántico: variable 'tipo' no definida.
+[Error semantico:] Error semántico: variable 'num1' no definida.
+[Error semantico:] Error semántico: variable 'num2' no definida.
+[Error semantico:] Error semántico: variable 'num1' no definida.
+[Error semantico:] Error semántico: variable 'num2' no definida.
+[Error semantico:] Error semántico: variable 'num1' no definida.
+[Error semantico:] Error semántico: variable 'num2' no definida.
+{'constantes': {},
+ 'tipos': {},
+ 'variables': {'i': 'int', 'msg': 'string', 'x': 'int'}}
+
+--------------------------------------------------
+
