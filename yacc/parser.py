@@ -24,7 +24,12 @@ def p_sentencia(p):
     | func_metodo
     | interface_decl
     | crearConstante
+    | reasignacion_var
     """
+    print("==== Ejecutando regla sentencia: ====")
+    imprimirInformacion(p)
+    print(tabla_simbolos)
+    p[0] = p[1]
 
 
 # ++++++++++++++++++++
@@ -54,9 +59,12 @@ def p_expresion(p):
     """expresion : expresionMatematica
     | expresionBooleana
     | STRING"""
+    print("==== Ejecutando regla expresion: ====")
     if isinstance(p[1], str) and p.slice[1].type == "STRING":
+        print("Expresion de tipo string")
         p[0] = "str"
     else:
+        print("Expresion de tipo no sting (bool, numero)")
         p[0] = p[1]
 
 
@@ -75,8 +83,11 @@ def p_asignacionCorta(p):
 # contribucion Diego Bedoya
 def p_crearVariable(p):
     """crearVariable : VAR IDENTIFIER tipo ASSIGN expresion"""
+    #     0            1    2         3     4        5
+    print("==== Ejecutando regla crearvariable: ====")
     nombre = p[2]
     tip = p[3]
+    print(p[4])
     exp = p[5]
     if tip != exp:
         print(
@@ -99,7 +110,7 @@ def p_tipo(p):
     | float
     | complex
     | uint
-    | bool
+    | BOOL
     | STRING"""
     p[0] = p[1]
 
@@ -136,15 +147,29 @@ def p_complex(p):
 
 # Contribucion Salvador Muñoz
 # asignacion de tipo var a = 0
-def p_declaracion(p):
-    """declaracion_var : VAR IDENTIFIER ASSIGN expresion"""
-    print("Ejectuando regla semantica declaracion")
-    id = p[2]
-    valor = p[4]
-    print(f"Id: {id}, valor: {id}")
+# Si el tipo no es compatible con la reasignacion, se mantiene el original
+def p_reasignacion(p):
+    """reasignacion_var :  IDENTIFIER ASSIGN expresion"""
+    #     0                  1          2        3
+    print("++++++++++++++  Ejectuando regla semantica reasignacion ++++++++++++++++++")
+    id = p[1]
+    valor = p[3]
+    print(f"Id: {id}, valor: {valor}")
+
+    if id not in tabla_simbolos["variables"]:
+        print(f"Variable {id} de tipo {valor} no esta definido")
+    else:
+        if tabla_simbolos["variables"][id] != valor:
+            print(
+                f"La variable {id} es de tipo {tabla_simbolos["variables"][id]}, pero se intento asignar {valor}"
+            )
+            # Si el tipo no es compatible con la reasignacion, se mantiene el original
+            p[0] = p[1]
+        else:
+            p[0] = p[3]
 
 
-# asignacion de tipo ID = 0
+# asignacion de tipo ID ID? = 0
 def p_asignacion(p):
     """asignacion : IDENTIFIER IDENTIFIER ASSIGN expresion"""
     print("Ejectuando regla semantica asignacion: ")
@@ -168,6 +193,7 @@ def p_expresionMatematica(p):
     | expresionMatematica operando termino"""
     print(f"Ejecutando expresion matematica:")
     if len(p) == 2:
+        print("len(p)==2, ejecucion simple de termino")
         p[0] = p[1]
     else:
         left = p[1]
@@ -186,6 +212,23 @@ def p_termino(p):
     | numero
     | LPAREN expresionMatematica RPAREN"""  # para permitir (a + b) * 2
     print("Ejecutando regla termino:")
+    imprimirInformacion(p)
+
+    if len(p) == 2 and p[1] == "int":
+        print("Instance=int valor: ", p[1])
+        p[0] = p[1]
+
+    elif len(p) == 2:
+        nombre = p[1]
+        if nombre not in tabla_simbolos["variables"]:
+            print(f"Error semántico: variable '{nombre}' no definida.")
+        else:
+            p[0] = tabla_simbolos["variables"][nombre]
+    elif len(p) == 4:
+        p[0] = p[2]
+
+
+def imprimirInformacion(p):
     print("=== Valores (p[i]) ===")
     for i in range(len(p)):
         print(f"p[{i}] =", p[i])
@@ -193,18 +236,6 @@ def p_termino(p):
     print("\n=== Tokens (p.slice) ===")
     for tok in p.slice:
         print(f"type={tok.type}, value={tok.value}")
-
-    if len(p) == 2 and isinstance(p[1], str):
-        print("Instance=str valor: ", p[1])
-        nombre = p[1]
-        if nombre not in tabla_simbolos["variables"]:
-            print(f"Error semántico: variable '{nombre}' no definida.")
-        else:
-            p[0] = tabla_simbolos["variables"][nombre]
-    elif len(p) == 2:
-        p[0] = p[1]
-    elif len(p) == 4:
-        p[0] = p[2]
 
 
 def p_operando(p):
@@ -228,18 +259,18 @@ def p_numero(p):
 
 
 def p_boolean(p):
-    """bool : TRUE
-    | FALSE"""
+    """bool_literal : BOOLEAN"""
     p[0] = "bool"
 
 
 def p_valor(p):
     """valor : STRING
-    | BOOL
+    | BOOLEAN
     | INTEGER
     | FLOAT
     | IDENTIFIER
     """
+    print("========== Regla de valor ejectuada: ==========")
     if isinstance(p[1], int):
         p[0] = "int"
     elif isinstance(p[1], float):
@@ -260,7 +291,7 @@ def p_valor(p):
 def p_expresionBooleana(p):
     """expresionBooleana : expresionMatematica operandoBooleano expresionMatematica
     | expresionBooleana operador_logico expresionBooleana
-    | bool"""
+    | bool_literal"""
     p[0] = "bool"
 
 
@@ -464,8 +495,14 @@ syntax_errors = []
 
 
 def p_error(p):
-    msg = f"Syntax error at token '{p.value}' (type={p.type})"
-    syntax_errors.append(msg)
+    if p:
+        msg = f"Syntax error at token '{p.value}' (type={p.type})"
+        syntax_errors.append(msg)
+        print(msg)  
+    else:
+        msg = "Syntax error at EOF (End of File)"
+        syntax_errors.append(msg)
+        print(msg)
 
 
 # Build the parser

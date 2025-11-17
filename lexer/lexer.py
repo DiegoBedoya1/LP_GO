@@ -4,13 +4,13 @@ import ply.lex as lex
 # Contribucion: Salvador Muñoz
 # Palabras reservadas de Go
 # Contribucion: Diego bedoya, más palabras reservadas
-#contribucion: Steven Miraba, algunas palabras reservadas
+# contribucion: Steven Miraba, algunas palabras reservadas
 reserved = {
-    #palabras de funciones reservadas
+    # palabras de funciones reservadas
     "fmt": "FMT",
     "Scanln": "SCANLN",
     "Println": "PRINTLN",
-    #palabras reservadas
+    # palabras reservadas
     "if": "IF",
     "else": "ELSE",
     "for": "FOR",
@@ -50,7 +50,8 @@ reserved = {
     "float64": "FLOAT64",
     "complex64": "COMPLEX64",
     "complex128": "COMPLEX128",
-    "map" : "MAP",
+    "map": "MAP",
+    "bool": "BOOL",
 }
 
 
@@ -75,7 +76,7 @@ tokens = (
     "DOT",
     "MODULO",
     "IDENTIFIER",  # Palabra generica, funciones o variables
-    "BOOL",
+    "BOOLEAN",
     "MORETHAN",
     "STRING",  # Contribucion: Salvador Muñoz
     "COMA",
@@ -91,11 +92,11 @@ tokens = (
     "AMPERSAND",
     "LBRACKET",
     "RBRACKET",
-    "VARIADIC"  #Contribucion: Steven Miraba
+    "VARIADIC",  # Contribucion: Steven Miraba
 ) + tuple(reserved.values())
 
 # expresiones para funciones reservadas
-t_FMT= r"fmt"
+t_FMT = r"fmt"
 t_SCANLN = r"Scanln"
 t_PRINTLN = r"Println"
 # Expresiones regulares para tokens simples
@@ -103,12 +104,12 @@ t_PRINTLN = r"Println"
 t_SHORTASSIGN = r":="
 t_INCREMENT = r"\+\+"
 t_DECREMENT = r"--"
-t_LESS_EQUAL = r"<="  #hecho en parser
-t_MORE_EQUAL = r">="  #hecho en parser
-t_EQUALS = r"=="   #hecho en parser
-t_NOT_EQUALS = r"!="   #hecho en parser
-t_LOGICAL_AND = r"&&"  #hecho en parser
-t_LOGICAL_OR = r"\|\|"   #hecho en parser
+t_LESS_EQUAL = r"<="  # hecho en parser
+t_MORE_EQUAL = r">="  # hecho en parser
+t_EQUALS = r"=="  # hecho en parser
+t_NOT_EQUALS = r"!="  # hecho en parser
+t_LOGICAL_AND = r"&&"  # hecho en parser
+t_LOGICAL_OR = r"\|\|"  # hecho en parser
 t_LBRACKET = r"\["
 t_RBRACKET = r"\]"
 
@@ -119,18 +120,18 @@ t_RPAREN = r"\)"
 t_DIVIDE = r"/"
 t_TIMES = r"\*"
 t_MODULO = r"%"
-t_MORETHAN = r">"   #hecho en parser
+t_MORETHAN = r">"  # hecho en parser
 t_LBRACE = r"\{"  # contribucion: Diego Bedoya, definicion de tokens
 t_RBRACE = r"\}"
 t_ASSIGN = r"="
-t_LESSTHAN = r"<"   #hecho en parser
+t_LESSTHAN = r"<"  # hecho en parser
 t_COLON = r":"
 t_SEMICOLON = r";"
 t_DOT = r"\."
 t_COMA = r","
 t_NOT = r"!"
 t_AMPERSAND = r"&"
-t_VARIADIC = r"\.\.\." #Contribucion Steven Miraba
+t_VARIADIC = r"\.\.\."  # Contribucion Steven Miraba
 
 """ Se debe ir de lo especifico a lo general """
 
@@ -155,7 +156,7 @@ def t_INTEGER(t):
 
 
 # Booleanos
-def t_BOOL(t):
+def t_BOOLEAN(t):
     r"\b(true|false)\b"
     return t
 
