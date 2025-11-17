@@ -242,6 +242,12 @@ def imprimirInformacion(p):
     for tok in p.slice:
         print(f"type={tok.type}, value={tok.value}")
 
+def check_conversion_imp(nombre, tipo_destino, tipo_origen):
+    """Detecta si se está intentando convertir implicitamente entre tipos de datos distintos"""
+    if tipo_destino != tipo_origen:
+        print(
+            f"Error semántico: conversión implícita no permitida de '{tipo_origen}' a '{tipo_destino}' en '{nombre}'"
+        )
 
 def p_operando(p):
     """operando : PLUS
