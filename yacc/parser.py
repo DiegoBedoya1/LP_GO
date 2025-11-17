@@ -80,7 +80,7 @@ def p_crearVariable(p):
     exp = p[5]
     if tip != exp:
         print(
-            f"Error semántico: la variable '{nombre}' es de tipo '{tipo_var} pero se le asigna una expresión de tipo '{tipo_expr}"
+            f"Error semántico: la variable '{nombre}' es de tipo '{tip} pero se le asigna una expresión de tipo '{exp}"
         )
     if tip != None:
         tabla_simbolos["variables"][nombre] = tip
@@ -146,7 +146,7 @@ def p_declaracion(p):
 
 # asignacion de tipo ID = 0
 def p_asignacion(p):
-    """asignacion : IDENTIFIER ASSIGN expresion"""
+    """asignacion : IDENTIFIER IDENTIFIER ASSIGN expresion"""
     print("Ejectuando regla semantica asignacion: ")
     nombre = p[1]
     print("Nombre de asignacion : ", nombre)
