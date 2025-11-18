@@ -2,12 +2,12 @@ import ply.yacc as yacc
 from lexer.lexer import tokens
 import os, datetime
 
-#Steven Mirabá
-tabla_simbolos = {"variables": {}, 
-                  "tipos": {
-                      "str-funciones": ["lenStr","toUpper","toLower","replace","split"]
-                  }, 
-                  "constantes": {}}
+# Steven Mirabá
+tabla_simbolos = {
+    "variables": {},
+    "tipos": {"str-funciones": ["lenStr", "toUpper", "toLower", "replace", "split"]},
+    "constantes": {},
+}
 
 errores_semanticos = []
 
@@ -26,7 +26,7 @@ def p_sentencia(p):
     | imprimir
     | crearVariable
     | funcion_anonima
-    | p_valor_string_metodos
+    | valorString
     | struct_decl
     | map_decl
     | slice_decl_simple
@@ -39,6 +39,8 @@ def p_sentencia(p):
     | interface_decl
     | crearConstante
     | reasignacion_var
+    | importar
+    | paquete_declaracion
     """
     print("==== Ejecutando regla sentencia: ====")
     imprimirInformacion(p)
@@ -99,7 +101,7 @@ def p_asignacionCorta(p):
 
 
 # contribucion Diego Bedoya
-# Inicialización Explícita 
+# Inicialización Explícita
 # var a int = 1
 def p_crearVariable(p):
     """crearVariable : VAR IDENTIFIER tipo ASSIGN expresion"""
@@ -193,7 +195,7 @@ def p_asignacion(p):
     """asignacion : IDENTIFIER IDENTIFIER ASSIGN expresion"""
     print("Ejectuando regla semantica asignacion: ")
     nombre = p[1]
-    #correcion Steven Mirabá
+    # correcion Steven Mirabá
     tip = p[2]
     print("Nombre de asignacion : ", nombre)
     print("Tipo: ", tip)
@@ -258,12 +260,14 @@ def imprimirInformacion(p):
     for tok in p.slice:
         print(f"type={tok.type}, value={tok.value}")
 
+
 def check_conversion_imp(nombre, tipo_destino, tipo_origen):
     """Detecta si se está intentando convertir implicitamente entre tipos de datos distintos"""
     if tipo_destino != tipo_origen:
         print(
             f"Error semántico: conversión implícita no permitida de '{tipo_origen}' a '{tipo_destino}' en '{nombre}'"
         )
+
 
 def p_operando(p):
     """operando : PLUS
@@ -289,6 +293,7 @@ def p_boolean(p):
     """bool_literal : BOOLEAN"""
     p[0] = "bool"
 
+
 # Valor solo se usa en funciones?
 def p_valor(p):
     """valor : STRING
@@ -313,10 +318,11 @@ def p_valor(p):
         else:
             p[0] = tabla_simbolos["variables"][nombre]
 
+
 # contribucion Steven Mirabá
-#funciones de string
+# funciones de string
 def p_valor_string_metodos(p):
-    """valor : IDENTIFIER DOT IDENTIFIER LPAREN RPAREN"""
+    """valorString : IDENTIFIER DOT IDENTIFIER LPAREN RPAREN"""
     nombre = p[1]
     metodo = p[3]
 
@@ -328,7 +334,10 @@ def p_valor_string_metodos(p):
         if metodo in tabla_simbolos["tipos"]["str-funciones"]:
             p[0] = "string"
         else:
-            print(f'Error semántico: el método "{metodo}" no es válido para variables de tipo "string".')
+            print(
+                f'Error semántico: el método "{metodo}" no es válido para variables de tipo "string".'
+            )
+
 
 # contribucion Salvador Muñoz
 def p_expresionBooleana(p):
@@ -368,7 +377,39 @@ def p_valores(p):
     |"""  # linea vacia significa que es opcional
 
 
-# Estructuras de datos
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
+#                       Import                                     #
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
+
+
+def p_import(p):
+    """importar : importacion_simple
+    | importacion_compuesta"""
+
+
+def p_importacion_simple(p):
+    """importacion_simple : IMPORT STRING"""
+
+
+def p_importacion_compuesta(p):
+    """importacion_compuesta : IMPORT LPAREN strings RPAREN"""
+
+
+def p_strings(p):
+    """strings : STRING
+    | strings COMA STRING"""
+
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
+#                       Package                                     #
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
+def p_paquete_declaracion(p):
+    """paquete_declaracion : PACKAGE IDENTIFIER"""
+
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
+#                       Estrucuturas de datos                                    #
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
 # contribucion Steven Mirabá
 # Struct
 def p_struct_decl(p):
@@ -536,11 +577,12 @@ def p_empty(p):
 
 syntax_errors = []
 
+
 def p_error(p):
     if p:
         msg = f"Syntax error at token '{p.value}' (type={p.type})"
         syntax_errors.append(msg)
-        print(msg)  
+        print(msg)
     else:
         msg = "Syntax error at EOF (End of File)"
         syntax_errors.append(msg)
@@ -551,11 +593,11 @@ def p_error(p):
 parser_obj = yacc.yacc()
 
 # while True:
-#         try:
-#             s = input("calc > ")
-#         except EOFError:
-#             break
-#         if not s:
-#             continue
-#         result = parser_obj.parse(s)
-#         print(result)
+#     try:
+#         s = input("calc > ")
+#     except EOFError:
+#         break
+#     if not s:
+#         continue
+#     result = parser_obj.parse(s)
+#     print(result)
