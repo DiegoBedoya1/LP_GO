@@ -2,7 +2,12 @@ import ply.yacc as yacc
 from lexer.lexer import tokens
 import os, datetime
 
-tabla_simbolos = {"variables": {}, "tipos": {}, "constantes": {}}
+#Steven Mirabá
+tabla_simbolos = {"variables": {}, 
+                  "tipos": {
+                      "str-funciones": ["lenStr","toUpper","toLower","replace","split"]
+                  }, 
+                  "constantes": {}}
 
 errores_semanticos = []
 
@@ -14,7 +19,8 @@ def p_program(p):
 
 
 def p_sentencia(p):
-    """sentencia : asignacion_corta
+    """sentencia : asignacion
+    | asignacion_corta
     | expresion
     | pedirDatos
     | imprimir
@@ -69,78 +75,13 @@ def p_expresion(p):
     print("==== Ejecutando regla expresion: ====")
     if isinstance(p[1], str) and p.slice[1].type == "STRING":
         print("Expresion de tipo string")
-        p[0] = "string"
+        p[0] = "str"
     else:
         print("Expresion de tipo no sting (bool, numero)")
         p[0] = p[1]
 
 
-# ++++++++++++++++++++
-#    Asignaciones
-# ++++++++++++++++++++
-
-
-# Contribucion Salvador Muñoz
-# Si el tipo no es compatible con la reasignacion, se mantiene el original
-def p_reasignacion(p):
-    """reasignacion_var :  IDENTIFIER ASSIGN expresion"""
-    #     0                  1          2        3
-    print("++++++++++++++  Ejectuando regla semantica reasignacion ++++++++++++++++++")
-    id = p[1]
-    valor = p[3]
-    print(f"Id: {id}, valor: {valor}")
-
-    if id not in tabla_simbolos["variables"] and id not in tabla_simbolos["constantes"]:
-        print_and_log_semantic_error(
-            f"Error semantico: Variable {id} de tipo {valor} no esta definido"
-        )
-    else:
-        # Diego Bedoya: regla para evitar la reasignacion de constantes
-        if id in tabla_simbolos["constantes"]:
-            print_and_log_semantic_error(
-                f"Error semántico: no se puede reasignar constante '{id}'."
-            )
-
-        # Salvador Muñoz: regla para verificar compatibilidad de tipos en re-asginacion de variables
-        if tabla_simbolos["variables"][id] != valor:
-            print_and_log_semantic_error(
-                f"Error semántico: La variable {id} es de tipo {tabla_simbolos["variables"][id]}, pero se intento asignar {valor}"
-            )
-            # Si el tipo no es compatible con la reasignacion, se mantiene el original
-            p[0] = p[1]
-        else:
-            p[0] = p[3]
-
-
-# asignacion de tipo var ID tipo(incluye structs) = 0
-# def p_asignacion(p):
-#     """asignacion : VAR IDENTIFIER tipo_or_struct ASSIGN expresion"""
-#     #    0           1   2          3                4     5
-#     print("Ejectuando regla semantica asignacion explicita: ")
-#     nombre = p[1]
-#     print("Nombre de asignacion : ", nombre)
-#     tip = p[3]
-#     print("Tipo: ", tip)
-#     print(tabla_simbolos)
-#     if nombre in tabla_simbolos["constantes"]:
-#         print(f"Error semántico: no se puede reasignar constante '{nombre}'.")
-#     elif nombre not in tabla_simbolos["variables"]:
-#         print(f"Error semántico: variable '{nombre}' no definida.")
-#     elif tip != None:
-#         tabla_simbolos["variables"][nombre] = tip
-
-
-def p_tipoOrStruct(p):
-    """tipo_or_struct : tipo
-    | IDENTIFIER"""
-    if p.slice[1].type == "IDENTIFER":
-        if p[1] not in tabla_simbolos["tipos"]:
-            print_and_log_semantic_error("Error semantico: tipo no definido")
-            print("")
-        else:
-            p[0] = tabla_simbolos["tipos"][p[1]]
-    else:
-        p[0] = p[1]
+# contribucion Salvador Muñoz
 
 
 # contribucion Salvador Muñoz
@@ -157,25 +98,21 @@ def p_asignacionCorta(p):
 
 
 # contribucion Diego Bedoya
-# Inicialización Explícita
+# Inicialización Explícita 
 # var a int = 1
 def p_crearVariable(p):
-    """crearVariable : VAR IDENTIFIER tipo_or_struct ASSIGN expresion"""
-    #     0            1    2         3                 4        5
+    """crearVariable : VAR IDENTIFIER tipo ASSIGN expresion"""
+    #     0            1    2         3     4        5
     print("==== Ejecutando regla crearvariable: ====")
     nombre = p[2]
     tip = p[3]
     print(p[4])
     exp = p[5]
     if tip != exp:
-        print_and_log_semantic_error(
+        print(
             f"Error semántico: la variable '{nombre}' es de tipo '{tip} pero se le asigna una expresión de tipo '{exp}"
         )
-    elif nombre in tabla_simbolos["constantes"]:
-        print_and_log_semantic_error(
-            f"Error semántico: no se puede reasignar constante '{nombre}'."
-        )
-    elif tip != None:
+    if tip != None:
         tabla_simbolos["variables"][nombre] = tip
 
 
@@ -227,6 +164,50 @@ def p_complex(p):
     p[0] = "complex"
 
 
+# Contribucion Salvador Muñoz
+# Si el tipo no es compatible con la reasignacion, se mantiene el original
+def p_reasignacion(p):
+    """reasignacion_var :  IDENTIFIER ASSIGN expresion"""
+    #     0                  1          2        3
+    print("++++++++++++++  Ejectuando regla semantica reasignacion ++++++++++++++++++")
+    id = p[1]
+    valor = p[3]
+    print(f"Id: {id}, valor: {valor}")
+
+    if id not in tabla_simbolos["variables"]:
+        print(f"Variable {id} de tipo {valor} no esta definido")
+    else:
+        if tabla_simbolos["variables"][id] != valor:
+            print(
+                f"La variable {id} es de tipo {tabla_simbolos["variables"][id]}, pero se intento asignar {valor}"
+            )
+            # Si el tipo no es compatible con la reasignacion, se mantiene el original
+            p[0] = p[1]
+        else:
+            p[0] = p[3]
+
+
+# asignacion de tipo ID ID? = 0
+def p_asignacion(p):
+    """asignacion : IDENTIFIER IDENTIFIER ASSIGN expresion"""
+    print("Ejectuando regla semantica asignacion: ")
+    nombre = p[1]
+    #correcion Steven Mirabá
+    tip = p[2]
+    print("Nombre de asignacion : ", nombre)
+    print("Tipo: ", tip)
+    tabla_simbolos["variables"][nombre] = tip
+    print(tabla_simbolos)
+    if (
+        nombre in tabla_simbolos["constantes"]
+    ):  # Diego Bedoya: regla para evitar la reasignacion de constantes
+        print(f"Error semántico: no se puede reasignar constante '{nombre}'.")
+    elif nombre not in tabla_simbolos["variables"]:
+        print(f"Error semántico: variable '{nombre}' no definida.")
+    elif tip != None:
+        tabla_simbolos["variables"][nombre] = tip
+
+
 def p_expresionMatematica(p):
     """expresionMatematica : termino
     | expresionMatematica operando termino"""
@@ -239,8 +220,7 @@ def p_expresionMatematica(p):
         right = p[3]
 
         if left == "string" or right == "string":
-            print_and_log_semantic_error("Error: no se puede sumar string con número")
-            print()
+            print("Error: no se puede sumar string con número")
         elif left == "float" or right == "float":
             p[0] = "float"
         else:
@@ -257,16 +237,11 @@ def p_termino(p):
     if len(p) == 2 and p[1] == "int":
         print("Instance=int valor: ", p[1])
         p[0] = p[1]
-    elif len(p) == 2 and p[1] == "float":
-        print("Instance=float valor: ", p[1])
-        p[0] = p[1]
+
     elif len(p) == 2:
         nombre = p[1]
         if nombre not in tabla_simbolos["variables"]:
-            print_and_log_semantic_error(
-                f"Error semántico: variable '{nombre}' no definida."
-            )
-            print()
+            print(f"Error semántico: variable '{nombre}' no definida.")
         else:
             p[0] = tabla_simbolos["variables"][nombre]
     elif len(p) == 4:
@@ -313,7 +288,6 @@ def p_boolean(p):
     """bool_literal : BOOLEAN"""
     p[0] = "bool"
 
-
 # Valor solo se usa en funciones?
 def p_valor(p):
     """valor : STRING
@@ -334,13 +308,26 @@ def p_valor(p):
     else:
         nombre = p[1]
         if nombre not in tabla_simbolos["variables"]:
-            print_and_log_semantic_error(
-                f"Error semántico: la variable {nombre} no ha sido definida"
-            )
             print(f"Error semántico: la variable {nombre} no ha sido definida")
         else:
             p[0] = tabla_simbolos["variables"][nombre]
 
+# contribucion Steven Mirabá
+#funciones de string
+def p_valor_string_metodos(p):
+    """valor : IDENTIFIER DOT IDENTIFIER LPAREN RPAREN"""
+    nombre = p[1]
+    metodo = p[3]
+
+    if nombre not in tabla_simbolos["variables"]:
+        print(f"Error semántico: la variable '{nombre}' no ha sido definida.")
+    elif tabla_simbolos["variables"][nombre] != "string":
+        print(f"Error semántico: la variable '{nombre}' no es de tipo 'string'.")
+    else:
+        if metodo in tabla_simbolos["tipos"]["str-funciones"]:
+            p[0] = "string"
+        else:
+            print(f'Error semántico: el método "{metodo}" no es válido para variables de tipo "string".')
 
 # contribucion Salvador Muñoz
 def p_expresionBooleana(p):
@@ -548,32 +535,26 @@ def p_empty(p):
 
 syntax_errors = []
 
-
 def p_error(p):
     if p:
         msg = f"Syntax error at token '{p.value}' (type={p.type})"
         syntax_errors.append(msg)
-        print(msg)
+        print(msg)  
     else:
         msg = "Syntax error at EOF (End of File)"
         syntax_errors.append(msg)
         print(msg)
 
 
-def print_and_log_semantic_error(string):
-    errores_semanticos.append(string)
-    print(string)
-
-
 # Build the parser
-parser_obj = yacc.yacc(start="program")
+parser_obj = yacc.yacc()
 
-# while True:
-#     try:
-#         s = input("calc > ")
-#     except EOFError:
-#         break
-#     if not s:
-#         continue
-#     result = parser_obj.parse(s)
-#     print(result)
+while True:
+    try:
+        s = input("calc > ")
+    except EOFError:
+        break
+    if not s:
+        continue
+    result = parser_obj.parse(s)
+    print(result)
