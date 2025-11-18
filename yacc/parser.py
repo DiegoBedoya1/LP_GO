@@ -182,7 +182,7 @@ def p_reasignacion(p):
     else:
         if tabla_simbolos["variables"][id] != valor:
             print(
-                f"La variable {id} es de tipo {tabla_simbolos["variables"][id]}, pero se intento asignar {valor}"
+                f"La variable {id} es de tipo {tabla_simbolos['variables'][id]}, pero se intento asignar {valor}"
             )
             # Si el tipo no es compatible con la reasignacion, se mantiene el original
             p[0] = p[1]
