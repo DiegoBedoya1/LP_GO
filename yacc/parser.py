@@ -26,6 +26,7 @@ def p_sentencia(p):
     | imprimir
     | crearVariable
     | funcion_anonima
+    | p_valor_string_metodos
     | struct_decl
     | map_decl
     | slice_decl_simple
@@ -550,11 +551,11 @@ def p_error(p):
 parser_obj = yacc.yacc()
 
 while True:
-    try:
-        s = input("calc > ")
-    except EOFError:
-        break
-    if not s:
-        continue
-    result = parser_obj.parse(s)
-    print(result)
+        try:
+            s = input("calc > ")
+        except EOFError:
+            break
+        if not s:
+            continue
+        result = parser_obj.parse(s)
+        print(result)
