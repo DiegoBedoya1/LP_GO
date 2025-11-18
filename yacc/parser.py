@@ -550,12 +550,12 @@ def p_error(p):
 # Build the parser
 parser_obj = yacc.yacc()
 
-while True:
-        try:
-            s = input("calc > ")
-        except EOFError:
-            break
-        if not s:
-            continue
-        result = parser_obj.parse(s)
-        print(result)
+# while True:
+#         try:
+#             s = input("calc > ")
+#         except EOFError:
+#             break
+#         if not s:
+#             continue
+#         result = parser_obj.parse(s)
+#         print(result)
