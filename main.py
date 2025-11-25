@@ -1,6 +1,8 @@
 import os
 import datetime
 from lexer import lexer as lx # Importamos lexer
+import tkinter as tk
+from GUI import GoSimulatorGUI
 
 #Contribucion: Salvador Muñoz
 def cargar_archivos_go(carpeta):
