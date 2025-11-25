@@ -11,6 +11,7 @@ tabla_simbolos = {
 
 errores_semanticos = []
 
+tipos_reservados = {"int", "float", "uint", "complex", "bool", "string"}
 
 def p_program(p):
     """program : program sentencia
@@ -26,7 +27,7 @@ def p_sentencia(p):
     | imprimir
     | crearVariable
     | funcion_anonima
-    | valorString
+    | valor
     | struct_decl
     | map_decl
     | slice_decl_simple
@@ -76,11 +77,11 @@ def p_expresion(p):
     | expresionBooleana
     | STRING"""
     print("==== Ejecutando regla expresion: ====")
-    if isinstance(p[1], str) and p.slice[1].type == "STRING":
+    if p.slice[1].type == "STRING":
         print("Expresion de tipo string")
-        p[0] = "str"
+        p[0] = "string"
     else:
-        print("Expresion de tipo no sting (bool, numero)")
+        print("Expresion de tipo no string (bool, numero)")
         p[0] = p[1]
 
 
@@ -96,6 +97,12 @@ def p_asignacionCorta(p):
     """asignacion_corta : IDENTIFIER SHORTASSIGN expresion"""
     nombre = p[1]
     tip = p[3]
+    #contribucion Steven Mirabá
+    #regla semantica variable no puede tomar nombre de tipo reservado
+    nombre_lower = nombre.lower()
+    if nombre_lower in tipos_reservados:
+        print(f"Error semántico: no se puede usar '{nombre}' como Identifier o nombre de variable porque coincide con un tipo de variable reservado.")
+        return
     if tip != None:
         tabla_simbolos["variables"][nombre] = tip
 
@@ -105,24 +112,36 @@ def p_asignacionCorta(p):
 # var a int = 1
 def p_crearVariable(p):
     """crearVariable : VAR IDENTIFIER tipo ASSIGN expresion"""
-    #     0            1    2         3     4        5
     print("==== Ejecutando regla crearvariable: ====")
     nombre = p[2]
     tip = p[3]
-    print(p[4])
     exp = p[5]
+    print(p[4])
+    #contribucion Steven Mirabá
+    #regla semantica variable no puede tomar nombre de tipo reservado
+    nombre_lower = nombre.lower()
+    if nombre_lower in tipos_reservados:
+        print(f"Error semántico: no se puede usar '{nombre}' como Identifier o nombre de variable porque coincide con un tipo de variable reservado.")
+        return
+    
     if tip != exp:
         print(
             f"Error semántico: la variable '{nombre}' es de tipo '{tip} pero se le asigna una expresión de tipo '{exp}"
         )
-    if tip != None:
-        tabla_simbolos["variables"][nombre] = tip
+    
+    tabla_simbolos["variables"][nombre] = tip
 
 
 def p_crearConstante(p):
     """crearConstante : CONST IDENTIFIER ASSIGN expresion"""
     nombre = p[2]
     tip = p[4]
+    #contribucion Steven Mirabá
+    #regla semantica variable no puede tomar nombre de tipo reservado
+    nombre_lower = nombre.lower()
+    if nombre_lower in tipos_reservados:
+        print(f"Error semántico: no se puede usar '{nombre}' como Identifier o nombre de variable porque coincide con un tipo de variable reservado.")
+        return
     if tip != None:
         tabla_simbolos["constantes"][nombre] = tip
 
@@ -182,7 +201,7 @@ def p_reasignacion(p):
     else:
         if tabla_simbolos["variables"][id] != valor:
             print(
-                f"La variable {id} es de tipo {tabla_simbolos["variables"][id]}, pero se intento asignar {valor}"
+                f"La variable {id} es de tipo {tabla_simbolos['variables'][id]}, pero se intento asignar {valor}"
             )
             # Si el tipo no es compatible con la reasignacion, se mantiene el original
             p[0] = p[1]
@@ -197,6 +216,12 @@ def p_asignacion(p):
     nombre = p[1]
     # correcion Steven Mirabá
     tip = p[2]
+    #contribucion Steven Mirabá
+    #regla semantica variable no puede tomar nombre de tipo reservado
+    nombre_lower = nombre.lower()
+    if nombre_lower in tipos_reservados:
+        print(f"Error semántico: no se puede usar '{nombre}' como Identifier o nombre de variable porque coincide con un tipo de variable reservado.")
+        return
     print("Nombre de asignacion : ", nombre)
     print("Tipo: ", tip)
     tabla_simbolos["variables"][nombre] = tip
@@ -307,7 +332,7 @@ def p_valor(p):
         p[0] = "int"
     elif isinstance(p[1], float):
         p[0] = "float"
-    elif isinstance(p[1], str) and p.slice[1].type == "STRING":
+    elif p.slice[1].type == "STRING":
         p[0] = "string"
     elif isinstance(p[1], bool):
         p[0] = "bool"
@@ -592,12 +617,14 @@ def p_error(p):
 # Build the parser
 parser_obj = yacc.yacc()
 
-# while True:
-#     try:
-#         s = input("calc > ")
-#     except EOFError:
-#         break
-#     if not s:
-#         continue
-#     result = parser_obj.parse(s)
-#     print(result)
+"""
+while True:
+    try:
+        s = input("calc > ")
+    except EOFError:
+        break
+    if not s:
+        continue
+    result = parser_obj.parse(s)
+    print(result)
+"""
