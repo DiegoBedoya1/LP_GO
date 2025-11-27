@@ -4,13 +4,50 @@ import { indentWithTab, history, defaultKeymap, historyKeymap } from '@codemirro
 import { foldGutter, indentOnInput, indentUnit, bracketMatching, foldKeymap, syntaxHighlighting, defaultHighlightStyle } from '@codemirror/language';
 import { closeBrackets, autocompletion, closeBracketsKeymap, completionKeymap } from '@codemirror/autocomplete';
 import { lineNumbers, highlightActiveLineGutter, highlightSpecialChars, drawSelection, dropCursor, rectangularSelection, crosshairCursor, highlightActiveLine, keymap, EditorView } from '@codemirror/view';
-import { showTooltip } from "@codemirror/tooltip";
+
+// Linter
+import { linter, lintGutter } from "@codemirror/lint";
+
 // Theme
 import { oneDark } from "@codemirror/theme-one-dark";
 
 // Language
 import { go } from "@codemirror/lang-go";
 
+
+/* -------------------------------------------------------
+   🎯 MOCK: Linter que simula errores sintácticos/semánticos
+   ------------------------------------------------------- */
+const mockLinter = linter(view => {
+    const diagnostics = [];
+
+    // ❗ Aquí pondrás los errores que vengan de tu backend
+    // Por ahora: simular uno
+    const mockErrors = [
+        { linea: 2, columna: 10, mensaje: "Error sintáctico: símbolo inesperado" },
+        { linea: 4, columna: 5, mensaje: "Tipo incompatible en asignación" }
+    ];
+
+    for (const err of mockErrors) {
+        const line = view.state.doc.line(err.linea);
+        const pos = line.from + (err.columna - 1);
+
+        diagnostics.push({
+            from: pos,
+            to: pos + 1,
+            severity: "error",
+            message: err.mensaje,
+        });
+    }
+
+    return diagnostics;
+});
+
+
+
+/* -------------------------------------------------------
+   🎨 CREACIÓN DEL EDITOR
+   ------------------------------------------------------- */
 function createEditorState(initialContents, options = {}) {
     let extensions = [
         lineNumbers(),
@@ -37,8 +74,16 @@ function createEditorState(initialContents, options = {}) {
             ...foldKeymap,
             ...completionKeymap,
         ]),
+
+        // GO language
         go(),
+
+        // Syntax highlight
         syntaxHighlighting(defaultHighlightStyle, { fallback: true }),
+
+        // 🔥 Gutter + Linter
+        lintGutter(),
+        mockLinter
     ];
 
     if (options.oneDark)
@@ -54,96 +99,61 @@ function createEditorView(state, parent) {
     return new EditorView({ state, parent });
 }
 
-function showErrorTooltip(view, pos, message) {
-    const tooltip = {
-        pos,
-        above: true,
-        create() {
-            let dom = document.createElement("div");
-            dom.textContent = message;
-            dom.className = "cm-error-tooltip";
-            return { dom };
-        }
-    };
-
-    view.dispatch({
-        effects: showTooltip.of(tooltip)
-    });
-}
 
 
-
-
-// --- Lógica para las Pestañas de Resultados ---
+/* -------------------------------------------------------
+   🎯 Lógica de pestañas
+   ------------------------------------------------------- */
 const tabs = document.querySelectorAll(".tab-link");
 const contents = document.querySelectorAll(".tab-content");
 
 tabs.forEach(tab => {
     tab.addEventListener("click", () => {
-        // Desactivar todas las pestañas y contenidos
         tabs.forEach(item => item.classList.remove("active"));
         contents.forEach(item => item.classList.remove("active"));
-
-        // Activar la pestaña y contenido seleccionados
         tab.classList.add("active");
         document.getElementById(tab.dataset.tab).classList.add("active");
     });
 });
 
-// --- Lógica para los Botones de Análisis ---
-// Helper para mostrar resultados
+
+
+/* -------------------------------------------------------
+   🎯 Mostrar resultados en pestañas
+   ------------------------------------------------------- */
 function showResult(tabId, data) {
     const contentArea = document.querySelector(`#${tabId} pre code`);
     contentArea.textContent = data;
-
-    // Cambiar a la pestaña correspondiente
     document.querySelector(`.tab-link[data-tab="${tabId}"]`).click();
 }
 
-// Simulación de llamada a la API
+
+
+/* -------------------------------------------------------
+   🎯 Botones de análisis (solo texto, no cambia linter aún)
+   ------------------------------------------------------- */
 async function analyzeCode(analysisType) {
     const code = view.state.doc.toString();
+    showResult(analysisType, "Analizando...");
 
-    // Muestra un mensaje de carga
-    showResult(analysisType, `Analizando...`);
+    await new Promise(resolve => setTimeout(resolve, 800));
 
-    // **AQUÍ DEBES HACER LA LLAMADA A TU BACKEND**
-    // Ejemplo:
-    // const response = await fetch(\`/api/analyze?type=\${analysisType}\`, {
-    //     method: 'POST',
-    //     headers: { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify({ code })
-    // });
-    // const result = await response.text();
-    // showResult(analysisType, result);
-
-    // --- Simulación (borra esto cuando integres tu backend) ---
-    await new Promise(resolve => setTimeout(resolve, 1000)); // Simula espera de red
     const mockResults = {
-        lexical: `[Token] type=PACKAGE, value='package'\\n[Token] type=IDENTIFIER, value='main'\\n...`,
-        syntactic: `[SyntaxError] Syntax error at token '{' (type=LBRACE)\\n...`,
-        semantic: `[Error semantico:] La variable x es de tipo int, pero se intento asignar string\\n...`
+        lexical: `Token PACKAGE -> 'package'\nToken IDENT -> 'main'\n...`,
+        syntactic: `[SyntaxError] Línea 2, Columna 10: símbolo inesperado`,
+        semantic: `[SemanticError] Línea 4: tipo incompatible`,
     };
-    const output = mockResults[analysisType] || "No se pudo obtener el resultado.";
-    showResult(analysisType, output);
 
-    // EJEMPLO: Simular que tu backend devuelve un error en línea 2, columna 10
-    if (analysisType === "syntactic") {
-        const line = 2;
-        const column = 10;
-
-        // Convertir line/column a posición absoluta
-        let pos = view.state.doc.line(line).from + (column - 1);
-
-        // Mostrar tooltip
-        showErrorTooltip(view, pos, "Error sintáctico: símbolo inesperado");
-    }
-
-    // --- Fin de la simulación ---
+    showResult(analysisType, mockResults[analysisType] || "Sin resultados");
 }
 
 document.getElementById("lexical-btn").addEventListener("click", () => analyzeCode('lexical'));
 document.getElementById("syntactic-btn").addEventListener("click", () => analyzeCode('syntactic'));
 document.getElementById("semantic-btn").addEventListener("click", () => analyzeCode('semantic'));
 
+
+
+/* -------------------------------------------------------
+   🎯 Exportar
+   ------------------------------------------------------- */
 export { createEditorState, createEditorView, openSearchPanel };

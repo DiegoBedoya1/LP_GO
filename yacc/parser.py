@@ -1,5 +1,5 @@
 import ply.yacc as yacc
-from lexer.lexer import tokens
+from lexer.lexer import tokens, find_column
 import os, datetime
 
 # Steven Mirabá
@@ -12,6 +12,7 @@ tabla_simbolos = {
 errores_semanticos = []
 
 tipos_reservados = {"int", "float", "uint", "complex", "bool", "string"}
+
 
 def p_program(p):
     """program : program sentencia
@@ -27,7 +28,6 @@ def p_sentencia(p):
     | imprimir
     | crearVariable
     | funcion_anonima
-    | valor
     | struct_decl
     | map_decl
     | slice_decl_simple
@@ -97,11 +97,13 @@ def p_asignacionCorta(p):
     """asignacion_corta : IDENTIFIER SHORTASSIGN expresion"""
     nombre = p[1]
     tip = p[3]
-    #contribucion Steven Mirabá
-    #regla semantica variable no puede tomar nombre de tipo reservado
+    # contribucion Steven Mirabá
+    # regla semantica variable no puede tomar nombre de tipo reservado
     nombre_lower = nombre.lower()
     if nombre_lower in tipos_reservados:
-        print(f"Error semántico: no se puede usar '{nombre}' como Identifier o nombre de variable porque coincide con un tipo de variable reservado.")
+        print(
+            f"Error semántico: no se puede usar '{nombre}' como Identifier o nombre de variable porque coincide con un tipo de variable reservado."
+        )
         return
     if tip != None:
         tabla_simbolos["variables"][nombre] = tip
@@ -117,18 +119,20 @@ def p_crearVariable(p):
     tip = p[3]
     exp = p[5]
     print(p[4])
-    #contribucion Steven Mirabá
-    #regla semantica variable no puede tomar nombre de tipo reservado
+    # contribucion Steven Mirabá
+    # regla semantica variable no puede tomar nombre de tipo reservado
     nombre_lower = nombre.lower()
     if nombre_lower in tipos_reservados:
-        print(f"Error semántico: no se puede usar '{nombre}' como Identifier o nombre de variable porque coincide con un tipo de variable reservado.")
+        print(
+            f"Error semántico: no se puede usar '{nombre}' como Identifier o nombre de variable porque coincide con un tipo de variable reservado."
+        )
         return
-    
+
     if tip != exp:
         print(
             f"Error semántico: la variable '{nombre}' es de tipo '{tip} pero se le asigna una expresión de tipo '{exp}"
         )
-    
+
     tabla_simbolos["variables"][nombre] = tip
 
 
@@ -136,11 +140,13 @@ def p_crearConstante(p):
     """crearConstante : CONST IDENTIFIER ASSIGN expresion"""
     nombre = p[2]
     tip = p[4]
-    #contribucion Steven Mirabá
-    #regla semantica variable no puede tomar nombre de tipo reservado
+    # contribucion Steven Mirabá
+    # regla semantica variable no puede tomar nombre de tipo reservado
     nombre_lower = nombre.lower()
     if nombre_lower in tipos_reservados:
-        print(f"Error semántico: no se puede usar '{nombre}' como Identifier o nombre de variable porque coincide con un tipo de variable reservado.")
+        print(
+            f"Error semántico: no se puede usar '{nombre}' como Identifier o nombre de variable porque coincide con un tipo de variable reservado."
+        )
         return
     if tip != None:
         tabla_simbolos["constantes"][nombre] = tip
@@ -216,11 +222,13 @@ def p_asignacion(p):
     nombre = p[1]
     # correcion Steven Mirabá
     tip = p[2]
-    #contribucion Steven Mirabá
-    #regla semantica variable no puede tomar nombre de tipo reservado
+    # contribucion Steven Mirabá
+    # regla semantica variable no puede tomar nombre de tipo reservado
     nombre_lower = nombre.lower()
     if nombre_lower in tipos_reservados:
-        print(f"Error semántico: no se puede usar '{nombre}' como Identifier o nombre de variable porque coincide con un tipo de variable reservado.")
+        print(
+            f"Error semántico: no se puede usar '{nombre}' como Identifier o nombre de variable porque coincide con un tipo de variable reservado."
+        )
         return
     print("Nombre de asignacion : ", nombre)
     print("Tipo: ", tip)
@@ -346,22 +354,22 @@ def p_valor(p):
 
 # contribucion Steven Mirabá
 # funciones de string
-def p_valor_string_metodos(p):
-    """valorString : IDENTIFIER DOT IDENTIFIER LPAREN RPAREN"""
-    nombre = p[1]
-    metodo = p[3]
+# def p_valor_string_metodos(p):
+#     """valorString : IDENTIFIER DOT IDENTIFIER LPAREN RPAREN"""
+#     nombre = p[1]
+#     metodo = p[3]
 
-    if nombre not in tabla_simbolos["variables"]:
-        print(f"Error semántico: la variable '{nombre}' no ha sido definida.")
-    elif tabla_simbolos["variables"][nombre] != "string":
-        print(f"Error semántico: la variable '{nombre}' no es de tipo 'string'.")
-    else:
-        if metodo in tabla_simbolos["tipos"]["str-funciones"]:
-            p[0] = "string"
-        else:
-            print(
-                f'Error semántico: el método "{metodo}" no es válido para variables de tipo "string".'
-            )
+#     if nombre not in tabla_simbolos["variables"]:
+#         print(f"Error semántico: la variable '{nombre}' no ha sido definida.")
+#     elif tabla_simbolos["variables"][nombre] != "string":
+#         print(f"Error semántico: la variable '{nombre}' no es de tipo 'string'.")
+#     else:
+#         if metodo in tabla_simbolos["tipos"]["str-funciones"]:
+#             p[0] = "string"
+#         else:
+#             print(
+#                 f'Error semántico: el método "{metodo}" no es válido para variables de tipo "string".'
+#             )
 
 
 # contribucion Salvador Muñoz
@@ -602,13 +610,25 @@ def p_empty(p):
 
 syntax_errors = []
 
+data = ""
+
 
 def p_error(p):
-    if p:
-        msg = f"Syntax error at token '{p.value}' (type={p.type})"
+    if p:  # Hay un token problemático
+        # Línea del token
+        line = p.lineno
+
+        # Columna calculada usando lexpos
+        col = find_column(data, p)
+
+        msg = (
+            f"Syntax error: token '{p.value}' "
+            f"(type={p.type}) en línea {line}, columna {col}"
+        )
         syntax_errors.append(msg)
         print(msg)
     else:
+        # Error por fin de archivo (EOF)
         msg = "Syntax error at EOF (End of File)"
         syntax_errors.append(msg)
         print(msg)
@@ -617,7 +637,13 @@ def p_error(p):
 # Build the parser
 parser_obj = yacc.yacc()
 
-"""
+
+def parse(texto):
+    global data
+    data = texto
+    return parser_obj.parse(texto)
+
+
 while True:
     try:
         s = input("calc > ")
@@ -627,4 +653,3 @@ while True:
         continue
     result = parser_obj.parse(s)
     print(result)
-"""

@@ -178,6 +178,12 @@ def t_newline(t):
     t.lexer.lineno += len(t.value)
 
 
+
+def find_column(input, token):
+    line_start = input.rfind('\n', 0, token.lexpos) + 1
+    return (token.lexpos - line_start) + 1
+
+
 t_ignore = " \t"
 t_ignore_COMMENT = r"//.*"
 t_ignore_MULTILINECOMMENT = r"/\*([^*]|\*+[^*/])*\*+/"
