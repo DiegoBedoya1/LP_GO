@@ -152,6 +152,12 @@ def p_crearConstante(p):
         tabla_simbolos["constantes"][nombre] = tip
 
 
+
+
+# ++++++++++++++++++++
+#       Tipos
+# ++++++++++++++++++++
+
 def p_tipo(p):
     """tipo : int
     | float
@@ -192,6 +198,12 @@ def p_complex(p):
     p[0] = "complex"
 
 
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
+#                          Asignaciones                            #
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
+
+
 # Contribucion Salvador Muñoz
 # Si el tipo no es compatible con la reasignacion, se mantiene el original
 def p_reasignacion(p):
@@ -217,11 +229,12 @@ def p_reasignacion(p):
 
 # asignacion de tipo ID ID? = 0
 def p_asignacion(p):
-    """asignacion : IDENTIFIER IDENTIFIER ASSIGN expresion"""
+    """asignacion : VAR IDENTIFIER id_or_type ASSIGN expresion"""
+    #    0           1     2            3        4       5
     print("Ejectuando regla semantica asignacion: ")
-    nombre = p[1]
+    nombre = p[2]
     # correcion Steven Mirabá
-    tip = p[2]
+    tip = p[3]
     # contribucion Steven Mirabá
     # regla semantica variable no puede tomar nombre de tipo reservado
     nombre_lower = nombre.lower()
@@ -242,6 +255,13 @@ def p_asignacion(p):
         print(f"Error semántico: variable '{nombre}' no definida.")
     elif tip != None:
         tabla_simbolos["variables"][nombre] = tip
+
+def p_id_or_type(p):
+    """ id_or_type : IDENTIFIER
+    | tipo """
+    p[0] = p[1]
+
+    
 
 
 def p_expresionMatematica(p):

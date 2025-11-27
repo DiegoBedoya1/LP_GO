@@ -11,7 +11,6 @@ reserved = {
     "Scanln": "SCANLN",
     "Println": "PRINTLN",
     # palabras reservadas
-    "string": "STRING",
     "if": "IF",
     "else": "ELSE",
     "for": "FOR",
