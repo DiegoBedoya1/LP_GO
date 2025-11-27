@@ -1,31 +1,55 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="es">
 
 <head>
-    <meta charset="utf-8">
-    <title>Quickstart Example 1</title>
-    <link rel="icon" href="data:;base64,=">
-    <style>
-        /* Set editor dimensions */
-        #editor {
-            height: 500px;
-            width: 50%;
-        }
-
-        /* Stretch editor to fit inside its containing div */
-        .cm-editor {
-            height: 100%;
-            width: 100%;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analizador de Código Go</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <!-- Editor goes in here -->
-    <div id="editor"></div>
+    <header>
+        <h1>Analizador de Código Go</h1>
+        <p>Escribe tu código en Go y ejecute los análisis léxico, sintáctico y semántico.</p>
+    </header>
+
+    <main>
+        <div class="editor-container">
+            <h2>Editor de Código</h2>
+            <div id="editor"></div>
+            <div class="actions">
+                <button id="lexical-btn">Análisis Léxico</button>
+                <button id="syntactic-btn">Análisis Sintáctico</button>
+                <button id="semantic-btn">Análisis Semántico</button>
+            </div>
+        </div>
+
+        <div class="results-container">
+            <h2>Resultados del Análisis</h2>
+            <div class="tabs">
+                <button class="tab-link active" data-tab="lexical">Léxico</button>
+                <button class="tab-link" data-tab="syntactic">Sintáctico</button>
+                <button class="tab-link" data-tab="semantic">Semántico</button>
+            </div>
+
+            <div id="lexical" class="tab-content active">
+                <pre><code>Esperando resultados del análisis léxico...</code></pre>
+            </div>
+            <div id="syntactic" class="tab-content">
+                <pre><code>Esperando resultados del análisis sintáctico...</code></pre>
+            </div>
+            <div id="semantic" class="tab-content">
+                <pre><code>Esperando resultados del análisis semántico...</code></pre>
+            </div>
+        </div>
+    </main>
 
     <!-- CodeMirror 6 -->
-    <script src="dist/cm6.bundle.js"></script>
+    <script src="../dist/cm6.bundle.js"></script>
     <script>
         // Create an initial state for the view
         const initialState = cm6.createEditorState("function foo() {\n    console.log(123);\n}");
