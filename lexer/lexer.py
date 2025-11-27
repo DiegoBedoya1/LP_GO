@@ -1,6 +1,6 @@
 import ply.lex as lex
 
-
+codigo_fuente = ""
 # Contribucion: Salvador Muñoz
 # Palabras reservadas de Go
 # Contribucion: Diego bedoya, más palabras reservadas
@@ -178,9 +178,8 @@ def t_newline(t):
     t.lexer.lineno += len(t.value)
 
 
-
 def find_column(input, token):
-    line_start = input.rfind('\n', 0, token.lexpos) + 1
+    line_start = input.rfind("\n", 0, token.lexpos) + 1
     return (token.lexpos - line_start) + 1
 
 
@@ -193,10 +192,14 @@ errores = []
 
 
 def t_error(t):
-    # Guardamos el error pero también devolvemos información estructurada
-    errores.append(
-        (t.lexer.lineno, f"Error léxico: carácter no reconocido '{t.value[0]}'")
-    )
+    linea = t.lineno
+    columna = find_column(codigo_fuente, t)
+
+    mensaje = f"Error léxico: caracter no reconocido '{t.value[0]}' en línea {linea}, columna {columna}"
+    print(mensaje)
+
+    errores.append((linea, columna, mensaje))
+
     t.lexer.skip(1)
 
 
@@ -211,6 +214,8 @@ log_actual = None
 # Contribucion: Salvador Muñoz
 def analizar_codigo(codigo):
     """Devuelve una lista de eventos léxicos (tokens y errores) en orden real."""
+    global codigo_fuente
+    codigo_fuente = codigo
     lexer = lex.lex()
     lexer.input(codigo)
     eventos = []
@@ -231,27 +236,18 @@ def analizar_codigo(codigo):
     return eventos
 
 
-# data = '''1
+data = """ asd var =====
+#
+$$ 
+%% ^&
+"""
 
-# 1.123
-# 1.123aa
-# 3 + 4 * 10
-#   + -20 *2 %
-# variable
-# Variable break
-# asd123
-# if
-# trueeee
-# true
-# false>>false
-# import
-# '''
 
-# lexer.input(data)
+lexer.input(data)
 
-# while True:
-#     tok = lexer.token()
-#     if not tok:
-#         break      # No more input
-#     print(tok)
-# print(f"Numero de lineas {lexer.lineno}")
+while True:
+    tok = lexer.token()
+    if not tok:
+        break  # No more input
+    print(tok)
+print(f"Numero de lineas {lexer.lineno}")
