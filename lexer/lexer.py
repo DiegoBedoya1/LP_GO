@@ -52,6 +52,7 @@ reserved = {
     "complex128": "COMPLEX128",
     "map": "MAP",
     "bool": "BOOL",
+    "main": "MAIN"
 }
 
 
@@ -133,6 +134,9 @@ t_NOT = r"!"
 t_AMPERSAND = r"&"
 t_VARIADIC = r"\.\.\."  # Contribucion Steven Miraba
 
+#paquetes e importaciones
+t_PACKAGE = r"package"
+t_IMPORT = r"import"
 """ Se debe ir de lo especifico a lo general """
 
 
