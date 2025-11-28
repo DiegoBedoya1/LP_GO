@@ -463,7 +463,7 @@ def p_strings(p):
 #                       Package                                     #
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
 def p_paquete_declaracion(p):
-    """paquete_declaracion : PACKAGE MAIN"""
+    """paquete_declaracion : PACKAGE IDENTIFIER"""
 
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
@@ -635,6 +635,7 @@ def p_sentencias(p):
 
 def p_empty(p):
     "empty :"
+    pass
 
 
 syntax_errors = []

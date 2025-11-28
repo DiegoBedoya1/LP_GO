@@ -51,8 +51,7 @@ reserved = {
     "complex64": "COMPLEX64",
     "complex128": "COMPLEX128",
     "map": "MAP",
-    "bool": "BOOL",
-    "main": "MAIN"
+    "bool": "BOOL"
 }
 
 
