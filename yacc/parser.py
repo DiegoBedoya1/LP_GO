@@ -42,12 +42,18 @@ def p_sentencia(p):
     | reasignacion_var
     | importar
     | paquete_declaracion
+    | func_sin_retorno
+    | programa_base
     """
     print("==== Ejecutando regla sentencia: ====")
     imprimirInformacion(p)
     print(tabla_simbolos)
     p[0] = p[1]
 
+
+#programa base
+def p_programa_base(p):
+    """programa_base : paquete_declaracion importar func_sin_retorno"""
 
 # ++++++++++++++++++++
 # Interfaces
@@ -460,7 +466,7 @@ def p_import(p):
 
 
 def p_importacion_simple(p):
-    """importacion_simple : IMPORT STRING"""
+    """importacion_simple : IMPORT STRING """
 
 
 def p_importacion_compuesta(p):
@@ -626,12 +632,15 @@ def p_parametro(p):
 # contribucion Diego Bedoya
 # funcion de retorno simple
 def p_func_con_retorno(p):
-    """func_con_retorno : FUNC IDENTIFIER LPAREN lista_parametros RPAREN IDENTIFIER LBRACE sentencia RETURN retorno RBRACE"""
+    """func_con_retorno : FUNC IDENTIFIER LPAREN lista_parametros RPAREN IDENTIFIER LBRACE sentencias RETURN retorno RBRACE"""
 
 
 def p_retorno(p):
     """retorno : valor"""
 
+#funcion sin retorno que puede ser el main o cualquier otra funcion que no retorne nada
+def p_func_sin_retorno(p):
+    """ func_sin_retorno : FUNC IDENTIFIER LPAREN lista_parametros RPAREN LBRACE sentencias RBRACE"""
 
 def p_block(p):
     """block : LBRACE sentencias RBRACE"""
@@ -645,6 +654,7 @@ def p_sentencias(p):
 
 def p_empty(p):
     "empty :"
+    pass
 
 
 syntax_errors = []
