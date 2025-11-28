@@ -1,0 +1,40 @@
+=== Archivo: prueba1.go ===
+
+[Error semantico:] 6,13,(6, 6)
+[Error semantico:] 8,33,(8, 8)
+[Error semantico:] 21,314,(21, 21)
+[Error semantico:] 22,325,(22, 22)
+[Error semantico:] 34,539,(34, 34)
+{'constantes': {},
+ 'tipos': {},
+ 'variables': {'a': 'int',
+               'flag': 'bool',
+               'i': 'int',
+               'msg': 'string',
+               'x': 'int',
+               'y': 'float'}}
+
+--------------------------------------------------
+
+=== Archivo: prueba2.go ===
+
+[Error semantico:] 51,95,(51, 51)
+[Error semantico:] 52,128,(52, 52)
+{'constantes': {}, 'tipos': {}, 'variables': {}}
+
+--------------------------------------------------
+
+=== Archivo: prueba3.go ===
+
+{'constantes': {}, 'tipos': {}, 'variables': {}}
+
+--------------------------------------------------
+
+=== Archivo: prueba_string.go ===
+
+{'constantes': {},
+ 'tipos': {},
+ 'variables': {'flag': 'bool', 'nombre': 'string', 'x': 'int', 'y': 'float'}}
+
+--------------------------------------------------
+

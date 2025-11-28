@@ -14,8 +14,8 @@ func main() {
 
     //array [1,2,3,"hola"]
 
-    
-
+    a := 1
+    d := n
 
     /* Comentario de bloque
     no deberia aparecer en los losgs */

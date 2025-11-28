@@ -238,18 +238,18 @@ def analizar_codigo(codigo):
     return eventos
 
 
-data = """ asd var =====
-#
-$$ 
-%% ^&
-"""
+# data = """ asd var =====
+# #
+# $$ 
+# %% ^&
+# """
 
 
-lexer.input(data)
+# lexer.input(data)
 
-while True:
-    tok = lexer.token()
-    if not tok:
-        break  # No more input
-    print(tok)
-print(f"Numero de lineas {lexer.lineno}")
+# while True:
+#     tok = lexer.token()
+#     if not tok:
+#         break  # No more input
+#     print(tok)
+# print(f"Numero de lineas {lexer.lineno}")

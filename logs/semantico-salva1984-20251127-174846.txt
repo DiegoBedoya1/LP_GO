@@ -1,0 +1,33 @@
+=== Archivo: prueba1.go ===
+
+{'constantes': {},
+ 'tipos': {},
+ 'variables': {'a': 'int',
+               'flag': 'bool',
+               'i': 'int',
+               'msg': 'string',
+               'x': 'int',
+               'y': 'float'}}
+
+--------------------------------------------------
+
+=== Archivo: prueba2.go ===
+
+{'constantes': {}, 'tipos': {}, 'variables': {}}
+
+--------------------------------------------------
+
+=== Archivo: prueba3.go ===
+
+{'constantes': {}, 'tipos': {}, 'variables': {}}
+
+--------------------------------------------------
+
+=== Archivo: prueba_string.go ===
+
+{'constantes': {},
+ 'tipos': {},
+ 'variables': {'flag': 'bool', 'nombre': 'string', 'x': 'int', 'y': 'float'}}
+
+--------------------------------------------------
+
