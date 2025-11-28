@@ -6,13 +6,13 @@ func main() {
     var x int = 10
     var y float64 = 20.5
     var flag bool = true
-    var b = c
-    x = "Error"
-    y = 1
+    //var b = c
+   // x = "Error"
+    //y = 1
     // Test de Comentario no deberia aparecer en logs // Esto deberia segir siendo un comentario
-    "String" "String2"
+    //"String" "String2"
 
-    array [1,2,3,"hola"]
+    //array [1,2,3,"hola"]
 
     
 

@@ -674,12 +674,12 @@ def parse(texto):
     return parser_obj.parse(texto)
 
 
-while True:
-    try:
-        s = input("calc > ")
-    except EOFError:
-        break
-    if not s:
-        continue
-    result = parser_obj.parse(s)
-    print(result)
+# while True:
+#     try:
+#         s = input("calc > ")
+#     except EOFError:
+#         break
+#     if not s:
+#         continue
+#     result = parser_obj.parse(s)
+#     print(result)
