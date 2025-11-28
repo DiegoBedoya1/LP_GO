@@ -1,0 +1,141 @@
+=== Archivo: prueba1.go ===
+
+[SyntaxError] Syntax error: token '{' (type=LBRACE) en línea 9, columna 41
+[SyntaxError] Syntax error: token 'c' (type=IDENTIFIER) en línea 13, columna 124
+[SyntaxError] Syntax error: token '[' (type=LBRACKET) en línea 19, columna 283
+[SyntaxError] Syntax error: token '"x es mayor que 5"' (type=STRING) en línea 29, columna 432
+[SyntaxError] Syntax error: token '"x es menor o igual que 5"' (type=STRING) en línea 31, columna 485
+[SyntaxError] Syntax error: token ')' (type=RPAREN) en línea 41, columna 681
+[SyntaxError] Syntax error: token 'int' (type=INT) en línea 43, columna 702
+[SyntaxError] Syntax error: token '"Resultado:"' (type=STRING) en línea 44, columna 725
+
+--------------------------------------------------
+
+=== Archivo: prueba2.go ===
+
+[SyntaxError] Syntax error: token '{' (type=LBRACE) en línea 9, columna 41
+[SyntaxError] Syntax error: token 'c' (type=IDENTIFIER) en línea 13, columna 124
+[SyntaxError] Syntax error: token '[' (type=LBRACKET) en línea 19, columna 283
+[SyntaxError] Syntax error: token '"x es mayor que 5"' (type=STRING) en línea 29, columna 432
+[SyntaxError] Syntax error: token '"x es menor o igual que 5"' (type=STRING) en línea 31, columna 485
+[SyntaxError] Syntax error: token ')' (type=RPAREN) en línea 41, columna 681
+[SyntaxError] Syntax error: token 'int' (type=INT) en línea 43, columna 702
+[SyntaxError] Syntax error: token '"Resultado:"' (type=STRING) en línea 44, columna 725
+[SyntaxError] Syntax error: token 'func' (type=FUNC) en línea 48, columna 42
+[SyntaxError] Syntax error: token '{' (type=LBRACE) en línea 50, columna 93
+[SyntaxError] Syntax error: token '"sumar"' (type=STRING) en línea 51, columna 119
+[SyntaxError] Syntax error: token ',' (type=COMA) en línea 52, columna 149
+[SyntaxError] Syntax error: token '"El resultado de la suma es: "' (type=STRING) en línea 53, columna 166
+[SyntaxError] Syntax error: token 'return' (type=RETURN) en línea 59, columna 285
+[SyntaxError] Syntax error: token 'int' (type=INT) en línea 59, columna 302
+[SyntaxError] Syntax error: token '}' (type=RBRACE) en línea 61, columna 344
+[SyntaxError] Syntax error: token 'int' (type=INT) en línea 63, columna 381
+[SyntaxError] Syntax error: token '}' (type=RBRACE) en línea 65, columna 424
+[SyntaxError] Syntax error: token 'int' (type=INT) en línea 67, columna 455
+[SyntaxError] Syntax error: token '}' (type=RBRACE) en línea 69, columna 496
+
+--------------------------------------------------
+
+=== Archivo: prueba3.go ===
+
+[SyntaxError] Syntax error: token '{' (type=LBRACE) en línea 9, columna 41
+[SyntaxError] Syntax error: token 'c' (type=IDENTIFIER) en línea 13, columna 124
+[SyntaxError] Syntax error: token '[' (type=LBRACKET) en línea 19, columna 283
+[SyntaxError] Syntax error: token '"x es mayor que 5"' (type=STRING) en línea 29, columna 432
+[SyntaxError] Syntax error: token '"x es menor o igual que 5"' (type=STRING) en línea 31, columna 485
+[SyntaxError] Syntax error: token ')' (type=RPAREN) en línea 41, columna 681
+[SyntaxError] Syntax error: token 'int' (type=INT) en línea 43, columna 702
+[SyntaxError] Syntax error: token '"Resultado:"' (type=STRING) en línea 44, columna 725
+[SyntaxError] Syntax error: token 'func' (type=FUNC) en línea 48, columna 42
+[SyntaxError] Syntax error: token '{' (type=LBRACE) en línea 50, columna 93
+[SyntaxError] Syntax error: token '"sumar"' (type=STRING) en línea 51, columna 119
+[SyntaxError] Syntax error: token ',' (type=COMA) en línea 52, columna 149
+[SyntaxError] Syntax error: token '"El resultado de la suma es: "' (type=STRING) en línea 53, columna 166
+[SyntaxError] Syntax error: token 'return' (type=RETURN) en línea 59, columna 285
+[SyntaxError] Syntax error: token 'int' (type=INT) en línea 59, columna 302
+[SyntaxError] Syntax error: token '}' (type=RBRACE) en línea 61, columna 344
+[SyntaxError] Syntax error: token 'int' (type=INT) en línea 63, columna 381
+[SyntaxError] Syntax error: token '}' (type=RBRACE) en línea 65, columna 424
+[SyntaxError] Syntax error: token 'int' (type=INT) en línea 67, columna 455
+[SyntaxError] Syntax error: token '}' (type=RBRACE) en línea 69, columna 496
+[SyntaxError] Syntax error: token '"math"' (type=STRING) en línea 76, columna 32
+[SyntaxError] Syntax error: token 'float64' (type=FLOAT64) en línea 80, columna 74
+[SyntaxError] Syntax error: token 'float64' (type=FLOAT64) en línea 85, columna 140
+[SyntaxError] Syntax error: token 'float64' (type=FLOAT64) en línea 89, columna 194
+[SyntaxError] Syntax error: token '.' (type=DOT) en línea 90, columna 223
+[SyntaxError] Syntax error: token 'string' (type=IDENTIFIER) en línea 93, columna 266
+[SyntaxError] Syntax error: token 'float64' (type=FLOAT64) en línea 98, columna 373
+[SyntaxError] Syntax error: token 'float64' (type=FLOAT64) en línea 101, columna 408
+[SyntaxError] Syntax error: token '.' (type=DOT) en línea 102, columna 437
+[SyntaxError] Syntax error: token '.' (type=DOT) en línea 102, columna 447
+[SyntaxError] Syntax error: token 'string' (type=IDENTIFIER) en línea 105, columna 488
+[SyntaxError] Syntax error: token '*' (type=TIMES) en línea 113, columna 609
+[SyntaxError] Syntax error: token '*' (type=TIMES) en línea 114, columna 653
+[SyntaxError] Syntax error: token '{' (type=LBRACE) en línea 117, columna 707
+[SyntaxError] Syntax error: token '{' (type=LBRACE) en línea 124, columna 825
+[SyntaxError] Syntax error: token 'var' (type=VAR) en línea 126, columna 854
+[SyntaxError] Syntax error: token '"Ingresa una opcion: "' (type=STRING) en línea 127, columna 882
+[SyntaxError] Syntax error: token '(' (type=LPAREN) en línea 132, columna 969
+[SyntaxError] Syntax error: token '"Opción inválida"' (type=STRING) en línea 136, columna 1089
+[SyntaxError] Syntax error: token '"Figuras registradas:"' (type=STRING) en línea 142, columna 1228
+[SyntaxError] Syntax error: token '(' (type=LPAREN) en línea 145, columna 1285
+[SyntaxError] Syntax error: token '"Hay varias figuras en la lista."' (type=STRING) en línea 146, columna 1315
+[SyntaxError] Syntax error: token '"Pocas figuras registradas."' (type=STRING) en línea 148, columna 1374
+
+--------------------------------------------------
+
+=== Archivo: prueba_string.go ===
+
+[SyntaxError] Syntax error: token '{' (type=LBRACE) en línea 9, columna 41
+[SyntaxError] Syntax error: token 'c' (type=IDENTIFIER) en línea 13, columna 124
+[SyntaxError] Syntax error: token '[' (type=LBRACKET) en línea 19, columna 283
+[SyntaxError] Syntax error: token '"x es mayor que 5"' (type=STRING) en línea 29, columna 432
+[SyntaxError] Syntax error: token '"x es menor o igual que 5"' (type=STRING) en línea 31, columna 485
+[SyntaxError] Syntax error: token ')' (type=RPAREN) en línea 41, columna 681
+[SyntaxError] Syntax error: token 'int' (type=INT) en línea 43, columna 702
+[SyntaxError] Syntax error: token '"Resultado:"' (type=STRING) en línea 44, columna 725
+[SyntaxError] Syntax error: token 'func' (type=FUNC) en línea 48, columna 42
+[SyntaxError] Syntax error: token '{' (type=LBRACE) en línea 50, columna 93
+[SyntaxError] Syntax error: token '"sumar"' (type=STRING) en línea 51, columna 119
+[SyntaxError] Syntax error: token ',' (type=COMA) en línea 52, columna 149
+[SyntaxError] Syntax error: token '"El resultado de la suma es: "' (type=STRING) en línea 53, columna 166
+[SyntaxError] Syntax error: token 'return' (type=RETURN) en línea 59, columna 285
+[SyntaxError] Syntax error: token 'int' (type=INT) en línea 59, columna 302
+[SyntaxError] Syntax error: token '}' (type=RBRACE) en línea 61, columna 344
+[SyntaxError] Syntax error: token 'int' (type=INT) en línea 63, columna 381
+[SyntaxError] Syntax error: token '}' (type=RBRACE) en línea 65, columna 424
+[SyntaxError] Syntax error: token 'int' (type=INT) en línea 67, columna 455
+[SyntaxError] Syntax error: token '}' (type=RBRACE) en línea 69, columna 496
+[SyntaxError] Syntax error: token '"math"' (type=STRING) en línea 76, columna 32
+[SyntaxError] Syntax error: token 'float64' (type=FLOAT64) en línea 80, columna 74
+[SyntaxError] Syntax error: token 'float64' (type=FLOAT64) en línea 85, columna 140
+[SyntaxError] Syntax error: token 'float64' (type=FLOAT64) en línea 89, columna 194
+[SyntaxError] Syntax error: token '.' (type=DOT) en línea 90, columna 223
+[SyntaxError] Syntax error: token 'string' (type=IDENTIFIER) en línea 93, columna 266
+[SyntaxError] Syntax error: token 'float64' (type=FLOAT64) en línea 98, columna 373
+[SyntaxError] Syntax error: token 'float64' (type=FLOAT64) en línea 101, columna 408
+[SyntaxError] Syntax error: token '.' (type=DOT) en línea 102, columna 437
+[SyntaxError] Syntax error: token '.' (type=DOT) en línea 102, columna 447
+[SyntaxError] Syntax error: token 'string' (type=IDENTIFIER) en línea 105, columna 488
+[SyntaxError] Syntax error: token '*' (type=TIMES) en línea 113, columna 609
+[SyntaxError] Syntax error: token '*' (type=TIMES) en línea 114, columna 653
+[SyntaxError] Syntax error: token '{' (type=LBRACE) en línea 117, columna 707
+[SyntaxError] Syntax error: token '{' (type=LBRACE) en línea 124, columna 825
+[SyntaxError] Syntax error: token 'var' (type=VAR) en línea 126, columna 854
+[SyntaxError] Syntax error: token '"Ingresa una opcion: "' (type=STRING) en línea 127, columna 882
+[SyntaxError] Syntax error: token '(' (type=LPAREN) en línea 132, columna 969
+[SyntaxError] Syntax error: token '"Opción inválida"' (type=STRING) en línea 136, columna 1089
+[SyntaxError] Syntax error: token '"Figuras registradas:"' (type=STRING) en línea 142, columna 1228
+[SyntaxError] Syntax error: token '(' (type=LPAREN) en línea 145, columna 1285
+[SyntaxError] Syntax error: token '"Hay varias figuras en la lista."' (type=STRING) en línea 146, columna 1315
+[SyntaxError] Syntax error: token '"Pocas figuras registradas."' (type=STRING) en línea 148, columna 1374
+[SyntaxError] Syntax error: token '{' (type=LBRACE) en línea 155, columna 41
+[SyntaxError] Syntax error: token '.' (type=DOT) en línea 163, columna 239
+[SyntaxError] Syntax error: token '.' (type=DOT) en línea 166, columna 300
+[SyntaxError] Syntax error: token '.' (type=DOT) en línea 181, columna 611
+[SyntaxError] Syntax error: token '.' (type=DOT) en línea 184, columna 662
+[SyntaxError] Syntax error: token '.' (type=DOT) en línea 187, columna 715
+[SyntaxError] Syntax error: token '.' (type=DOT) en línea 190, columna 795
+
+--------------------------------------------------
+

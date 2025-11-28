@@ -1,7 +1,7 @@
 package main
-
+a := 1
 import "fmt"
-
+a := 1
 func main() {
     var x int = 10
     var y float64 = 20.5
@@ -13,6 +13,11 @@ func main() {
     "String" "String2"
 
     array [1,2,3,"hola"]
+
+    a := 1
+    d := n
+
+    
 
     
 

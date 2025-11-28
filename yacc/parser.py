@@ -82,10 +82,75 @@ def p_expresion(p):
         p[0] = "string"
     else:
         print("Expresion de tipo no string (bool, numero)")
+        imprimirInformacion(p)
         p[0] = p[1]
 
 
-# contribucion Salvador Muñoz
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
+#                          Asignaciones                            #
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
+
+
+# Contribucion Salvador Muñoz
+# Si el tipo no es compatible con la reasignacion, se mantiene el original
+def p_reasignacion(p):
+    """reasignacion_var :  IDENTIFIER ASSIGN expresion"""
+    #     0                  1          2        3
+    print("++++++++++++++  Ejectuando regla semantica reasignacion ++++++++++++++++++")
+    id = p[1]
+    valor = p[3]
+    line, col = get_line_and_col(p, 1)
+    # print(f"Id: {id}, valor: {valor}")
+
+    if id not in tabla_simbolos["variables"]:
+        msg = f"Error semántico en la linea {line}, columna {col}: Variable {id} de tipo {valor} no esta definido"
+        print(msg)
+        errores_semanticos.append(msg)
+    else:
+        if tabla_simbolos["variables"][id] != valor:
+            msg = f"Error semantico en la linea {line}, columna {col}: La variable {id} es de tipo {tabla_simbolos['variables'][id]}, pero se intento asignar {valor}"
+            print(msg)
+            errores_semanticos.append(msg)
+            # Si el tipo no es compatible con la reasignacion, se mantiene el original
+            p[0] = p[1]
+        else:
+            p[0] = p[3]
+
+
+# asignacion de tipo VAR ID ID? = 0
+def p_asignacion(p):
+    """asignacion : VAR IDENTIFIER id_or_type ASSIGN expresion"""
+    #    0           1     2            3        4       5
+    print("Ejectuando regla semantica asignacion: ")
+    nombre = p[2]
+    tip = p[3]
+    line, col = get_line_and_col(p, 2)
+    # contribucion Steven Mirabá
+    # regla semantica variable no puede tomar nombre de tipo reservado
+    nombre_lower = nombre.lower()
+    if nombre_lower in tipos_reservados:
+        msg = f"Error semántico en la linea {line}, columna {col}: no se puede usar '{nombre}' como Identifier o nombre de variable porque coincide con un tipo de variable reservado."
+        errores_semanticos.append(msg)
+        print(msg)
+        return
+    print("Nombre de asignacion : ", nombre)
+    print("Tipo: ", tip)
+    tabla_simbolos["variables"][nombre] = tip
+    print(tabla_simbolos)
+    if (
+        nombre in tabla_simbolos["constantes"]
+    ):  # Diego Bedoya: regla para evitar la reasignacion de constantes
+        msg = f"Error semántico en la linea {line}, columna {col}: no se puede reasignar constante '{nombre}'."
+        print(msg)
+        errores_semanticos.append(msg)
+    elif tip != None:
+        tabla_simbolos["variables"][nombre] = tip
+
+
+def p_id_or_type(p):
+    """id_or_type : IDENTIFIER
+    | tipo"""
+    p[0] = p[1]
 
 
 # contribucion Salvador Muñoz
@@ -95,18 +160,28 @@ def p_expresion(p):
 # nueva.
 def p_asignacionCorta(p):
     """asignacion_corta : IDENTIFIER SHORTASSIGN expresion"""
+    #   0                   1           2         3
     nombre = p[1]
     tip = p[3]
+
+    line, col = get_line_and_col(p, 1)
+    # errores_semanticos.append(f"Hola {line},{col}")
     # contribucion Steven Mirabá
     # regla semantica variable no puede tomar nombre de tipo reservado
     nombre_lower = nombre.lower()
     if nombre_lower in tipos_reservados:
-        print(
-            f"Error semántico: no se puede usar '{nombre}' como Identifier o nombre de variable porque coincide con un tipo de variable reservado."
-        )
+        msg = f"Error semántico en linea {line}, columna {col} : no se puede usar '{nombre}' como Identifier o nombre de variable porque coincide con un tipo de variable reservado."
+        print(msg)
+        errores_semanticos.append(msg)
         return
     if tip != None:
         tabla_simbolos["variables"][nombre] = tip
+
+
+def get_line_and_col(p, index):
+    line = p.lineno(index)
+    col = get_col(p, index)
+    return line, col
 
 
 # contribucion Diego Bedoya
@@ -114,6 +189,7 @@ def p_asignacionCorta(p):
 # var a int = 1
 def p_crearVariable(p):
     """crearVariable : VAR IDENTIFIER tipo ASSIGN expresion"""
+    #     0             1   2          3   4          5
     print("==== Ejecutando regla crearvariable: ====")
     nombre = p[2]
     tip = p[3]
@@ -122,41 +198,41 @@ def p_crearVariable(p):
     # contribucion Steven Mirabá
     # regla semantica variable no puede tomar nombre de tipo reservado
     nombre_lower = nombre.lower()
+    line, col = get_line_and_col(p, 2)
     if nombre_lower in tipos_reservados:
-        print(
-            f"Error semántico: no se puede usar '{nombre}' como Identifier o nombre de variable porque coincide con un tipo de variable reservado."
-        )
-        return
-
+        msg = f"Error semántico en linea {line}, columna {col}: no se puede usar '{nombre}' como Identifier o nombre de variable porque coincide con un tipo de variable reservado."
+        print(msg)
+        errores_semanticos.append(msg)
     if tip != exp:
-        print(
-            f"Error semántico: la variable '{nombre}' es de tipo '{tip} pero se le asigna una expresión de tipo '{exp}"
-        )
+        msg = f"Error semántico en linea {line} , columna {col} : la variable '{nombre}' es de tipo '{tip} pero se le asigna una expresión de tipo '{exp}"
+        errores_semanticos.append(msg)
+        print(msg)
 
     tabla_simbolos["variables"][nombre] = tip
 
 
 def p_crearConstante(p):
     """crearConstante : CONST IDENTIFIER ASSIGN expresion"""
+    #      0              1        2         3    4
     nombre = p[2]
     tip = p[4]
+    line, col = get_line_and_col(p, 2)
     # contribucion Steven Mirabá
     # regla semantica variable no puede tomar nombre de tipo reservado
+
     nombre_lower = nombre.lower()
     if nombre_lower in tipos_reservados:
-        print(
-            f"Error semántico: no se puede usar '{nombre}' como Identifier o nombre de variable porque coincide con un tipo de variable reservado."
-        )
-        return
+        msg = f"Error semántico en linea {line}, columna {col}: no se puede usar '{nombre}' como Identifier o nombre de variable porque coincide con un tipo de variable reservado."
+        errores_semanticos.append(msg)
+        print(msg)
     if tip != None:
         tabla_simbolos["constantes"][nombre] = tip
-
-
 
 
 # ++++++++++++++++++++
 #       Tipos
 # ++++++++++++++++++++
+
 
 def p_tipo(p):
     """tipo : int
@@ -198,72 +274,6 @@ def p_complex(p):
     p[0] = "complex"
 
 
-
-# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
-#                          Asignaciones                            #
-# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
-
-
-# Contribucion Salvador Muñoz
-# Si el tipo no es compatible con la reasignacion, se mantiene el original
-def p_reasignacion(p):
-    """reasignacion_var :  IDENTIFIER ASSIGN expresion"""
-    #     0                  1          2        3
-    print("++++++++++++++  Ejectuando regla semantica reasignacion ++++++++++++++++++")
-    id = p[1]
-    valor = p[3]
-    print(f"Id: {id}, valor: {valor}")
-
-    if id not in tabla_simbolos["variables"]:
-        print(f"Variable {id} de tipo {valor} no esta definido")
-    else:
-        if tabla_simbolos["variables"][id] != valor:
-            print(
-                f"La variable {id} es de tipo {tabla_simbolos['variables'][id]}, pero se intento asignar {valor}"
-            )
-            # Si el tipo no es compatible con la reasignacion, se mantiene el original
-            p[0] = p[1]
-        else:
-            p[0] = p[3]
-
-
-# asignacion de tipo ID ID? = 0
-def p_asignacion(p):
-    """asignacion : VAR IDENTIFIER id_or_type ASSIGN expresion"""
-    #    0           1     2            3        4       5
-    print("Ejectuando regla semantica asignacion: ")
-    nombre = p[2]
-    # correcion Steven Mirabá
-    tip = p[3]
-    # contribucion Steven Mirabá
-    # regla semantica variable no puede tomar nombre de tipo reservado
-    nombre_lower = nombre.lower()
-    if nombre_lower in tipos_reservados:
-        print(
-            f"Error semántico: no se puede usar '{nombre}' como Identifier o nombre de variable porque coincide con un tipo de variable reservado."
-        )
-        return
-    print("Nombre de asignacion : ", nombre)
-    print("Tipo: ", tip)
-    tabla_simbolos["variables"][nombre] = tip
-    print(tabla_simbolos)
-    if (
-        nombre in tabla_simbolos["constantes"]
-    ):  # Diego Bedoya: regla para evitar la reasignacion de constantes
-        print(f"Error semántico: no se puede reasignar constante '{nombre}'.")
-    elif nombre not in tabla_simbolos["variables"]:
-        print(f"Error semántico: variable '{nombre}' no definida.")
-    elif tip != None:
-        tabla_simbolos["variables"][nombre] = tip
-
-def p_id_or_type(p):
-    """ id_or_type : IDENTIFIER
-    | tipo """
-    p[0] = p[1]
-
-    
-
-
 def p_expresionMatematica(p):
     """expresionMatematica : termino
     | expresionMatematica operando termino"""
@@ -293,11 +303,17 @@ def p_termino(p):
     if len(p) == 2 and p[1] == "int":
         print("Instance=int valor: ", p[1])
         p[0] = p[1]
+    if len(p) == 2 and p[1] == "float":
+        print("Instance=float valor: ", p[1])
+        p[0] = p[1]
 
     elif len(p) == 2:
         nombre = p[1]
+        line, col = get_line_and_col(p, 1)
         if nombre not in tabla_simbolos["variables"]:
-            print(f"Error semántico: variable '{nombre}' no definida.")
+            msg = f"Error semántico en linea {line}, columna {col}: variable '{nombre}' no definida."
+            print(msg)
+            errores_semanticos.append(msg)
         else:
             p[0] = tabla_simbolos["variables"][nombre]
     elif len(p) == 4:
@@ -366,8 +382,11 @@ def p_valor(p):
         p[0] = "bool"
     else:
         nombre = p[1]
+        line, col = get_line_and_col(p, 1)
         if nombre not in tabla_simbolos["variables"]:
-            print(f"Error semántico: la variable {nombre} no ha sido definida")
+            msg = f"Error semántico en linea {line}, columna {col}: variable '{nombre}' no definida."
+            print(msg)
+            errores_semanticos.append(msg)
         else:
             p[0] = tabla_simbolos["variables"][nombre]
 
@@ -654,6 +673,17 @@ def p_error(p):
         print(msg)
 
 
+def get_col(p, index):
+    pos = p.lexpos(index)
+    data = p.lexer.lexdata
+
+    # posición del inicio de la línea
+    line_start = data.rfind("\n", 0, pos) + 1
+
+    # columna calculada
+    return pos - line_start + 1
+
+
 # Build the parser
 parser_obj = yacc.yacc()
 
@@ -661,7 +691,7 @@ parser_obj = yacc.yacc()
 def parse(texto):
     global data
     data = texto
-    return parser_obj.parse(texto)
+    return parser_obj.parse(texto, tracking=True)
 
 
 while True:
