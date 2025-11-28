@@ -51,9 +51,10 @@ def p_sentencia(p):
     p[0] = p[1]
 
 
-#programa base
+# programa base
 def p_programa_base(p):
     """programa_base : paquete_declaracion importar func_sin_retorno"""
+
 
 # ++++++++++++++++++++
 # Interfaces
@@ -109,7 +110,7 @@ def p_reasignacion(p):
     # print(f"Id: {id}, valor: {valor}")
 
     if id not in tabla_simbolos["variables"]:
-        msg = f"Error semántico en la linea {line}, columna {col}: Variable {id} de tipo {valor} no esta definido"
+        msg = f"Error semántico en la linea {line}, columna {col}: Variable {id} de tipo {valor} no esta definido REASIGNACION"
         print(msg)
         errores_semanticos.append(msg)
     else:
@@ -309,7 +310,7 @@ def p_termino(p):
     if len(p) == 2 and p[1] == "int":
         print("Instance=int valor: ", p[1])
         p[0] = p[1]
-    if len(p) == 2 and p[1] == "float":
+    elif len(p) == 2 and p[1] == "float":
         print("Instance=float valor: ", p[1])
         p[0] = p[1]
 
@@ -317,7 +318,7 @@ def p_termino(p):
         nombre = p[1]
         line, col = get_line_and_col(p, 1)
         if nombre not in tabla_simbolos["variables"]:
-            msg = f"Error semántico en linea {line}, columna {col}: variable '{nombre}' no definida."
+            msg = f"Error semántico en linea {line}, columna {col}: variable '{nombre}' no definida. TERMINO"
             print(msg)
             errores_semanticos.append(msg)
         else:
@@ -399,22 +400,22 @@ def p_valor(p):
 
 # contribucion Steven Mirabá
 # funciones de string
-# def p_valor_string_metodos(p):
-#     """valorString : IDENTIFIER DOT IDENTIFIER LPAREN RPAREN"""
-#     nombre = p[1]
-#     metodo = p[3]
+def p_valor_string_metodos(p):
+    """valorString : IDENTIFIER DOT IDENTIFIER LPAREN RPAREN"""
+    nombre = p[1]
+    metodo = p[3]
 
-#     if nombre not in tabla_simbolos["variables"]:
-#         print(f"Error semántico: la variable '{nombre}' no ha sido definida.")
-#     elif tabla_simbolos["variables"][nombre] != "string":
-#         print(f"Error semántico: la variable '{nombre}' no es de tipo 'string'.")
-#     else:
-#         if metodo in tabla_simbolos["tipos"]["str-funciones"]:
-#             p[0] = "string"
-#         else:
-#             print(
-#                 f'Error semántico: el método "{metodo}" no es válido para variables de tipo "string".'
-#             )
+    if nombre not in tabla_simbolos["variables"]:
+        print(f"Error semántico: la variable '{nombre}' no ha sido definida.")
+    elif tabla_simbolos["variables"][nombre] != "string":
+        print(f"Error semántico: la variable '{nombre}' no es de tipo 'string'.")
+    else:
+        if metodo in tabla_simbolos["tipos"]["str-funciones"]:
+            p[0] = "string"
+        else:
+            print(
+                f'Error semántico: el método "{metodo}" no es válido para variables de tipo "string".'
+            )
 
 
 # contribucion Salvador Muñoz
@@ -466,7 +467,7 @@ def p_import(p):
 
 
 def p_importacion_simple(p):
-    """importacion_simple : IMPORT STRING """
+    """importacion_simple : IMPORT STRING"""
 
 
 def p_importacion_compuesta(p):
@@ -638,9 +639,11 @@ def p_func_con_retorno(p):
 def p_retorno(p):
     """retorno : valor"""
 
-#funcion sin retorno que puede ser el main o cualquier otra funcion que no retorne nada
+
+# funcion sin retorno que puede ser el main o cualquier otra funcion que no retorne nada
 def p_func_sin_retorno(p):
-    """ func_sin_retorno : FUNC IDENTIFIER LPAREN lista_parametros RPAREN LBRACE sentencias RBRACE"""
+    """func_sin_retorno : FUNC IDENTIFIER LPAREN lista_parametros RPAREN LBRACE sentencias RBRACE"""
+
 
 def p_block(p):
     """block : LBRACE sentencias RBRACE"""
@@ -704,12 +707,12 @@ def parse(texto):
     return parser_obj.parse(texto, tracking=True)
 
 
-while True:
-    try:
-        s = input("calc > ")
-    except EOFError:
-        break
-    if not s:
-        continue
-    result = parser_obj.parse(s)
-    print(result)
+# while True:
+#     try:
+#         s = input("calc > ")
+#     except EOFError:
+#         break
+#     if not s:
+#         continue
+#     result = parser_obj.parse(s)
+#     print(result)

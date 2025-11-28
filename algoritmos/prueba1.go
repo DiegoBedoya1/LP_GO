@@ -1,7 +1,7 @@
 package main
-a := 1
+
 import "fmt"
-a := 1
+
 func main() {
     var x int = 10
     var y float64 = 20.5
@@ -16,11 +16,6 @@ func main() {
 
     a := 1
     d := n
-
-    
-
-    
-
 
     /* Comentario de bloque
     no deberia aparecer en los losgs */
