@@ -453,7 +453,9 @@ def p_imprimir(p):
 def p_valores(p):
     """valores : IDENTIFIER
     | IDENTIFIER COMA valores
-    |"""  # linea vacia significa que es opcional
+    | STRING COMA valores
+    | STRING
+    | empty"""  # linea vacia significa que es opcional
 
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
@@ -617,6 +619,7 @@ def p_llamada_opcional(p):
 def p_argllamadaopcional(p):
     """argllamadaopcional : IDENTIFIER
     | argllamadaopcional COMA IDENTIFIER
+    | empty
     """
 
 
