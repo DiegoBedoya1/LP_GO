@@ -36,7 +36,6 @@ reserved = {
     "false": "FALSE",
     "range": "RANGE",
     "nil": "NIL",
-    "int": "INT",
     "int8": "INT8",
     "int16": "INT16",
     "int32": "INT32",
