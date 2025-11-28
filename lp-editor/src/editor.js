@@ -84,7 +84,6 @@ function createEditorState(initialContents, options = {}) {
 
         // 🔥 Gutter + Linter
         lintGutter(),
-        mockLinter
     ];
 
     if (options.oneDark)
@@ -133,18 +132,18 @@ function showResult(tabId, data) {
 /* -------------------------------------------------------
     Botones de análisis 
    ------------------------------------------------------- */
+/* -------------------------------------------------------
+    Botones de análisis 
+   ------------------------------------------------------- */
+
 async function analyzeCode(analysisType) {
     const code = view.state.doc.toString();
-
-    // JSON para backend
     const payload = {
         type: analysisType,
         code: code
     };
 
-    console.log("Payload a enviar al backend:");
-    console.log(JSON.stringify(payload, null, 2));
-
+    console.log("Payload a enviar al backend:", JSON.stringify(payload, null, 2));
     showResult(analysisType, "Analizando...");
 
     try {
@@ -161,27 +160,46 @@ async function analyzeCode(analysisType) {
         }
 
         const result = await response.json();
-
         console.log("Respuesta del backend:", result);
 
-        // Mostrar respuesta en pestaña
-        showResult(analysisType, result.output || "Sin resultados");
+        // 💥 NUEVA LÓGICA DE MANEJO DE RESULTADOS 💥
+        let outputMessage = "";
+
+        if (analysisType === 'lexical') {
+            const errors = result.errors;
+            if (result.hay_errores) {
+                // Aquí deberías mostrar los errores, o si tu lexer devuelve tokens, mostrarlos.
+                // Como solo devuelves 'errors' en Flask, mostraremos los errores.
+                outputMessage = errors.length > 0
+                    ? "🚨 Errores Léxicos:\n" + errors.join('\n')
+                    : "✅ Análisis Léxico **SIN ERRORES**. Se pueden mostrar los tokens si el backend los devuelve.";
+            } else {
+                 // Si no hay errores, asume que el backend solo devolvió los errores
+                 // y no los tokens. Podrías modificar Flask para que devuelva los tokens aquí.
+                 outputMessage = "✅ Análisis Léxico **SIN ERRORES**.";
+            }
+
+        } else if (analysisType === 'syntactic') {
+            const errors = result.syntactic_errors;
+            outputMessage = errors.length > 0
+                ? `🚨 ${result.count} Errores Sintácticos:\n` + errors.join('\n')
+                : "✅ Análisis Sintáctico **SIN ERRORES**. El código es gramaticalmente correcto.";
+
+        } else if (analysisType === 'semantic') {
+            const errors = result.semantic_errors;
+            outputMessage = errors.length > 0
+                ? `🚨 ${result.count} Errores Semánticos:\n` + errors.join('\n')
+                : "✅ Análisis Semántico **SIN ERRORES**. El código es lógicamente válido.";
+        }
+
+        // Mostrar el mensaje formateado en la pestaña
+        showResult(analysisType, outputMessage);
 
     } catch (err) {
         console.error("Fallo en la conexión con el backend:", err);
-
-        // --- Mock fallback ---
-        const mockResults = {
-            lexical: `Token PACKAGE -> 'package'\nToken IDENT -> 'main'\n...`,
-            syntactic: `[SyntaxError] Línea 2, Columna 10: símbolo inesperado`,
-            semantic: `[SemanticError] Línea 4: tipo incompatible`,
-        };
-
-        showResult(analysisType, mockResults[analysisType] || "Sin resultados (fallback)");
+        showResult(analysisType, `❌ Error de Conexión con el Servidor:\n${err.message}`);
     }
 }
-
-
 
 document.getElementById("lexical-btn").addEventListener("click", () => analyzeCode('lexical'));
 document.getElementById("syntactic-btn").addEventListener("click", () => analyzeCode('syntactic'));

@@ -27429,10 +27429,12 @@ var cm6 = (function (exports) {
       ]);
   }
 
+  const BACKEND_URL = "http://localhost:5000/api/analyze";
+
   /* -------------------------------------------------------
      🎯 MOCK: Linter que simula errores sintácticos/semánticos
      ------------------------------------------------------- */
-  const mockLinter = linter(view => {
+  linter(view => {
       const diagnostics = [];
 
       // ❗ Aquí pondrás los errores que vengan de tu backend
@@ -27497,7 +27499,6 @@ var cm6 = (function (exports) {
 
           // 🔥 Gutter + Linter
           lintGutter(),
-          mockLinter
       ];
 
       if (options.oneDark)
@@ -27546,36 +27547,73 @@ var cm6 = (function (exports) {
   /* -------------------------------------------------------
       Botones de análisis 
      ------------------------------------------------------- */
+  /* -------------------------------------------------------
+      Botones de análisis 
+     ------------------------------------------------------- */
+
   async function analyzeCode(analysisType) {
       const code = view.state.doc.toString();
-
-      // Mostrar código del editor
-      console.log("Código actual del editor:");
-      console.log(code);
-
-      // JSON para backend
       const payload = {
           type: analysisType,
           code: code
       };
 
-      console.log("Payload a enviar al backend:");
-      console.log(JSON.stringify(payload, null, 2));
-
-      // Mostrar mensaje de carga en pestaña
+      console.log("Payload a enviar al backend:", JSON.stringify(payload, null, 2));
       showResult(analysisType, "Analizando...");
 
-      // Simulación de retardo de red
-      await new Promise(resolve => setTimeout(resolve, 800));
+      try {
+          const response = await fetch(BACKEND_URL, {
+              method: "POST",
+              headers: { 
+                  "Content-Type": "application/json"
+              },
+              body: JSON.stringify(payload)
+          });
 
-      // Simulación de respuesta
-      const mockResults = {
-          lexical: `Token PACKAGE -> 'package'\nToken IDENT -> 'main'\n...`,
-          syntactic: `[SyntaxError] Línea 2, Columna 10: símbolo inesperado`,
-          semantic: `[SemanticError] Línea 4: tipo incompatible`,
-      };
+          if (!response.ok) {
+              throw new Error("Error en la respuesta del servidor");
+          }
 
-      showResult(analysisType, mockResults[analysisType] || "Sin resultados");
+          const result = await response.json();
+          console.log("Respuesta del backend:", result);
+
+          // 💥 NUEVA LÓGICA DE MANEJO DE RESULTADOS 💥
+          let outputMessage = "";
+
+          if (analysisType === 'lexical') {
+              const errors = result.errors;
+              if (result.hay_errores) {
+                  // Aquí deberías mostrar los errores, o si tu lexer devuelve tokens, mostrarlos.
+                  // Como solo devuelves 'errors' en Flask, mostraremos los errores.
+                  outputMessage = errors.length > 0
+                      ? "🚨 Errores Léxicos:\n" + errors.join('\n')
+                      : "✅ Análisis Léxico **SIN ERRORES**. Se pueden mostrar los tokens si el backend los devuelve.";
+              } else {
+                   // Si no hay errores, asume que el backend solo devolvió los errores
+                   // y no los tokens. Podrías modificar Flask para que devuelva los tokens aquí.
+                   outputMessage = "✅ Análisis Léxico **SIN ERRORES**.";
+              }
+
+          } else if (analysisType === 'syntactic') {
+              const errors = result.syntactic_errors;
+              outputMessage = errors.length > 0
+                  ? `🚨 ${result.count} Errores Sintácticos:\n` + errors.join('\n')
+                  : "✅ Análisis Sintáctico **SIN ERRORES**. El código es gramaticalmente correcto.";
+
+          } else if (analysisType === 'semantic') {
+              const errors = result.semantic_errors;
+              outputMessage = errors.length > 0
+                  ? `🚨 ${result.count} Errores Semánticos:\n` + errors.join('\n')
+                  : "✅ Análisis Semántico **SIN ERRORES**. El código es lógicamente válido.";
+          }
+
+          // Mostrar el mensaje formateado en la pestaña
+          showResult(analysisType, outputMessage);
+
+      } catch (err) {
+          console.error("Fallo en la conexión con el backend:", err);
+          showResult(analysisType, `❌ Error de Conexión con el Servidor:\n${err.message}`);
+      }
   }
 
   document.getElementById("lexical-btn").addEventListener("click", () => analyzeCode('lexical'));

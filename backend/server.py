@@ -1,6 +1,7 @@
 import sys
 import os
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 
 # -------------------------------
 # 🔥 Añadir ruta real de tu proyecto
@@ -9,16 +10,15 @@ BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "LP_GO"
 sys.path.append(BASE_DIR)
 
 # -------------------------------
-# 🔥 Importar tus analizadores reales
-#     (cambia estos imports según tu estructura)
 # -------------------------------
-from lexer.lexer import tokenize
-from parser.parser import parse
-from semantic.semantic import semantic_analysis
+from lexer.lexer import analizar_codigo
+from yacc.parser import parse, errores_semanticos, syntax_errors 
+
+
 
 
 app = Flask(__name__)
-
+CORS(app)
 
 @app.route("/api/analyze", methods=["POST"])
 def analyze():
@@ -28,34 +28,53 @@ def analyze():
     code = data.get("code")
 
     if analysis_type == "lexical":
-        result = tokenize(code)
+        # analizar_codigo devuelve: (eventos, errores)
+        # Ignoramos la primera parte (eventos) usando un guion bajo (_)
+        _, lista_errores = analizar_codigo(code)
 
-        # Asegurar JSON serializable
-        output = [{"token": t.type, "value": t.value} for t in result]
+        # Preparamos la LISTA DE MENSAJES DE ERROR
+        # e[2] es el 'mensaje' formateado que preparaste en t_error
+        mensajes_error = [e[2] for e in lista_errores]
 
-        return jsonify({"output": output})
+        # Devolvemos un JSON simple que contiene solo la lista de errores.
+        return jsonify({
+            "errors": mensajes_error,
+            "hay_errores": len(mensajes_error) > 0
+        })
 
     elif analysis_type == "syntactic":
-        tree, errors = parse(code)
+        # 1. Ejecutamos el parser. Esto dispara el análisis, 
+        #    llena la lista global 'syntax_errors' y retorna el AST (tree).
+        tree = parse(code) 
 
-        output = [
-            {"linea": err.line, "columna": err.column, "mensaje": err.msg}
-            for err in errors
-        ]
+        # 2. Accedemos a la lista global 'syntax_errors' que fue llenada por 'parse'.
+        # Formateamos los errores sintácticos (asumiendo que son objetos Error con atributos)
+        syntactic_errors_messages = [err for err in syntax_errors]
 
-        return jsonify({"output": output})
+        return jsonify({
+            "syntactic_errors": syntactic_errors_messages, 
+            "count": len(syntactic_errors_messages),
+            "type": "syntactic"
+        })
 
+
+    
     elif analysis_type == "semantic":
-        errors = semantic_analysis(code)
+        # 1. Ejecutamos el parser. Esto es MANDATORIO ya que 'parse'
+        #    es la función que dispara el análisis semántico (vía yacc/ply)
+        #    y llena la lista global 'errores_semanticos'.
+        _ = parse(code)
 
-        output = [
-            {"linea": err.line, "columna": err.column, "mensaje": err.msg}
-            for err in errors
-        ]
+        # 2. La lista 'errores_semanticos' ya contiene los strings formateados.
+        #    La accedemos directamente desde el módulo importado.
+        
+        return jsonify({
+            "semantic_errors": errores_semanticos, # Lista de strings ya formateados
+            "count": len(errores_semanticos),
+            "type": "semantic"
+        }) 
 
-        return jsonify({"output": output})
-
-    return jsonify({"output": []})
+    return jsonify({"error": "Tipo de análisis no soportado"}), 400
 
 
 if __name__ == "__main__":
