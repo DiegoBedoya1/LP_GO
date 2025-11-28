@@ -1,7 +1,8 @@
 import os
 import datetime
 from yacc import parser
-
+from yacc.parser import build_parser
+from lexer.lexer import lexer
 
 
 # Contribución: Salvador Muñoz
@@ -46,7 +47,9 @@ def main():
             log.write(f"=== Archivo: {nombre_archivo} ===\n\n")
 
             try:
-                resultado = parser.parser_obj.parse(codigo)  # Llamada al parser
+                parser_obj = build_parser()
+                lexer.lineno = 1
+                resultado = parser_obj.parse(codigo)  # Llamada al parser
                 if parser.syntax_errors:
                     for err in parser.syntax_errors:
                         log.write(f"[SyntaxError] {err}\n")

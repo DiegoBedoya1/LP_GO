@@ -14,6 +14,7 @@ import { oneDark } from "@codemirror/theme-one-dark";
 // Language
 import { go } from "@codemirror/lang-go";
 
+const BACKEND_URL = "http://localhost:5000/api/analyze";
 
 /* -------------------------------------------------------
    🎯 MOCK: Linter que simula errores sintácticos/semánticos
@@ -119,7 +120,7 @@ tabs.forEach(tab => {
 
 
 /* -------------------------------------------------------
-   🎯 Mostrar resultados en pestañas
+   Mostrar resultados en pestañas
    ------------------------------------------------------- */
 function showResult(tabId, data) {
     const contentArea = document.querySelector(`#${tabId} pre code`);
@@ -130,22 +131,57 @@ function showResult(tabId, data) {
 
 
 /* -------------------------------------------------------
-   🎯 Botones de análisis (solo texto, no cambia linter aún)
+    Botones de análisis 
    ------------------------------------------------------- */
 async function analyzeCode(analysisType) {
     const code = view.state.doc.toString();
-    showResult(analysisType, "Analizando...");
 
-    await new Promise(resolve => setTimeout(resolve, 800));
-
-    const mockResults = {
-        lexical: `Token PACKAGE -> 'package'\nToken IDENT -> 'main'\n...`,
-        syntactic: `[SyntaxError] Línea 2, Columna 10: símbolo inesperado`,
-        semantic: `[SemanticError] Línea 4: tipo incompatible`,
+    // JSON para backend
+    const payload = {
+        type: analysisType,
+        code: code
     };
 
-    showResult(analysisType, mockResults[analysisType] || "Sin resultados");
+    console.log("Payload a enviar al backend:");
+    console.log(JSON.stringify(payload, null, 2));
+
+    showResult(analysisType, "Analizando...");
+
+    try {
+        const response = await fetch(BACKEND_URL, {
+            method: "POST",
+            headers: { 
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+            throw new Error("Error en la respuesta del servidor");
+        }
+
+        const result = await response.json();
+
+        console.log("Respuesta del backend:", result);
+
+        // Mostrar respuesta en pestaña
+        showResult(analysisType, result.output || "Sin resultados");
+
+    } catch (err) {
+        console.error("Fallo en la conexión con el backend:", err);
+
+        // --- Mock fallback ---
+        const mockResults = {
+            lexical: `Token PACKAGE -> 'package'\nToken IDENT -> 'main'\n...`,
+            syntactic: `[SyntaxError] Línea 2, Columna 10: símbolo inesperado`,
+            semantic: `[SemanticError] Línea 4: tipo incompatible`,
+        };
+
+        showResult(analysisType, mockResults[analysisType] || "Sin resultados (fallback)");
+    }
 }
+
+
 
 document.getElementById("lexical-btn").addEventListener("click", () => analyzeCode('lexical'));
 document.getElementById("syntactic-btn").addEventListener("click", () => analyzeCode('syntactic'));

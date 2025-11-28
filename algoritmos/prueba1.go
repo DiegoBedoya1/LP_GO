@@ -34,6 +34,6 @@ func main() {
         fmt.Println(msg)
     }()
 
-    result := x + int(y)
+    result := x + y
     fmt.Println("Resultado:", result)
 }

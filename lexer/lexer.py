@@ -51,7 +51,7 @@ reserved = {
     "complex64": "COMPLEX64",
     "complex128": "COMPLEX128",
     "map": "MAP",
-    "bool": "BOOL"
+    "bool": "BOOL",
 }
 
 
@@ -133,7 +133,7 @@ t_NOT = r"!"
 t_AMPERSAND = r"&"
 t_VARIADIC = r"\.\.\."  # Contribucion Steven Miraba
 
-#paquetes e importaciones
+# paquetes e importaciones
 t_PACKAGE = r"package"
 t_IMPORT = r"import"
 """ Se debe ir de lo especifico a lo general """
@@ -180,9 +180,10 @@ def t_newline(t):
     t.lexer.lineno += len(t.value)
 
 
-def find_column(input, token):
-    line_start = input.rfind("\n", 0, token.lexpos) + 1
-    return (token.lexpos - line_start) + 1
+def find_column(text, token):
+    pos = token.lexpos
+    line_start = text.rfind("\n", 0, pos) + 1
+    return (pos - line_start) + 1
 
 
 t_ignore = " \t"
@@ -218,6 +219,7 @@ def analizar_codigo(codigo):
     """Devuelve una lista de eventos léxicos (tokens y errores) en orden real."""
     global codigo_fuente
     codigo_fuente = codigo
+    errores.clear()
     lexer = lex.lex()
     lexer.input(codigo)
     eventos = []
@@ -230,17 +232,17 @@ def analizar_codigo(codigo):
         eventos.append((tok.lineno, str(tok)))
 
     # Agregar errores también con sus líneas
-    for linea, err in errores:
-        eventos.append((linea, err))
+    for linea, columna, mensaje in errores:
+        eventos.append((linea, mensaje))
 
     # Ordenar tokens + errores según su línea de aparición
     eventos.sort(key=lambda e: e[0])
-    return eventos
+    return eventos, errores
 
 
 # data = """ asd var =====
 # #
-# $$ 
+# $$
 # %% ^&
 # """
 

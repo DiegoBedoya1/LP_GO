@@ -27533,7 +27533,7 @@ var cm6 = (function (exports) {
 
 
   /* -------------------------------------------------------
-     🎯 Mostrar resultados en pestañas
+     Mostrar resultados en pestañas
      ------------------------------------------------------- */
   function showResult(tabId, data) {
       const contentArea = document.querySelector(`#${tabId} pre code`);
@@ -27544,14 +27544,31 @@ var cm6 = (function (exports) {
 
 
   /* -------------------------------------------------------
-     🎯 Botones de análisis (solo texto, no cambia linter aún)
+      Botones de análisis 
      ------------------------------------------------------- */
   async function analyzeCode(analysisType) {
-      view.state.doc.toString();
+      const code = view.state.doc.toString();
+
+      // Mostrar código del editor
+      console.log("Código actual del editor:");
+      console.log(code);
+
+      // JSON para backend
+      const payload = {
+          type: analysisType,
+          code: code
+      };
+
+      console.log("Payload a enviar al backend:");
+      console.log(JSON.stringify(payload, null, 2));
+
+      // Mostrar mensaje de carga en pestaña
       showResult(analysisType, "Analizando...");
 
+      // Simulación de retardo de red
       await new Promise(resolve => setTimeout(resolve, 800));
 
+      // Simulación de respuesta
       const mockResults = {
           lexical: `Token PACKAGE -> 'package'\nToken IDENT -> 'main'\n...`,
           syntactic: `[SyntaxError] Línea 2, Columna 10: símbolo inesperado`,

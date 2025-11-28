@@ -1,8 +1,7 @@
 import os
 import datetime
 from lexer import lexer as lx # Importamos lexer
-import tkinter as tk
-from GUI import GoSimulatorGUI
+
 
 #Contribucion: Salvador Muñoz
 def cargar_archivos_go(carpeta):
@@ -45,7 +44,8 @@ def main():
         for nombre_archivo, codigo in archivos:
             log.write(f"=== Archivo: {nombre_archivo} ===\n\n")
 
-            eventos = lx.analizar_codigo(codigo)
+            eventos, _ = lx.analizar_codigo(codigo)   # <-- CORRECTO
+
             for _, linea in eventos:
                 log.write(linea + "\n")
 

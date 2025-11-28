@@ -1,6 +1,7 @@
 import ply.yacc as yacc
 from lexer.lexer import tokens, find_column
 import os, datetime
+from lexer.lexer import lexer
 
 # Steven Mirabá
 tabla_simbolos = {
@@ -405,17 +406,23 @@ def p_valor_string_metodos(p):
     nombre = p[1]
     metodo = p[3]
 
+    line, col = get_line_and_col(p, 1)
     if nombre not in tabla_simbolos["variables"]:
-        print(f"Error semántico: la variable '{nombre}' no ha sido definida.")
+        msg = f"Error semántico en linea {line}, columna {col}: la variable '{nombre}' no ha sido definida."
+        print(msg)
+        errores_semanticos.append(msg)
     elif tabla_simbolos["variables"][nombre] != "string":
-        print(f"Error semántico: la variable '{nombre}' no es de tipo 'string'.")
+        msg = f"Error semántico en linea {line}, columna {col}: la variable '{nombre}' no es de tipo 'string'."
+        print(msg)
+        errores_semanticos.append(msg)
     else:
         if metodo in tabla_simbolos["tipos"]["str-funciones"]:
             p[0] = "string"
         else:
-            print(
-                f'Error semántico: el método "{metodo}" no es válido para variables de tipo "string".'
-            )
+            line, col = get_line_and_col(p, 3)
+            msg = f'Error semántico en linea {line}, columna {col}: el método "{metodo}" no es válido para variables de tipo "string".'
+            print(msg)
+            errores_semanticos.append(msg)
 
 
 # contribucion Salvador Muñoz
@@ -666,12 +673,10 @@ data = ""
 
 
 def p_error(p):
-    if p:  # Hay un token problemático
-        # Línea del token
+    if p:
+        text = p.lexer.lexdata  #
         line = p.lineno
-
-        # Columna calculada usando lexpos
-        col = find_column(data, p)
+        col = find_column(text, p)
 
         msg = (
             f"Syntax error: token '{p.value}' "
@@ -679,6 +684,7 @@ def p_error(p):
         )
         syntax_errors.append(msg)
         print(msg)
+
     else:
         # Error por fin de archivo (EOF)
         msg = "Syntax error at EOF (End of File)"
@@ -701,10 +707,19 @@ def get_col(p, index):
 parser_obj = yacc.yacc()
 
 
+def build_parser():
+    return yacc.yacc()
+
+
 def parse(texto):
+    global syntax_errors, errores_semanticos
+    errores_semanticos.clear()  
+    syntax_errors.clear()
+    lexer.lineno = 1
+    lexer.input(texto)
     global data
     data = texto
-    return parser_obj.parse(texto, tracking=True)
+    return parser_obj.parse(texto, tracking=True, lexer=lexer)
 
 
 # while True:

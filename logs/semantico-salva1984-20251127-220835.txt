@@ -1,0 +1,74 @@
+=== Archivo: prueba1.go ===
+
+[Error semantico:] Error semantico en la linea 10, columna 5: La variable x es de tipo int, pero se intento asignar string
+[Error semantico:] Error semantico en la linea 11, columna 5: La variable y es de tipo float, pero se intento asignar int
+[Error semantico:] Error semántico en linea 18, columna 10: variable 'n' no definida. TERMINO
+{'constantes': {},
+ 'tipos': {},
+ 'variables': {'a': 'int',
+               'flag': 'bool',
+               'i': 'int',
+               'msg': 'string',
+               'result': 'float',
+               'x': 'int',
+               'y': 'float'}}
+
+--------------------------------------------------
+
+=== Archivo: prueba2.go ===
+
+[Error semantico:] Error semántico en linea 41, columna 6: variable 'Operacion' no definida. TERMINO
+[Error semantico:] Error semántico en linea 44, columna 10: variable 'crearOperacion' no definida. TERMINO
+[Error semantico:] Error semántico en linea 45, columna 15: variable 'suma' no definida. TERMINO
+[Error semantico:] Error semántico en linea 50, columna 9: variable 'tipo' no definida. TERMINO
+[Error semantico:] Error semántico en linea 53, columna 11: variable 'num1' no definida. TERMINO
+[Error semantico:] Error semántico en linea 53, columna 16: variable 'num2' no definida. TERMINO
+[Error semantico:] Error semántico en linea 57, columna 11: variable 'num1' no definida. TERMINO
+[Error semantico:] Error semántico en linea 57, columna 17: variable 'num2' no definida. TERMINO
+[Error semantico:] Error semántico en linea 61, columna 11: variable 'num1' no definida. TERMINO
+[Error semantico:] Error semántico en linea 61, columna 16: variable 'num2' no definida. TERMINO
+{'constantes': {}, 'tipos': {}, 'variables': {}}
+
+--------------------------------------------------
+
+=== Archivo: prueba3.go ===
+
+[Error semantico:] Error semántico en linea 74, columna 2: variable 'Descripcion' no definida. TERMINO
+[Error semantico:] Error semántico en linea 74, columna 16: variable 'string' no definida. TERMINO
+[Error semantico:] Error semántico en linea 83, columna 11: variable 'Ancho' no definida. TERMINO
+[Error semantico:] Error semántico en linea 83, columna 21: variable 'Alto' no definida. TERMINO
+[Error semantico:] Error semántico en linea 95, columna 14: variable 'Pi' no definida. TERMINO
+[Error semantico:] Error semántico en linea 95, columna 21: variable 'Radio' no definida. TERMINO
+[Error semantico:] Error semántico en linea 95, columna 31: variable 'Radio' no definida. TERMINO
+[Error semantico:] Error semántico en linea 103, columna 21: variable 'Figura' no definida. TERMINO
+[Error semantico:] Error semántico en linea 106, columna 41: variable 'f' no definida. TERMINO
+[Error semantico:] Error semántico en linea 107, columna 11: variable 'append' no definida. TERMINO
+[Error semantico:] Error semántico en la linea 107, columna 3: Variable lista de tipo None no esta definido REASIGNACION
+[Error semantico:] Error semántico en linea 112, columna 46: variable 'Descripcion' no definida. TERMINO
+[Error semantico:] Error semántico en linea 112, columna 63: variable 'Area' no definida. TERMINO
+[Error semantico:] Error semántico en linea 123, columna 9: variable 'opcion' no definida. TERMINO
+[Error semantico:] Error semántico en linea 125, columna 3: variable 'agregarFigura' no definida. TERMINO
+[Error semantico:] Error semántico en linea 127, columna 3: variable 'agregarFigura' no definida. TERMINO
+[Error semantico:] Error semántico en linea 132, columna 2: variable 'agregarFigura' no definida. TERMINO
+[Error semantico:] Error semántico en linea 133, columna 2: variable 'agregarFigura' no definida. TERMINO
+[Error semantico:] Error semántico en linea 136, columna 2: variable 'mostrarFiguras' no definida. TERMINO
+[Error semantico:] Error semántico en linea 136, columna 17: variable 'figuras' no definida. TERMINO
+[Error semantico:] Error semántico en linea 138, columna 5: variable 'len' no definida. TERMINO
+{'constantes': {}, 'tipos': {}, 'variables': {}}
+
+--------------------------------------------------
+
+=== Archivo: prueba_string.go ===
+
+[Error semantico:] Error semántico en linea 156, columna 20: variable 'length' no definida. TERMINO
+[Error semantico:] Error semántico en linea 159, columna 18: variable 'upper' no definida. TERMINO
+[Error semantico:] Error semántico en linea 174, columna 12: variable 'length' no definida. TERMINO
+[Error semantico:] Error semántico en linea 177, columna 12: variable 'upper' no definida. TERMINO
+[Error semantico:] Error semántico en linea 180, columna 15: variable 'length' no definida. TERMINO
+[Error semantico:] Error semántico en linea 183, columna 17: variable 'reverse' no definida. TERMINO
+{'constantes': {},
+ 'tipos': {},
+ 'variables': {'flag': 'bool', 'nombre': 'string', 'x': 'int', 'y': 'float'}}
+
+--------------------------------------------------
+
